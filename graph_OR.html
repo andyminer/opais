@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OPAIS Network - OR Entities</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;  /* Changed to dark background */
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    #3d-graph {
+      width: 100vw;
+      height: 100vh;
+    }
+    .node-tooltip {
+      position: absolute;
+      pointer-events: none;
+      visibility: hidden;
+      background-color: rgba(0, 0, 0, 0.85);  /* Slightly more opaque */
+      color: #fff;
+      padding: 6px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      line-height: 1.4em;
+      border: 1px solid rgba(255, 255, 255, 0.1);  /* Subtle border */
+    }
+  </style>
+  <script src="https://unpkg.com/3d-force-graph"></script>
+</head>
+<body>
+  <div id="3d-graph"></div>
+  <div id="tooltip" class="node-tooltip"></div>
+
+  <script>
+    const entityColorMap = {
+      CH:  "#1f77b4",
+      DSH: "#ff7f0e",
+      STD: "#2ca02c",
+      CAH: "#d62728",
+      TB:  "#98df8a",
+      SCH: "#aec7e8",
+      HM:  "#c5b0d5"
+    };
+    const pharmacyColor = "#999999";
+    const fallbackCEColor = "#cccccc";
+
+    function baseLinkWidth(link) {
+      const ceState = link.source?.state;
+      const cpState = link.target?.cpState;
+      return (ceState && cpState && ceState === cpState) ? 3 : 1;
+    }
+    const baseLinkColor = "rgba(255, 255, 255, 0.3)";  // Changed to semi-transparent white
+
+    const adjacency = {};
+    function buildAdjacency(graphData) {
+      graphData.nodes.forEach(n => {
+        adjacency[n.id] = new Set();
+      });
+      graphData.links.forEach(link => {
+        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+        const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+        adjacency[srcId].add(tgtId);
+        adjacency[tgtId].add(srcId);
+      });
+    }
+
+    let hoveredNode = null;
+    const tooltip = document.getElementById('tooltip');
+
+    function showTooltip(node) {
+      if (!node) return;
+      if (node.type === "Pharmacy") {
+        tooltip.innerHTML = `
+          <strong>Pharmacy:</strong> ${node.pharmacyName || ""}<br>
+          <strong>ID:</strong> ${node.id}<br>
+          <strong>Location:</strong> ${node.cpCity || ""}, ${node.cpState || ""}
+        `;
+      } else {
+        tooltip.innerHTML = `
+          <strong>Entity:</strong> ${node.entityName || ""}<br>
+          <strong>Type:</strong> ${node.entityType || ""}<br>
+          <strong>340B ID:</strong> ${node.id}<br>
+          <strong>Location:</strong> ${node.city || ""}, ${node.state || ""}
+        `;
+      }
+      tooltip.style.visibility = "visible";
+    }
+    
+    function hideTooltip() {
+      tooltip.style.visibility = "hidden";
+    }
+
+    let clickedNode = null;
+    let neighbors = new Set();
+
+    function handleNodeClick(node) {
+      if (!node || (clickedNode && node.id === clickedNode.id)) {
+        clickedNode = null;
+        neighbors.clear();
+        return;
+      }
+      clickedNode = node;
+      neighbors = adjacency[node.id] || new Set();
+    }
+
+    fetch("opais_network_OR.json")
+      .then(res => res.json())
+      .then(graphData => {
+        buildAdjacency(graphData);
+
+        const Graph = ForceGraph3D()
+          (document.getElementById("3d-graph"))
+          .graphData(graphData)
+          .backgroundColor("#111")  // Match background color
+          .nodeResolution(16)      // Added smoother nodes
+          .nodeRelSize(4)
+          .nodeColor(node => {
+            if (!clickedNode) {
+              return node.type === "Pharmacy"
+                ? pharmacyColor
+                : (entityColorMap[node.entityType] || fallbackCEColor);
+            }
+            if (node.id === clickedNode.id || neighbors.has(node.id)) {
+              return node.type === "Pharmacy"
+                ? pharmacyColor
+                : (entityColorMap[node.entityType] || fallbackCEColor);
+            } else {
+              return "rgba(224, 224, 224, 0.2)";  // More transparent fade
+            }
+          })
+          .nodeLabel(node =>
+            node.type === "Pharmacy"
+              ? (node.pharmacyName || `Pharmacy: ${node.id}`)
+              : (node.entityName || `CE: ${node.id}`)
+          )
+          .linkColor(link => {
+            if (!clickedNode) {
+              return baseLinkColor;
+            }
+            const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+            const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+
+            if (
+              (srcId === clickedNode.id && neighbors.has(tgtId)) ||
+              (tgtId === clickedNode.id && neighbors.has(srcId))
+            ) {
+              return baseLinkColor;
+            } else {
+              return "rgba(221, 221, 221, 0.1)";  // More transparent fade
+            }
+          })
+          .linkWidth(link => {
+            if (!clickedNode) {
+              return baseLinkWidth(link);
+            }
+            const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+            const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+
+            if (
+              (srcId === clickedNode.id && neighbors.has(tgtId)) ||
+              (tgtId === clickedNode.id && neighbors.has(srcId))
+            ) {
+              return baseLinkWidth(link);
+            } else {
+              return 0.5;
+            }
+          })
+          .cameraPosition({ x: 0, y: 0, z: 800 }, true)
+          .onNodeHover(node => {
+            hoveredNode = node || null;
+            if (!hoveredNode) hideTooltip();
+            else showTooltip(hoveredNode);
+          })
+          .onNodeClick(node => {
+            handleNodeClick(node);
+          })
+          .onEngineTick(() => {
+            if (hoveredNode) {
+              const coords = Graph.graph2ScreenCoords(
+                hoveredNode.x,
+                hoveredNode.y,
+                hoveredNode.z
+              );
+              tooltip.style.left = `${coords.x + 8}px`;
+              tooltip.style.top  = `${coords.y + 8}px`;
+            }
+          });
+      });
+  </script>
+</body>
+</html>
