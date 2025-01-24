@@ -76,6 +76,28 @@
       display: none;
       z-index: 30;
     }
+
+    #search-container {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 20;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 8px;
+    }
+
+    #search-input {
+      padding: 6px;
+      font-size: 14px;
+      border-radius: 4px;
+      border: none;
+      margin-right: 10px;
+    }
+
+    #search-button {
+      display: none; /* Hide the search button since filtering is now dynamic */
+    }
   </style>
   <script src="https://unpkg.com/3d-force-graph"></script>
 </head>
@@ -92,6 +114,9 @@
   <div id="3d-graph"></div>
   <div id="tooltip" class="node-tooltip"></div>
   <div id="loading">Loading state data...</div>
+  <div id="search-container">
+    <input type="text" id="search-input" placeholder="Search by name or ID...">
+  </div>
 
   <script>
     // Constants and utility functions
@@ -119,6 +144,7 @@
     // DOM elements
     const tooltip = document.getElementById('tooltip');
     const loading = document.getElementById('loading');
+    const searchInput = document.getElementById('search-input');
 
     // Initialize the graph
     function initGraph(graphData) {
@@ -244,13 +270,15 @@
         neighbors.clear();
       } else {
         clickedNode = node;
-        neighbors = adjacency[node.id] || new Set();
+        neighbors = new Set(adjacency[node.id] || []);
       }
 
-      // Update graph colors
-      Graph.nodeColor(getNodeColor)
-           .linkColor(getLinkColor)
-           .linkWidth(getLinkWidth);
+      // Force a full graph re-render to reflect changes
+      Graph
+        .graphData(Graph.graphData()) // Force update
+        .nodeColor(getNodeColor)
+        .linkColor(getLinkColor)
+        .linkWidth(getLinkWidth);
     }
 
     function updateTooltipPosition() {
@@ -322,10 +350,57 @@
       });
     }
 
-    // Event listeners
+    // Dynamic search functionality
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim().toLowerCase();
+
+      if (!query) {
+        // Reset graph to unfiltered state
+        clickedNode = null;
+        neighbors.clear();
+        Graph
+          .nodeColor(getNodeColor)
+          .linkColor(getLinkColor)
+          .linkWidth(getLinkWidth);
+        return;
+      }
+
+      // Highlight nodes matching the query
+      const matchingNodes = Graph.graphData().nodes.filter(node => {
+        return (node.entityName && node.entityName.toLowerCase().includes(query)) ||
+               (node.pharmacyName && node.pharmacyName.toLowerCase().includes(query)) ||
+               (node.id && node.id.toLowerCase().includes(query));
+      });
+
+      if (matchingNodes.length === 0) return;
+
+      // Highlight the matching nodes and their neighbors
+      const matchingNodeIds = new Set(matchingNodes.map(node => node.id));
+      neighbors.clear();
+      matchingNodes.forEach(node => {
+        adjacency[node.id].forEach(neighborId => neighbors.add(neighborId));
+      });
+
+      clickedNode = null; // Clear previous clicked node
+      Graph
+        .nodeColor(node => matchingNodeIds.has(node.id) || neighbors.has(node.id) ? getNodeColor(node) : "rgba(224, 224, 224, 0.2)")
+        .linkColor(link => {
+          const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+          const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+          return (matchingNodeIds.has(srcId) || matchingNodeIds.has(tgtId)) ? baseLinkColor : "rgba(221, 221, 221, 0.1)";
+        })
+        .linkWidth(link => {
+          const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+          const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+          return (matchingNodeIds.has(srcId) || matchingNodeIds.has(tgtId)) ? 3 : 0.5;
+        });
+    });
+
+    // Fix: Ensure state selection works properly
     document.querySelectorAll('.state-button').forEach(button => {
       button.addEventListener('click', () => {
-        loadState(button.dataset.state);
+        const state = button.dataset.state;
+        loadState(state);
       });
     });
 
