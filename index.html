@@ -1,44 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select a State</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        .state-button {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            background-color: #007BFF;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .state-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>340B Network Visualization</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      font-family: sans-serif;
+      color: #fff;
+    }
+
+    #state-selector {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 0 0 10px 0;
+    }
+
+    .state-button {
+      padding: 8px 16px;
+      margin: 4px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .state-button:hover {
+      background-color: #0056b3;
+    }
+
+    .state-button.active {
+      background-color: #004085;
+      box-shadow: 0 0 0 2px #fff;
+    }
+
+    #3d-graph {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    .node-tooltip {
+      position: absolute;
+      pointer-events: none;
+      visibility: hidden;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      padding: 6px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      line-height: 1.4em;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 20;
+    }
+
+    #loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px 40px;
+      border-radius: 8px;
+      display: none;
+      z-index: 30;
+    }
+  </style>
+  <script src="https://unpkg.com/3d-force-graph"></script>
 </head>
 <body>
-    <h1>340B Program - Select a State</h1>
-    <p>Select a state below to view its contract pharmacy relationships:</p>
+  <div id="state-selector">
+    <h2>340B Program Network</h2>
     <div>
-        <button class="state-button" onclick="navigateTo('NY')">New York</button>
-        <button class="state-button" onclick="navigateTo('MA')">Massachusetts</button>
-        <button class="state-button" onclick="navigateTo('OR')">Oregon</button>
-        <button class="state-button" onclick="navigateTo('NE')">Nebraska</button>
+      <button class="state-button" data-state="NE">Nebraska</button>
+      <button class="state-button" data-state="MA">Massachusetts</button>
+      <button class="state-button" data-state="NY">New York</button>
+      <button class="state-button" data-state="OR">Oregon</button>
     </div>
-    <script>
-        function navigateTo(state) {
-            // Navigate to the corresponding state graph
-            window.location.href = `graph_${state}.html`;
-        }
-    </script>
+  </div>
+  <div id="3d-graph"></div>
+  <div id="tooltip" class="node-tooltip"></div>
+  <div id="loading">Loading state data...</div>
+
+  <script>
+    // Constants and utility functions
+    const entityColorMap = {
+      CH:  "#1f77b4",
+      DSH: "#ff7f0e",
+      STD: "#2ca02c",
+      CAH: "#d62728",
+      TB:  "#98df8a",
+      SCH: "#aec7e8",
+      HM:  "#c5b0d5"
+    };
+    const pharmacyColor = "#999999";
+    const fallbackCEColor = "#cccccc";
+    const baseLinkColor = "rgba(255, 255, 255, 0.3)";
+
+    // Graph state
+    let Graph = null;
+    let currentState = null;
+    let hoveredNode = null;
+    let clickedNode = null;
+    let neighbors = new Set();
+    const adjacency = {};
+
+    // DOM elements
+    const tooltip = document.getElementById('tooltip');
+    const loading = document.getElementById('loading');
+
+    // Initialize the graph
+    function initGraph(graphData) {
+      // Clear previous graph if it exists
+      if (Graph) {
+        Graph.graphData({ nodes: [], links: [] });
+      }
+
+      // Build adjacency data
+      buildAdjacency(graphData);
+
+      // Initialize or update the graph
+      if (!Graph) {
+        Graph = ForceGraph3D()
+          (document.getElementById("3d-graph"))
+          .backgroundColor("#111")
+          .nodeResolution(16)
+          .nodeRelSize(4)
+          .nodeColor(getNodeColor)
+          .nodeLabel(node => getNodeLabel(node))
+          .linkColor(getLinkColor)
+          .linkWidth(getLinkWidth)
+          .cameraPosition({ x: 0, y: 0, z: 800 }, true)
+          .onNodeHover(handleNodeHover)
+          .onNodeClick(handleNodeClick)
+          .onEngineTick(updateTooltipPosition);
+      }
+
+      // Set new graph data
+      Graph.graphData(graphData);
+    }
+
+    function buildAdjacency(graphData) {
+      // Clear existing adjacency data
+      Object.keys(adjacency).forEach(key => delete adjacency[key]);
+      
+      // Build new adjacency data
+      graphData.nodes.forEach(n => {
+        adjacency[n.id] = new Set();
+      });
+      
+      graphData.links.forEach(link => {
+        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+        const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+        adjacency[srcId].add(tgtId);
+        adjacency[tgtId].add(srcId);
+      });
+    }
+
+    // Node and link styling functions
+    function getNodeColor(node) {
+      if (!clickedNode) {
+        return node.type === "Pharmacy"
+          ? pharmacyColor
+          : (entityColorMap[node.entityType] || fallbackCEColor);
+      }
+      
+      if (node.id === clickedNode.id || neighbors.has(node.id)) {
+        return node.type === "Pharmacy"
+          ? pharmacyColor
+          : (entityColorMap[node.entityType] || fallbackCEColor);
+      }
+      
+      return "rgba(224, 224, 224, 0.2)";
+    }
+
+    function getNodeLabel(node) {
+      return node.type === "Pharmacy"
+        ? (node.pharmacyName || `Pharmacy: ${node.id}`)
+        : (node.entityName || `CE: ${node.id}`);
+    }
+
+    function getLinkColor(link) {
+      if (!clickedNode) {
+        return baseLinkColor;
+      }
+
+      const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+      const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+
+      if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
+          (tgtId === clickedNode.id && neighbors.has(srcId))) {
+        return baseLinkColor;
+      }
+
+      return "rgba(221, 221, 221, 0.1)";
+    }
+
+    function getLinkWidth(link) {
+      const baseWidth = (link.source?.state && link.target?.cpState && 
+                        link.source.state === link.target.cpState) ? 3 : 1;
+
+      if (!clickedNode) {
+        return baseWidth;
+      }
+
+      const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+      const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+
+      if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
+          (tgtId === clickedNode.id && neighbors.has(srcId))) {
+        return baseWidth;
+      }
+
+      return 0.5;
+    }
+
+    // Event handlers
+    function handleNodeHover(node) {
+      hoveredNode = node || null;
+      
+      if (!hoveredNode) {
+        hideTooltip();
+        return;
+      }
+      
+      showTooltip(hoveredNode);
+    }
+
+    function handleNodeClick(node) {
+      if (!node || (clickedNode && node.id === clickedNode.id)) {
+        clickedNode = null;
+        neighbors.clear();
+      } else {
+        clickedNode = node;
+        neighbors = adjacency[node.id] || new Set();
+      }
+
+      // Update graph colors
+      Graph.nodeColor(getNodeColor)
+           .linkColor(getLinkColor)
+           .linkWidth(getLinkWidth);
+    }
+
+    function updateTooltipPosition() {
+      if (hoveredNode) {
+        const coords = Graph.graph2ScreenCoords(
+          hoveredNode.x,
+          hoveredNode.y,
+          hoveredNode.z
+        );
+        tooltip.style.left = `${coords.x + 8}px`;
+        tooltip.style.top  = `${coords.y + 8}px`;
+      }
+    }
+
+    // Tooltip functions
+    function showTooltip(node) {
+      if (!node) return;
+
+      if (node.type === "Pharmacy") {
+        tooltip.innerHTML = `
+          <strong>Pharmacy:</strong> ${node.pharmacyName || ""}<br>
+          <strong>ID:</strong> ${node.id}<br>
+          <strong>Location:</strong> ${node.cpCity || ""}, ${node.cpState || ""}
+        `;
+      } else {
+        tooltip.innerHTML = `
+          <strong>Entity:</strong> ${node.entityName || ""}<br>
+          <strong>Type:</strong> ${node.entityType || ""}<br>
+          <strong>340B ID:</strong> ${node.id}<br>
+          <strong>Location:</strong> ${node.city || ""}, ${node.state || ""}
+        `;
+      }
+      
+      tooltip.style.visibility = "visible";
+    }
+
+    function hideTooltip() {
+      tooltip.style.visibility = "hidden";
+    }
+
+    // State loading and switching
+    async function loadState(state) {
+      if (state === currentState) return;
+
+      // Show loading indicator
+      loading.style.display = 'block';
+
+      try {
+        const response = await fetch(`opais_network_${state}.json`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        const data = await response.json();
+        
+        // Update UI
+        currentState = state;
+        updateActiveButton(state);
+        initGraph(data);
+      } catch (error) {
+        console.error('Error loading state data:', error);
+        alert(`Error loading data for ${state}. Please try again.`);
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
+    function updateActiveButton(state) {
+      document.querySelectorAll('.state-button').forEach(button => {
+        button.classList.toggle('active', button.dataset.state === state);
+      });
+    }
+
+    // Event listeners
+    document.querySelectorAll('.state-button').forEach(button => {
+      button.addEventListener('click', () => {
+        loadState(button.dataset.state);
+      });
+    });
+
+    // Initial load - either from URL parameter or default to first state
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialState = urlParams.get('state') || 'NE';
+    loadState(initialState);
+  </script>
 </body>
 </html>
