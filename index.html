@@ -2,108 +2,178 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>340B Network Visualization</title>
+  <title>340B Network Analysis</title>
+  <!-- Load 3D Force Graph first -->
+  <script src="https://unpkg.com/3d-force-graph"></script>
   <style>
+    /* Base Styles with Tuftian Principles */
     body {
       margin: 0;
       padding: 0;
-      background: #111;
-      font-family: sans-serif;
-      color: #fff;
+      background: #fcfcfc;
+      font-family: "Spectral", Georgia, serif;
+      color: #1a1a1a;
+      line-height: 1.6;
     }
 
+    /* Elegant Control Panel */
     #state-selector {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 2rem;
+      left: 2rem;
       z-index: 10;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 0 0 10px 0;
+      padding: 1.5rem;
+      background: rgba(252, 252, 252, 0.95);
+      border-radius: 3px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      max-width: 280px;
+      backdrop-filter: blur(8px);
     }
 
+    #state-selector h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin: 0 0 1rem 0;
+      color: #2c3e50;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.5rem;
+    }
+
+    /* Refined Button Design */
     .state-button {
-      padding: 8px 16px;
-      margin: 4px;
-      border: none;
-      background-color: #007BFF;
-      color: white;
-      font-size: 14px;
+      padding: 6px 12px;
+      margin: 3px;
+      border: 1px solid #d1d5db;
+      background-color: transparent;
+      color: #2c3e50;
+      font-size: 13px;
       cursor: pointer;
-      border-radius: 4px;
-      transition: background-color 0.2s;
+      border-radius: 2px;
+      font-family: inherit;
+      transition: all 0.2s ease;
     }
 
     .state-button:hover {
-      background-color: #0056b3;
+      background-color: #f8f9fa;
+      border-color: #9ca3af;
     }
 
     .state-button.active {
-      background-color: #004085;
-      box-shadow: 0 0 0 2px #fff;
+      background-color: #2c3e50;
+      color: #fff;
+      border-color: #2c3e50;
     }
 
-    #3d-graph {
+    /* Graph Container */
+    #graph-container {
       width: 100vw;
       height: 100vh;
       position: fixed;
       top: 0;
       left: 0;
+      background: linear-gradient(to bottom right, #fcfcfc, #f5f5f5);
     }
 
+    /* Refined Tooltip Design */
     .node-tooltip {
       position: absolute;
       pointer-events: none;
       visibility: hidden;
-      background-color: rgba(0, 0, 0, 0.85);
-      color: #fff;
-      padding: 6px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      line-height: 1.4em;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.98);
+      color: #2c3e50;
+      padding: 8px 12px;
+      border-radius: 3px;
+      font-size: 13px;
+      line-height: 1.5;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       z-index: 20;
+      max-width: 280px;
     }
 
+    .node-tooltip strong {
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+
+    /* Elegant Loading State */
     #loading {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px 40px;
-      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.98);
+      padding: 1.5rem 2rem;
+      border-radius: 3px;
       display: none;
       z-index: 30;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      font-size: 0.9rem;
+      color: #2c3e50;
     }
 
+    /* Refined Search Interface */
     #search-container {
       position: fixed;
-      top: 10px;
-      right: 10px;
+      top: 2rem;
+      right: 2rem;
       z-index: 20;
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 8px;
+      padding: 1rem;
+      background: rgba(252, 252, 252, 0.95);
+      border-radius: 3px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(8px);
     }
 
     #search-input {
-      padding: 6px;
-      font-size: 14px;
-      border-radius: 4px;
-      border: none;
-      margin-right: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      border-radius: 3px;
+      border: 1px solid #d1d5db;
+      width: 220px;
+      color: #2c3e50;
+      background: rgba(255, 255, 255, 0.9);
+      font-family: inherit;
+      transition: all 0.2s ease;
     }
 
-    #search-button {
-      display: none; /* Hide the search button since filtering is now dynamic */
+    #search-input:focus {
+      outline: none;
+      border-color: #2c3e50;
+      box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
+    }
+
+    /* Node Type Legend */
+    #legend {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      z-index: 20;
+      padding: 1rem;
+      background: rgba(252, 252, 252, 0.95);
+      border-radius: 3px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(8px);
+      font-size: 0.8rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      margin-right: 8px;
+      border-radius: 2px;
     }
   </style>
-  <script src="https://unpkg.com/3d-force-graph"></script>
 </head>
 <body>
   <div id="state-selector">
-    <h2>340B Program Network</h2>
+    <h2>340B Network Analysis</h2>
     <div>
       <button class="state-button" data-state="CT">CT</button>
       <button class="state-button" data-state="MA">MA</button>
@@ -113,27 +183,67 @@
       <button class="state-button" data-state="OR">OR</button>
     </div>
   </div>
-  <div id="3d-graph"></div>
+
+  <div id="graph-container"></div>
   <div id="tooltip" class="node-tooltip"></div>
-  <div id="loading">Loading state data...</div>
+  <div id="loading">Analyzing network data...</div>
+  
   <div id="search-container">
-    <input type="text" id="search-input" placeholder="Search by name or ID...">
+    <input type="text" id="search-input" placeholder="Search entities or pharmacies...">
+  </div>
+
+  <div id="legend">
+    <div class="legend-item">
+      <div class="legend-color" style="background: #D95F02"></div>
+      <span>Hospitals</span>
+      <span class="legend-detail">(DSH, CAH, RRC, PED, SCH, CAN)</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #1B3147"></div>
+      <span>Grantees</span>
+      <span class="legend-detail">(CH, STD, TB, etc.)</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #DEDEDE"></div>
+      <span>Contract Pharmacies</span>
+    </div>
   </div>
 
   <script>
-    // Constants and utility functions
-    const entityColorMap = {
-      CH:  "#1f77b4",
-      DSH: "#ff7f0e",
-      STD: "#2ca02c",
-      CAH: "#d62728",
-      TB:  "#98df8a",
-      SCH: "#aec7e8",
-      HM:  "#c5b0d5"
+    // Entity type grouping
+    const entityTypeGroups = {
+        // Hospitals
+        'DSH': 'hospital',
+        'CAH': 'hospital',
+        'RRC': 'hospital',
+        'PED': 'hospital',
+        'SCH': 'hospital',
+        'CAN': 'hospital',
+        
+        // All others are grantees
+        'CH': 'grantee',
+        'STD': 'grantee',
+        'FQHCLA': 'grantee',
+        'RWI': 'grantee',
+        'RWII': 'grantee',
+        'HV': 'grantee',
+        'FP': 'grantee',
+        'TB': 'grantee',
+        'RWIID': 'grantee',
+        'HM': 'grantee',
+        'RW4': 'grantee',
+        'FQHC638': 'grantee',
+        'UI': 'grantee',
+        'RWIIR': 'grantee',
+        'NH': 'grantee',
+        'BL': 'grantee'
     };
-    const pharmacyColor = "#999999";
-    const fallbackCEColor = "#cccccc";
-    const baseLinkColor = "rgba(255, 255, 255, 0.3)";
+
+    const groupColors = {
+    'hospital': '#D95F02',  // Burnt orange
+    'grantee': '#1B3147',  // Deep navy
+    'pharmacy': '#DEDEDE'  // Light neutral gray
+};
 
     // Graph state
     let Graph = null;
@@ -150,19 +260,16 @@
 
     // Initialize the graph
     function initGraph(graphData) {
-      // Clear previous graph if it exists
       if (Graph) {
         Graph.graphData({ nodes: [], links: [] });
       }
 
-      // Build adjacency data
       buildAdjacency(graphData);
 
-      // Initialize or update the graph
       if (!Graph) {
         Graph = ForceGraph3D()
-          (document.getElementById("3d-graph"))
-          .backgroundColor("#111")
+          (document.getElementById("graph-container"))
+          .backgroundColor("#fcfcfc")
           .nodeResolution(16)
           .nodeRelSize(4)
           .nodeColor(getNodeColor)
@@ -175,15 +282,12 @@
           .onEngineTick(updateTooltipPosition);
       }
 
-      // Set new graph data
       Graph.graphData(graphData);
     }
 
     function buildAdjacency(graphData) {
-      // Clear existing adjacency data
       Object.keys(adjacency).forEach(key => delete adjacency[key]);
       
-      // Build new adjacency data
       graphData.nodes.forEach(n => {
         adjacency[n.id] = new Set();
       });
@@ -196,65 +300,82 @@
       });
     }
 
-    // Node and link styling functions
     function getNodeColor(node) {
       if (!clickedNode) {
-        return node.type === "Pharmacy"
-          ? pharmacyColor
-          : (entityColorMap[node.entityType] || fallbackCEColor);
+        if (node.type === "Pharmacy") {
+          return groupColors.pharmacy;
+        }
+        const group = entityTypeGroups[node.entityType] || 'grantee';
+        return groupColors[group];
       }
       
       if (node.id === clickedNode.id || neighbors.has(node.id)) {
-        return node.type === "Pharmacy"
-          ? pharmacyColor
-          : (entityColorMap[node.entityType] || fallbackCEColor);
+        if (node.type === "Pharmacy") {
+          return groupColors.pharmacy;
+        }
+        const group = entityTypeGroups[node.entityType] || 'grantee';
+        return groupColors[group];
       }
       
       return "rgba(224, 224, 224, 0.2)";
     }
 
     function getNodeLabel(node) {
-      return node.type === "Pharmacy"
-        ? (node.pharmacyName || `Pharmacy: ${node.id}`)
-        : (node.entityName || `CE: ${node.id}`);
+      if (node.type === "Pharmacy") {
+        return node.pharmacyName || `Pharmacy: ${node.id}`;
+      }
+      const entityGroup = entityTypeGroups[node.entityType] || 'Other';
+      return `${node.entityName || 'Unknown'} (${node.entityType || 'Unknown'})`;
     }
 
     function getLinkColor(link) {
-      if (!clickedNode) {
-        return baseLinkColor;
-      }
+  // Check if same state
+  const sameState = link.source?.state && link.target?.cpState && 
+                   link.source.state === link.target.cpState;
+                   
+  // If no node is clicked, color based on state relationship
+  if (!clickedNode) {
+    return sameState ? 
+      "rgba(44, 62, 80, 0.1)" :      // In-state: subtle gray
+      "rgba(185, 117, 47, 0.2)";     // Out-of-state: warm accent
+  }
 
-      const srcId = typeof link.source === 'object' ? link.source.id : link.source;
-      const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+  const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+  const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
 
-      if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
-          (tgtId === clickedNode.id && neighbors.has(srcId))) {
-        return baseLinkColor;
-      }
+  // If connected to clicked node, maintain state-based coloring
+  if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
+      (tgtId === clickedNode.id && neighbors.has(srcId))) {
+    return sameState ? 
+      "rgba(44, 62, 80, 0.1)" :      // In-state: subtle gray
+      "rgba(185, 117, 47, 0.2)";     // Out-of-state: warm accent
+  }
 
-      return "rgba(221, 221, 221, 0.1)";
-    }
+  // Fade out unconnected links
+  return "rgba(221, 221, 221, 0.05)";
+}
 
-    function getLinkWidth(link) {
-      const baseWidth = (link.source?.state && link.target?.cpState && 
-                        link.source.state === link.target.cpState) ? 3 : 1;
+function getLinkWidth(link) {
+  // Reverse the width logic - thicker for out-of-state
+  const sameState = link.source?.state && link.target?.cpState && 
+                   link.source.state === link.target.cpState;
+  const baseWidth = sameState ? 1 : 2;  // Thinner for in-state
 
-      if (!clickedNode) {
-        return baseWidth;
-      }
+  if (!clickedNode) {
+    return baseWidth;
+  }
 
-      const srcId = typeof link.source === 'object' ? link.source.id : link.source;
-      const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+  const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+  const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
 
-      if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
-          (tgtId === clickedNode.id && neighbors.has(srcId))) {
-        return baseWidth;
-      }
+  if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
+      (tgtId === clickedNode.id && neighbors.has(srcId))) {
+    return baseWidth;
+  }
 
-      return 0.5;
-    }
+  return 0.2;  // Very thin for unconnected links
+}
 
-    // Event handlers
     function handleNodeHover(node) {
       hoveredNode = node || null;
       
@@ -275,9 +396,8 @@
         neighbors = new Set(adjacency[node.id] || []);
       }
 
-      // Force a full graph re-render to reflect changes
       Graph
-        .graphData(Graph.graphData()) // Force update
+        .graphData(Graph.graphData())
         .nodeColor(getNodeColor)
         .linkColor(getLinkColor)
         .linkWidth(getLinkWidth);
@@ -295,7 +415,6 @@
       }
     }
 
-    // Tooltip functions
     function showTooltip(node) {
       if (!node) return;
 
@@ -354,50 +473,58 @@
 
     // Dynamic search functionality
     searchInput.addEventListener('input', () => {
-      const query = searchInput.value.trim().toLowerCase();
+  const query = searchInput.value.trim().toLowerCase();
 
-      if (!query) {
-        // Reset graph to unfiltered state
-        clickedNode = null;
-        neighbors.clear();
-        Graph
-          .nodeColor(getNodeColor)
-          .linkColor(getLinkColor)
-          .linkWidth(getLinkWidth);
-        return;
-      }
+  if (!query) {
+    // Reset graph to unfiltered state
+    clickedNode = null;
+    neighbors.clear();
+    Graph
+      .nodeColor(getNodeColor)
+      .linkColor(getLinkColor)
+      .linkWidth(getLinkWidth);
+    return;
+  }
 
-      // Highlight nodes matching the query
-      const matchingNodes = Graph.graphData().nodes.filter(node => {
-        return (node.entityName && node.entityName.toLowerCase().includes(query)) ||
-               (node.pharmacyName && node.pharmacyName.toLowerCase().includes(query)) ||
-               (node.id && node.id.toLowerCase().includes(query));
-      });
+  // Highlight nodes matching the query
+  const matchingNodes = Graph.graphData().nodes.filter(node => {
+    return (node.entityName && node.entityName.toLowerCase().includes(query)) ||
+           (node.pharmacyName && node.pharmacyName.toLowerCase().includes(query)) ||
+           (node.id && node.id.toLowerCase().includes(query));
+  });
 
-      if (matchingNodes.length === 0) return;
+  if (matchingNodes.length === 0) return;
 
-      // Highlight the matching nodes and their neighbors
-      const matchingNodeIds = new Set(matchingNodes.map(node => node.id));
-      neighbors.clear();
-      matchingNodes.forEach(node => {
-        adjacency[node.id].forEach(neighborId => neighbors.add(neighborId));
-      });
+  // Highlight the matching nodes and their neighbors
+  const matchingNodeIds = new Set(matchingNodes.map(node => node.id));
+  neighbors.clear();
+  matchingNodes.forEach(node => {
+    adjacency[node.id].forEach(neighborId => neighbors.add(neighborId));
+  });
 
-      clickedNode = null; // Clear previous clicked node
-      Graph
-        .nodeColor(node => matchingNodeIds.has(node.id) || neighbors.has(node.id) ? getNodeColor(node) : "rgba(224, 224, 224, 0.2)")
-        .linkColor(link => {
-          const srcId = typeof link.source === 'object' ? link.source.id : link.source;
-          const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
-          return (matchingNodeIds.has(srcId) || matchingNodeIds.has(tgtId)) ? baseLinkColor : "rgba(221, 221, 221, 0.1)";
-        })
-        .linkWidth(link => {
-          const srcId = typeof link.source === 'object' ? link.source.id : link.source;
-          const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
-          return (matchingNodeIds.has(srcId) || matchingNodeIds.has(tgtId)) ? 3 : 0.5;
-        });
+  clickedNode = null; // Clear previous clicked node
+  Graph
+    .nodeColor(node => matchingNodeIds.has(node.id) || neighbors.has(node.id) ? getNodeColor(node) : "rgba(224, 224, 224, 0.2)")
+    .linkColor(link => {
+      const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+      const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+      return (matchingNodeIds.has(srcId) && matchingNodeIds.has(tgtId)) || 
+             (matchingNodeIds.has(srcId) && neighbors.has(tgtId)) ||
+             (matchingNodeIds.has(tgtId) && neighbors.has(srcId))
+        ? "rgba(44, 62, 80, 0.2)"  // Visible links
+        : "rgba(224, 224, 224, 0.05)";  // Faded links
+    })
+    .linkWidth(link => {
+      const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+      const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+      return (matchingNodeIds.has(srcId) && matchingNodeIds.has(tgtId)) || 
+             (matchingNodeIds.has(srcId) && neighbors.has(tgtId)) ||
+             (matchingNodeIds.has(tgtId) && neighbors.has(srcId))
+        ? 2  // Highlighted links
+        : 0.5;  // Faded links
     });
-
+});
+  
     // Fix: Ensure state selection works properly
     document.querySelectorAll('.state-button').forEach(button => {
       button.addEventListener('click', () => {
