@@ -176,11 +176,16 @@
     <h2>340B Network Analysis</h2>
     <div>
       <button class="state-button" data-state="CT">CT</button>
+      <button class="state-button" data-state="KY">KY</button>
       <button class="state-button" data-state="MA">MA</button>
       <button class="state-button" data-state="MI">MI</button>
       <button class="state-button" data-state="NE">NE</button>
       <button class="state-button" data-state="NY">NY</button>
       <button class="state-button" data-state="OR">OR</button>
+      <button class="state-button" data-state="SD">SD</button>
+      <button class="state-button" data-state="UT">UT</button>
+
+
     </div>
   </div>
 
@@ -387,22 +392,47 @@ function getLinkWidth(link) {
       showTooltip(hoveredNode);
     }
 
-    function handleNodeClick(node) {
-      if (!node || (clickedNode && node.id === clickedNode.id)) {
+// Update the handleNodeClick function
+function handleNodeClick(node) {
+    if (!node || (clickedNode && node.id === clickedNode.id)) {
         clickedNode = null;
         neighbors.clear();
-      } else {
+    } else {
         clickedNode = node;
         neighbors = new Set(adjacency[node.id] || []);
-      }
+    }
 
-      Graph
+    Graph
         .graphData(Graph.graphData())
         .nodeColor(getNodeColor)
         .linkColor(getLinkColor)
         .linkWidth(getLinkWidth);
-    }
+}
 
+// Add a background click handler to the graph
+Graph = ForceGraph3D()
+    (document.getElementById("graph-container"))
+    .backgroundColor("#fcfcfc")
+    .nodeResolution(16)
+    .nodeRelSize(4)
+    .nodeColor(getNodeColor)
+    .nodeLabel(node => getNodeLabel(node))
+    .linkColor(getLinkColor)
+    .linkWidth(getLinkWidth)
+    .cameraPosition({ x: 0, y: 0, z: 800 }, true)
+    .onNodeHover(handleNodeHover)
+    .onNodeClick(handleNodeClick)
+    .onBackgroundClick(() => {  // Add this handler
+        clickedNode = null;
+        neighbors.clear();
+        Graph
+            .graphData(Graph.graphData())
+            .nodeColor(getNodeColor)
+            .linkColor(getLinkColor)
+            .linkWidth(getLinkWidth);
+    })
+    .onEngineTick(updateTooltipPosition);
+    
     function updateTooltipPosition() {
       if (hoveredNode) {
         const coords = Graph.graph2ScreenCoords(
