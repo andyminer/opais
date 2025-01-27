@@ -52,12 +52,10 @@
       font-family: inherit;
       transition: all 0.2s ease;
     }
-
     .state-button:hover {
       background-color: #f8f9fa;
       border-color: #9ca3af;
     }
-
     .state-button.active {
       background-color: #2c3e50;
       color: #fff;
@@ -90,7 +88,6 @@
       z-index: 20;
       max-width: 280px;
     }
-
     .node-tooltip strong {
       color: #1a1a1a;
       font-weight: 500;
@@ -124,7 +121,6 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       backdrop-filter: blur(8px);
     }
-
     #search-input {
       padding: 8px 12px;
       font-size: 13px;
@@ -136,7 +132,6 @@
       font-family: inherit;
       transition: all 0.2s ease;
     }
-
     #search-input:focus {
       outline: none;
       border-color: #2c3e50;
@@ -156,54 +151,104 @@
       backdrop-filter: blur(8px);
       font-size: 0.8rem;
     }
-
     .legend-item {
       display: flex;
       align-items: center;
       margin-bottom: 0.5rem;
     }
-
     .legend-color {
       width: 12px;
       height: 12px;
       margin-right: 8px;
       border-radius: 2px;
     }
+
+    /* Detail Panel Styling */
+    .detail-panel {
+      position: fixed;
+      top: 10rem;
+      right: 2rem;
+      width: 300px;
+      max-height: 80vh;
+      overflow-y: auto;
+      background: rgba(252, 252, 252, 0.95);
+      padding: 1.5rem;
+      border-radius: 3px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(8px);
+      display: none; /* Hidden by default */
+      z-index: 20;
+    }
+    .detail-title {
+      font-size: 1.1rem;
+      margin: 0 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #eee;
+      color: #2c3e50;
+    }
+    .connections-section {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+    .connections-section h4 {
+      font-size: 0.9rem;
+      color: #2c3e50;
+      margin: 0 0 0.5rem 0;
+    }
+    .connection-item {
+      padding: 0.5rem;
+      margin: 0.25rem 0;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 2px;
+      font-size: 0.85rem;
+    }
   </style>
 </head>
 <body>
+  <!-- State Selector -->
   <div id="state-selector">
     <h2>340B Network Analysis</h2>
     <div>
       <button class="state-button" data-state="CO">CO</button>
-
       <button class="state-button" data-state="CT">CT</button>
       <button class="state-button" data-state="KY">KY</button>
       <button class="state-button" data-state="MA">MA</button>
       <button class="state-button" data-state="MI">MI</button>
       <button class="state-button" data-state="ND">ND</button>
-
       <button class="state-button" data-state="NE">NE</button>
       <button class="state-button" data-state="NM">NM</button>
       <button class="state-button" data-state="NY">NY</button>
       <button class="state-button" data-state="OR">OR</button>
       <button class="state-button" data-state="PA">PA</button>
-
       <button class="state-button" data-state="SD">SD</button>
       <button class="state-button" data-state="UT">UT</button>
-
-
     </div>
   </div>
 
+  <!-- The Detail Panel -->
+  <div id="detail-panel" class="detail-panel">
+    <h3 class="detail-title">Selected Node Details</h3>
+    <div id="node-details"></div>
+    <div class="connections-section">
+      <h4>Connected Nodes</h4>
+      <div id="connection-details"></div>
+    </div>
+  </div>
+
+  <!-- The 3D Graph Container -->
   <div id="graph-container"></div>
+
+  <!-- Tooltip and Loading Spinner -->
   <div id="tooltip" class="node-tooltip"></div>
   <div id="loading">Analyzing network data...</div>
-  
+
+  <!-- Search bar -->
   <div id="search-container">
     <input type="text" id="search-input" placeholder="Search entities or pharmacies...">
   </div>
 
+  <!-- Legend -->
   <div id="legend">
     <div class="legend-item">
       <div class="legend-color" style="background: #D95F02"></div>
@@ -221,45 +266,42 @@
     </div>
   </div>
 
-
-
-  
-
   <script>
     // Entity type grouping
     const entityTypeGroups = {
-        // Hospitals
-        'DSH': 'hospital',
-        'CAH': 'hospital',
-        'RRC': 'hospital',
-        'PED': 'hospital',
-        'SCH': 'hospital',
-        'CAN': 'hospital',
-        
-        // All others are grantees
-        'CH': 'grantee',
-        'STD': 'grantee',
-        'FQHCLA': 'grantee',
-        'RWI': 'grantee',
-        'RWII': 'grantee',
-        'HV': 'grantee',
-        'FP': 'grantee',
-        'TB': 'grantee',
-        'RWIID': 'grantee',
-        'HM': 'grantee',
-        'RW4': 'grantee',
-        'FQHC638': 'grantee',
-        'UI': 'grantee',
-        'RWIIR': 'grantee',
-        'NH': 'grantee',
-        'BL': 'grantee'
+      // Hospitals
+      'DSH': 'hospital',
+      'CAH': 'hospital',
+      'RRC': 'hospital',
+      'PED': 'hospital',
+      'SCH': 'hospital',
+      'CAN': 'hospital',
+
+      // All others are grantees
+      'CH': 'grantee',
+      'STD': 'grantee',
+      'FQHCLA': 'grantee',
+      'RWI': 'grantee',
+      'RWII': 'grantee',
+      'HV': 'grantee',
+      'FP': 'grantee',
+      'TB': 'grantee',
+      'RWIID': 'grantee',
+      'HM': 'grantee',
+      'RW4': 'grantee',
+      'FQHC638': 'grantee',
+      'UI': 'grantee',
+      'RWIIR': 'grantee',
+      'NH': 'grantee',
+      'BL': 'grantee'
     };
 
+    // Colors
     const groupColors = {
-    'hospital': '#D95F02',  // Burnt orange
-    'grantee': '#1B3147',  // Deep navy
-    'pharmacy': '#DEDEDE'  // Light neutral gray
-};
+      'hospital': '#D95F02',   // Burnt orange
+      'grantee': '#1B3147',   // Deep navy
+      'pharmacy': '#DEDEDE'   // Light neutral gray
+    };
 
     // Graph state
     let Graph = null;
@@ -276,6 +318,7 @@
 
     // Initialize the graph
     function initGraph(graphData) {
+      // Clear if re-initializing
       if (Graph) {
         Graph.graphData({ nodes: [], links: [] });
       }
@@ -302,12 +345,15 @@
     }
 
     function buildAdjacency(graphData) {
+      // Clear adjacency
       Object.keys(adjacency).forEach(key => delete adjacency[key]);
-      
+
+      // Initialize adjacency sets
       graphData.nodes.forEach(n => {
         adjacency[n.id] = new Set();
       });
-      
+
+      // Populate adjacency
       graphData.links.forEach(link => {
         const srcId = typeof link.source === 'object' ? link.source.id : link.source;
         const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
@@ -318,13 +364,15 @@
 
     function getNodeColor(node) {
       if (!clickedNode) {
+        // No node is clicked, color normally
         if (node.type === "Pharmacy") {
           return groupColors.pharmacy;
         }
         const group = entityTypeGroups[node.entityType] || 'grantee';
         return groupColors[group];
       }
-      
+
+      // If a node is clicked, highlight only connected
       if (node.id === clickedNode.id || neighbors.has(node.id)) {
         if (node.type === "Pharmacy") {
           return groupColors.pharmacy;
@@ -332,7 +380,8 @@
         const group = entityTypeGroups[node.entityType] || 'grantee';
         return groupColors[group];
       }
-      
+
+      // Fade out everything else
       return "rgba(224, 224, 224, 0.2)";
     }
 
@@ -340,125 +389,205 @@
       if (node.type === "Pharmacy") {
         return node.pharmacyName || `Pharmacy: ${node.id}`;
       }
-      const entityGroup = entityTypeGroups[node.entityType] || 'Other';
       return `${node.entityName || 'Unknown'} (${node.entityType || 'Unknown'})`;
     }
 
     function getLinkColor(link) {
-  // Check if same state
-  const sameState = link.source?.state && link.target?.cpState && 
-                   link.source.state === link.target.cpState;
-                   
-  // If no node is clicked, color based on state relationship
-  if (!clickedNode) {
-    return sameState ? 
-      "rgba(44, 62, 80, 0.1)" :      // In-state: subtle gray
-      "rgba(185, 117, 47, 0.2)";     // Out-of-state: warm accent
-  }
+      // Check if same state
+      const sameState = link.source?.state && link.target?.cpState &&
+                        link.source.state === link.target.cpState;
 
-  const srcId = typeof link.source === 'object' ? link.source.id : link.source;
-  const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+      // If no node is clicked, color based on state relationship
+      if (!clickedNode) {
+        return sameState
+          ? "rgba(44, 62, 80, 0.1)" // In-state: subtle gray
+          : "rgba(185, 117, 47, 0.2)"; // Out-of-state: warm accent
+      }
 
-  // If connected to clicked node, maintain state-based coloring
-  if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
-      (tgtId === clickedNode.id && neighbors.has(srcId))) {
-    return sameState ? 
-      "rgba(44, 62, 80, 0.1)" :      // In-state: subtle gray
-      "rgba(185, 117, 47, 0.2)";     // Out-of-state: warm accent
-  }
+      const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+      const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
 
-  // Fade out unconnected links
-  return "rgba(221, 221, 221, 0.05)";
-}
+      // If connected to clicked node, keep coloring
+      if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
+          (tgtId === clickedNode.id && neighbors.has(srcId))) {
+        return sameState
+          ? "rgba(44, 62, 80, 0.1)"
+          : "rgba(185, 117, 47, 0.2)";
+      }
 
-function getLinkWidth(link) {
-  // Reverse the width logic - thicker for out-of-state
-  const sameState = link.source?.state && link.target?.cpState && 
-                   link.source.state === link.target.cpState;
-  const baseWidth = sameState ? 1 : 2;  // Thinner for in-state
+      // Otherwise fade
+      return "rgba(221, 221, 221, 0.05)";
+    }
 
-  if (!clickedNode) {
-    return baseWidth;
-  }
+    function getLinkWidth(link) {
+      // Reverse the width logic - thicker for out-of-state
+      const sameState = link.source?.state && link.target?.cpState &&
+                        link.source.state === link.target.cpState;
+      const baseWidth = sameState ? 1 : 2; // Thinner if in-state
 
-  const srcId = typeof link.source === 'object' ? link.source.id : link.source;
-  const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+      if (!clickedNode) {
+        return baseWidth;
+      }
+      const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+      const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
 
-  if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
-      (tgtId === clickedNode.id && neighbors.has(srcId))) {
-    return baseWidth;
-  }
+      // If link is connected to the clicked node, keep
+      if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
+          (tgtId === clickedNode.id && neighbors.has(srcId))) {
+        return baseWidth;
+      }
 
-  return 0.2;  // Very thin for unconnected links
-}
+      // Otherwise fade
+      return 0.2;
+    }
 
+    // Update the detail panel
+
+
+    function updateDetailPanel(node) {
+      const panel = document.getElementById('detail-panel');
+      const nodeDetails = document.getElementById('node-details');
+      const connectionDetails = document.getElementById('connection-details');
+
+      // Hide if no node
+      if (!node) {
+        panel.style.display = 'none';
+        return;
+      }
+      // Show panel
+      panel.style.display = 'block';
+
+      // Node info
+      if (node.type === 'Pharmacy') {
+        nodeDetails.innerHTML = `
+          <p><strong>Pharmacy:</strong> ${node.pharmacyName || ''}</p>
+          <p><strong>Address:</strong><br>
+            ${node.cpAddress1 || ''}<br>
+            ${node.cpAddress2 ? node.cpAddress2 + '<br>' : ''}
+            ${node.cpAddress3 ? node.cpAddress3 + '<br>' : ''}
+            ${node.cpCity || ''}, ${node.cpState || ''} ${node.cpZip || ''}
+          </p>
+        `;
+      } else {
+        nodeDetails.innerHTML = `
+          <p><strong>Entity:</strong> ${node.entityName || ''}</p>
+          <p><strong>Type:</strong> ${node.entityType || ''}</p>
+          <p><strong>ID:</strong> ${node.id || ''}</p>
+          <p><strong>Address:</strong><br>
+            ${node.address1 || ''}<br>
+            ${node.address2 ? node.address2 + '<br>' : ''}
+            ${node.address3 ? node.address3 + '<br>' : ''}
+            ${node.city || ''}, ${node.state || ''} ${node.zip || ''}
+          </p>
+        `;
+      }
+
+      // Connected nodes
+      const graphData = Graph.graphData();
+      const links = graphData.links.filter(link => 
+        (typeof link.source === 'object' ? link.source.id : link.source) === node.id ||
+        (typeof link.target === 'object' ? link.target.id : link.target) === node.id
+      );
+
+      const connectedNodes = links.map(link => {
+        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+        const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+        // If node is the source, the connected node is the target; vice versa
+        const connectedNode = (srcId === node.id) ? link.target : link.source;
+        const contractInfo = {
+          beginDate: link.beginDate || 'Unknown',
+          termDate: link.termDate || 'Open',
+        };
+        return { node: connectedNode, contract: contractInfo };
+      });
+
+      connectionDetails.innerHTML = connectedNodes.map(({ node, contract }) => {
+        // Node might be an object or an ID
+        const cNode = (typeof node === 'object') 
+            ? node 
+            : graphData.nodes.find(n => n.id === node);
+        if (!cNode) return '';
+
+        const displayName = cNode.type === 'Pharmacy'
+          ? (cNode.pharmacyName || cNode.id)
+          : (cNode.entityName || cNode.id);
+
+        return `
+          <div class="connection-item">
+            <strong>${displayName}</strong><br>
+            <small>Contract: ${contract.beginDate} - ${contract.termDate}</small>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Node hover
     function handleNodeHover(node) {
       hoveredNode = node || null;
-      
       if (!hoveredNode) {
         hideTooltip();
         return;
       }
-      
       showTooltip(hoveredNode);
     }
 
-// Update the handleNodeClick function
-function handleNodeClick(node) {
-    if (!node || (clickedNode && node.id === clickedNode.id)) {
+    // Node click
+    function handleNodeClick(node) {
+      // If same node is clicked again, unselect
+      if (!node || (clickedNode && node.id === clickedNode.id)) {
         clickedNode = null;
         neighbors.clear();
-    } else {
+        updateDetailPanel(null);
+      } else {
         clickedNode = node;
         neighbors = new Set(adjacency[node.id] || []);
-    }
+        updateDetailPanel(node);
+      }
 
-    Graph
+      // Update graph
+      Graph
         .graphData(Graph.graphData())
         .nodeColor(getNodeColor)
         .linkColor(getLinkColor)
         .linkWidth(getLinkWidth);
-}
+    }
 
-// Add a background click handler to the graph
-Graph = ForceGraph3D()
-    (document.getElementById("graph-container"))
-    .backgroundColor("#fcfcfc")
-    .nodeResolution(16)
-    .nodeRelSize(4)
-    .nodeColor(getNodeColor)
-    .nodeLabel(node => getNodeLabel(node))
-    .linkColor(getLinkColor)
-    .linkWidth(getLinkWidth)
-    .cameraPosition({ x: 0, y: 0, z: 800 }, true)
-    .onNodeHover(handleNodeHover)
-    .onNodeClick(handleNodeClick)
-    .onBackgroundClick(() => {  // Add this handler
+    // Instantiate the graph (and background click)
+    Graph = ForceGraph3D()
+      (document.getElementById("graph-container"))
+      .backgroundColor("#fcfcfc")
+      .nodeResolution(16)
+      .nodeRelSize(4)
+      .nodeColor(getNodeColor)
+      .nodeLabel(node => getNodeLabel(node))
+      .linkColor(getLinkColor)
+      .linkWidth(getLinkWidth)
+      .cameraPosition({ x: 0, y: 0, z: 800 }, true)
+      .onNodeHover(handleNodeHover)
+      .onNodeClick(handleNodeClick)
+      .onBackgroundClick(() => {
         clickedNode = null;
         neighbors.clear();
+        updateDetailPanel(null);
         Graph
-            .graphData(Graph.graphData())
-            .nodeColor(getNodeColor)
-            .linkColor(getLinkColor)
-            .linkWidth(getLinkWidth);
-    })
-    .onEngineTick(updateTooltipPosition);
-    
+          .graphData(Graph.graphData())
+          .nodeColor(getNodeColor)
+          .linkColor(getLinkColor)
+          .linkWidth(getLinkWidth);
+      })
+      .onEngineTick(updateTooltipPosition);
+
+    // Update tooltip position
     function updateTooltipPosition() {
       if (hoveredNode) {
-        const coords = Graph.graph2ScreenCoords(
-          hoveredNode.x,
-          hoveredNode.y,
-          hoveredNode.z
-        );
+        const coords = Graph.graph2ScreenCoords(hoveredNode.x, hoveredNode.y, hoveredNode.z);
         tooltip.style.left = `${coords.x + 8}px`;
-        tooltip.style.top  = `${coords.y + 8}px`;
+        tooltip.style.top = `${coords.y + 8}px`;
       }
     }
 
     function showTooltip(node) {
       if (!node) return;
-
       if (node.type === "Pharmacy") {
         tooltip.innerHTML = `
           <strong>Pharmacy:</strong> ${node.pharmacyName || ""}<br>
@@ -473,7 +602,6 @@ Graph = ForceGraph3D()
           <strong>Location:</strong> ${node.city || ""}, ${node.state || ""}
         `;
       }
-      
       tooltip.style.visibility = "visible";
     }
 
@@ -481,20 +609,14 @@ Graph = ForceGraph3D()
       tooltip.style.visibility = "hidden";
     }
 
-    // State loading and switching
+    // Loading state for JSON fetch
     async function loadState(state) {
       if (state === currentState) return;
-
-      // Show loading indicator
       loading.style.display = 'block';
-
       try {
         const response = await fetch(`opais_network_${state}.json`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        
         const data = await response.json();
-        
-        // Update UI
         currentState = state;
         updateActiveButton(state);
         initGraph(data);
@@ -514,59 +636,67 @@ Graph = ForceGraph3D()
 
     // Dynamic search functionality
     searchInput.addEventListener('input', () => {
-  const query = searchInput.value.trim().toLowerCase();
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) {
+        // Reset everything
+        clickedNode = null;
+        neighbors.clear();
+        updateDetailPanel(null);
+        Graph
+          .nodeColor(getNodeColor)
+          .linkColor(getLinkColor)
+          .linkWidth(getLinkWidth);
+        return;
+      }
 
-  if (!query) {
-    // Reset graph to unfiltered state
-    clickedNode = null;
-    neighbors.clear();
-    Graph
-      .nodeColor(getNodeColor)
-      .linkColor(getLinkColor)
-      .linkWidth(getLinkWidth);
-    return;
-  }
+      // Filter nodes by query
+      const matchingNodes = Graph.graphData().nodes.filter(node => {
+        return (node.entityName && node.entityName.toLowerCase().includes(query)) ||
+               (node.pharmacyName && node.pharmacyName.toLowerCase().includes(query)) ||
+               (node.id && node.id.toLowerCase().includes(query));
+      });
 
-  // Highlight nodes matching the query
-  const matchingNodes = Graph.graphData().nodes.filter(node => {
-    return (node.entityName && node.entityName.toLowerCase().includes(query)) ||
-           (node.pharmacyName && node.pharmacyName.toLowerCase().includes(query)) ||
-           (node.id && node.id.toLowerCase().includes(query));
-  });
+      if (matchingNodes.length === 0) return;
 
-  if (matchingNodes.length === 0) return;
+      // Gather neighbors
+      const matchingNodeIds = new Set(matchingNodes.map(node => node.id));
+      neighbors.clear();
+      matchingNodes.forEach(node => {
+        adjacency[node.id].forEach(neighborId => neighbors.add(neighborId));
+      });
 
-  // Highlight the matching nodes and their neighbors
-  const matchingNodeIds = new Set(matchingNodes.map(node => node.id));
-  neighbors.clear();
-  matchingNodes.forEach(node => {
-    adjacency[node.id].forEach(neighborId => neighbors.add(neighborId));
-  });
+      // Clear any clicked node from before
+      clickedNode = null;
+      updateDetailPanel(null);
 
-  clickedNode = null; // Clear previous clicked node
-  Graph
-    .nodeColor(node => matchingNodeIds.has(node.id) || neighbors.has(node.id) ? getNodeColor(node) : "rgba(224, 224, 224, 0.2)")
-    .linkColor(link => {
-      const srcId = typeof link.source === 'object' ? link.source.id : link.source;
-      const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
-      return (matchingNodeIds.has(srcId) && matchingNodeIds.has(tgtId)) || 
-             (matchingNodeIds.has(srcId) && neighbors.has(tgtId)) ||
-             (matchingNodeIds.has(tgtId) && neighbors.has(srcId))
-        ? "rgba(44, 62, 80, 0.2)"  // Visible links
-        : "rgba(224, 224, 224, 0.05)";  // Faded links
-    })
-    .linkWidth(link => {
-      const srcId = typeof link.source === 'object' ? link.source.id : link.source;
-      const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
-      return (matchingNodeIds.has(srcId) && matchingNodeIds.has(tgtId)) || 
-             (matchingNodeIds.has(srcId) && neighbors.has(tgtId)) ||
-             (matchingNodeIds.has(tgtId) && neighbors.has(srcId))
-        ? 2  // Highlighted links
-        : 0.5;  // Faded links
+      // Update the node & link coloring
+      Graph
+        .nodeColor(node =>
+          matchingNodeIds.has(node.id) || neighbors.has(node.id)
+            ? getNodeColor(node)
+            : "rgba(224, 224, 224, 0.2)"
+        )
+        .linkColor(link => {
+          const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+          const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+          const visible =
+            (matchingNodeIds.has(srcId) && matchingNodeIds.has(tgtId)) ||
+            (matchingNodeIds.has(srcId) && neighbors.has(tgtId)) ||
+            (matchingNodeIds.has(tgtId) && neighbors.has(srcId));
+          return visible ? "rgba(44, 62, 80, 0.2)" : "rgba(224, 224, 224, 0.05)";
+        })
+        .linkWidth(link => {
+          const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+          const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+          const visible =
+            (matchingNodeIds.has(srcId) && matchingNodeIds.has(tgtId)) ||
+            (matchingNodeIds.has(srcId) && neighbors.has(tgtId)) ||
+            (matchingNodeIds.has(tgtId) && neighbors.has(srcId));
+          return visible ? 2 : 0.5;
+        });
     });
-});
-  
-    // Fix: Ensure state selection works properly
+
+    // Bind the state buttons
     document.querySelectorAll('.state-button').forEach(button => {
       button.addEventListener('click', () => {
         const state = button.dataset.state;
@@ -574,7 +704,7 @@ Graph = ForceGraph3D()
       });
     });
 
-    // Initial load - either from URL parameter or default to first state
+    // Load initial state
     const urlParams = new URLSearchParams(window.location.search);
     const initialState = urlParams.get('state') || 'NE';
     loadState(initialState);
