@@ -166,6 +166,7 @@
     /* Detail Panel Styling */
     .detail-panel {
       position: fixed;
+      /* Bump down so it won't overlap with search container */
       top: 10rem;
       right: 2rem;
       width: 300px;
@@ -442,8 +443,6 @@
     }
 
     // Update the detail panel
-
-
     function updateDetailPanel(node) {
       const panel = document.getElementById('detail-panel');
       const nodeDetails = document.getElementById('node-details');
@@ -496,7 +495,7 @@
         const connectedNode = (srcId === node.id) ? link.target : link.source;
         const contractInfo = {
           beginDate: link.beginDate || 'Unknown',
-          termDate: link.termDate || 'Open',
+          termDate: (link.termDate === '' ? 'Open' : link.termDate)
         };
         return { node: connectedNode, contract: contractInfo };
       });
@@ -508,13 +507,19 @@
             : graphData.nodes.find(n => n.id === node);
         if (!cNode) return '';
 
+        // Display name
         const displayName = cNode.type === 'Pharmacy'
           ? (cNode.pharmacyName || cNode.id)
           : (cNode.entityName || cNode.id);
 
+        // Also show city/state
+        const city = cNode.type === 'Pharmacy' ? (cNode.cpCity || '') : (cNode.city || '');
+        const state = cNode.type === 'Pharmacy' ? (cNode.cpState || '') : (cNode.state || '');
+
         return `
           <div class="connection-item">
             <strong>${displayName}</strong><br>
+            <small>Location: ${city}, ${state}</small><br>
             <small>Contract: ${contract.beginDate} - ${contract.termDate}</small>
           </div>
         `;
