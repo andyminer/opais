@@ -1,0 +1,10602 @@
+{
+  "metadata": {
+    "generated": "2026-04-08",
+    "totalCEs": 12301,
+    "totalPharmacies": 31554,
+    "totalContracts": 232894
+  },
+  "nodes": [
+    {
+      "id": "AK",
+      "type": "State",
+      "label": "Alaska",
+      "ceCount": 22,
+      "pharmacyCount": 52,
+      "contractCount": 198,
+      "hospitalCount": 6,
+      "granteeCount": 16,
+      "inStateContracts": 69,
+      "outOfStateContracts": 129
+    },
+    {
+      "id": "AL",
+      "type": "State",
+      "label": "Alabama",
+      "ceCount": 201,
+      "pharmacyCount": 569,
+      "contractCount": 4367,
+      "hospitalCount": 25,
+      "granteeCount": 176,
+      "inStateContracts": 2456,
+      "outOfStateContracts": 1911
+    },
+    {
+      "id": "AR",
+      "type": "State",
+      "label": "Arkansas",
+      "ceCount": 174,
+      "pharmacyCount": 565,
+      "contractCount": 2709,
+      "hospitalCount": 52,
+      "granteeCount": 122,
+      "inStateContracts": 1574,
+      "outOfStateContracts": 1135
+    },
+    {
+      "id": "AZ",
+      "type": "State",
+      "label": "Arizona",
+      "ceCount": 223,
+      "pharmacyCount": 764,
+      "contractCount": 6183,
+      "hospitalCount": 31,
+      "granteeCount": 192,
+      "inStateContracts": 3855,
+      "outOfStateContracts": 2328
+    },
+    {
+      "id": "CA",
+      "type": "State",
+      "label": "California",
+      "ceCount": 1306,
+      "pharmacyCount": 2776,
+      "contractCount": 28182,
+      "hospitalCount": 130,
+      "granteeCount": 1176,
+      "inStateContracts": 20421,
+      "outOfStateContracts": 7761
+    },
+    {
+      "id": "CO",
+      "type": "State",
+      "label": "Colorado",
+      "ceCount": 184,
+      "pharmacyCount": 446,
+      "contractCount": 2185,
+      "hospitalCount": 49,
+      "granteeCount": 135,
+      "inStateContracts": 1190,
+      "outOfStateContracts": 995
+    },
+    {
+      "id": "CT",
+      "type": "State",
+      "label": "Connecticut",
+      "ceCount": 222,
+      "pharmacyCount": 398,
+      "contractCount": 4087,
+      "hospitalCount": 17,
+      "granteeCount": 205,
+      "inStateContracts": 2522,
+      "outOfStateContracts": 1565
+    },
+    {
+      "id": "DC",
+      "type": "State",
+      "label": "District of Columbia",
+      "ceCount": 49,
+      "pharmacyCount": 86,
+      "contractCount": 1276,
+      "hospitalCount": 3,
+      "granteeCount": 46,
+      "inStateContracts": 321,
+      "outOfStateContracts": 955
+    },
+    {
+      "id": "DE",
+      "type": "State",
+      "label": "Delaware",
+      "ceCount": 36,
+      "pharmacyCount": 122,
+      "contractCount": 474,
+      "hospitalCount": 4,
+      "granteeCount": 32,
+      "inStateContracts": 294,
+      "outOfStateContracts": 180
+    },
+    {
+      "id": "FL",
+      "type": "State",
+      "label": "Florida",
+      "ceCount": 934,
+      "pharmacyCount": 2479,
+      "contractCount": 28998,
+      "hospitalCount": 107,
+      "granteeCount": 827,
+      "inStateContracts": 19204,
+      "outOfStateContracts": 9794
+    },
+    {
+      "id": "GA",
+      "type": "State",
+      "label": "Georgia",
+      "ceCount": 343,
+      "pharmacyCount": 729,
+      "contractCount": 3529,
+      "hospitalCount": 36,
+      "granteeCount": 307,
+      "inStateContracts": 1646,
+      "outOfStateContracts": 1883
+    },
+    {
+      "id": "HI",
+      "type": "State",
+      "label": "Hawaii",
+      "ceCount": 84,
+      "pharmacyCount": 93,
+      "contractCount": 558,
+      "hospitalCount": 12,
+      "granteeCount": 72,
+      "inStateContracts": 339,
+      "outOfStateContracts": 219
+    },
+    {
+      "id": "IA",
+      "type": "State",
+      "label": "Iowa",
+      "ceCount": 215,
+      "pharmacyCount": 431,
+      "contractCount": 2915,
+      "hospitalCount": 128,
+      "granteeCount": 87,
+      "inStateContracts": 1253,
+      "outOfStateContracts": 1662
+    },
+    {
+      "id": "ID",
+      "type": "State",
+      "label": "Idaho",
+      "ceCount": 72,
+      "pharmacyCount": 204,
+      "contractCount": 1323,
+      "hospitalCount": 33,
+      "granteeCount": 39,
+      "inStateContracts": 474,
+      "outOfStateContracts": 849
+    },
+    {
+      "id": "IL",
+      "type": "State",
+      "label": "Illinois",
+      "ceCount": 525,
+      "pharmacyCount": 1284,
+      "contractCount": 10646,
+      "hospitalCount": 135,
+      "granteeCount": 390,
+      "inStateContracts": 7639,
+      "outOfStateContracts": 3007
+    },
+    {
+      "id": "IN",
+      "type": "State",
+      "label": "Indiana",
+      "ceCount": 312,
+      "pharmacyCount": 755,
+      "contractCount": 4797,
+      "hospitalCount": 50,
+      "granteeCount": 262,
+      "inStateContracts": 3025,
+      "outOfStateContracts": 1772
+    },
+    {
+      "id": "KS",
+      "type": "State",
+      "label": "Kansas",
+      "ceCount": 164,
+      "pharmacyCount": 399,
+      "contractCount": 1799,
+      "hospitalCount": 95,
+      "granteeCount": 69,
+      "inStateContracts": 847,
+      "outOfStateContracts": 952
+    },
+    {
+      "id": "KY",
+      "type": "State",
+      "label": "Kentucky",
+      "ceCount": 301,
+      "pharmacyCount": 610,
+      "contractCount": 5358,
+      "hospitalCount": 67,
+      "granteeCount": 234,
+      "inStateContracts": 2518,
+      "outOfStateContracts": 2840
+    },
+    {
+      "id": "LA",
+      "type": "State",
+      "label": "Louisiana",
+      "ceCount": 363,
+      "pharmacyCount": 684,
+      "contractCount": 9400,
+      "hospitalCount": 103,
+      "granteeCount": 260,
+      "inStateContracts": 4986,
+      "outOfStateContracts": 4414
+    },
+    {
+      "id": "MA",
+      "type": "State",
+      "label": "Massachusetts",
+      "ceCount": 155,
+      "pharmacyCount": 728,
+      "contractCount": 5435,
+      "hospitalCount": 48,
+      "granteeCount": 107,
+      "inStateContracts": 3688,
+      "outOfStateContracts": 1747
+    },
+    {
+      "id": "MD",
+      "type": "State",
+      "label": "Maryland",
+      "ceCount": 104,
+      "pharmacyCount": 460,
+      "contractCount": 2597,
+      "hospitalCount": 21,
+      "granteeCount": 83,
+      "inStateContracts": 1228,
+      "outOfStateContracts": 1369
+    },
+    {
+      "id": "ME",
+      "type": "State",
+      "label": "Maine",
+      "ceCount": 111,
+      "pharmacyCount": 253,
+      "contractCount": 2249,
+      "hospitalCount": 26,
+      "granteeCount": 85,
+      "inStateContracts": 997,
+      "outOfStateContracts": 1252
+    },
+    {
+      "id": "MI",
+      "type": "State",
+      "label": "Michigan",
+      "ceCount": 371,
+      "pharmacyCount": 1088,
+      "contractCount": 7494,
+      "hospitalCount": 82,
+      "granteeCount": 289,
+      "inStateContracts": 4600,
+      "outOfStateContracts": 2894
+    },
+    {
+      "id": "MN",
+      "type": "State",
+      "label": "Minnesota",
+      "ceCount": 336,
+      "pharmacyCount": 558,
+      "contractCount": 4916,
+      "hospitalCount": 263,
+      "granteeCount": 73,
+      "inStateContracts": 3610,
+      "outOfStateContracts": 1306
+    },
+    {
+      "id": "MO",
+      "type": "State",
+      "label": "Missouri",
+      "ceCount": 248,
+      "pharmacyCount": 892,
+      "contractCount": 4488,
+      "hospitalCount": 91,
+      "granteeCount": 157,
+      "inStateContracts": 2457,
+      "outOfStateContracts": 2031
+    },
+    {
+      "id": "MP",
+      "type": "State",
+      "label": "Northern Mariana Islands",
+      "ceCount": 4,
+      "pharmacyCount": 3,
+      "contractCount": 7,
+      "hospitalCount": 0,
+      "granteeCount": 4,
+      "inStateContracts": 7,
+      "outOfStateContracts": 0
+    },
+    {
+      "id": "MS",
+      "type": "State",
+      "label": "Mississippi",
+      "ceCount": 164,
+      "pharmacyCount": 433,
+      "contractCount": 2684,
+      "hospitalCount": 59,
+      "granteeCount": 105,
+      "inStateContracts": 1214,
+      "outOfStateContracts": 1470
+    },
+    {
+      "id": "MT",
+      "type": "State",
+      "label": "Montana",
+      "ceCount": 86,
+      "pharmacyCount": 131,
+      "contractCount": 580,
+      "hospitalCount": 47,
+      "granteeCount": 39,
+      "inStateContracts": 228,
+      "outOfStateContracts": 352
+    },
+    {
+      "id": "NC",
+      "type": "State",
+      "label": "North Carolina",
+      "ceCount": 407,
+      "pharmacyCount": 992,
+      "contractCount": 7855,
+      "hospitalCount": 44,
+      "granteeCount": 363,
+      "inStateContracts": 4674,
+      "outOfStateContracts": 3181
+    },
+    {
+      "id": "ND",
+      "type": "State",
+      "label": "North Dakota",
+      "ceCount": 70,
+      "pharmacyCount": 138,
+      "contractCount": 560,
+      "hospitalCount": 41,
+      "granteeCount": 29,
+      "inStateContracts": 278,
+      "outOfStateContracts": 282
+    },
+    {
+      "id": "NE",
+      "type": "State",
+      "label": "Nebraska",
+      "ceCount": 80,
+      "pharmacyCount": 243,
+      "contractCount": 791,
+      "hospitalCount": 57,
+      "granteeCount": 23,
+      "inStateContracts": 434,
+      "outOfStateContracts": 357
+    },
+    {
+      "id": "NH",
+      "type": "State",
+      "label": "New Hampshire",
+      "ceCount": 51,
+      "pharmacyCount": 159,
+      "contractCount": 1347,
+      "hospitalCount": 20,
+      "granteeCount": 31,
+      "inStateContracts": 564,
+      "outOfStateContracts": 783
+    },
+    {
+      "id": "NJ",
+      "type": "State",
+      "label": "New Jersey",
+      "ceCount": 122,
+      "pharmacyCount": 623,
+      "contractCount": 1795,
+      "hospitalCount": 22,
+      "granteeCount": 100,
+      "inStateContracts": 1200,
+      "outOfStateContracts": 595
+    },
+    {
+      "id": "NM",
+      "type": "State",
+      "label": "New Mexico",
+      "ceCount": 86,
+      "pharmacyCount": 217,
+      "contractCount": 1508,
+      "hospitalCount": 20,
+      "granteeCount": 66,
+      "inStateContracts": 664,
+      "outOfStateContracts": 844
+    },
+    {
+      "id": "NV",
+      "type": "State",
+      "label": "Nevada",
+      "ceCount": 74,
+      "pharmacyCount": 242,
+      "contractCount": 2140,
+      "hospitalCount": 9,
+      "granteeCount": 65,
+      "inStateContracts": 1154,
+      "outOfStateContracts": 986
+    },
+    {
+      "id": "NY",
+      "type": "State",
+      "label": "New York",
+      "ceCount": 960,
+      "pharmacyCount": 1812,
+      "contractCount": 13300,
+      "hospitalCount": 438,
+      "granteeCount": 522,
+      "inStateContracts": 9010,
+      "outOfStateContracts": 4290
+    },
+    {
+      "id": "OH",
+      "type": "State",
+      "label": "Ohio",
+      "ceCount": 413,
+      "pharmacyCount": 1109,
+      "contractCount": 6594,
+      "hospitalCount": 101,
+      "granteeCount": 312,
+      "inStateContracts": 3688,
+      "outOfStateContracts": 2906
+    },
+    {
+      "id": "OK",
+      "type": "State",
+      "label": "Oklahoma",
+      "ceCount": 131,
+      "pharmacyCount": 437,
+      "contractCount": 2257,
+      "hospitalCount": 51,
+      "granteeCount": 80,
+      "inStateContracts": 1102,
+      "outOfStateContracts": 1155
+    },
+    {
+      "id": "OR",
+      "type": "State",
+      "label": "Oregon",
+      "ceCount": 177,
+      "pharmacyCount": 392,
+      "contractCount": 2917,
+      "hospitalCount": 45,
+      "granteeCount": 132,
+      "inStateContracts": 1550,
+      "outOfStateContracts": 1367
+    },
+    {
+      "id": "PA",
+      "type": "State",
+      "label": "Pennsylvania",
+      "ceCount": 553,
+      "pharmacyCount": 989,
+      "contractCount": 7285,
+      "hospitalCount": 61,
+      "granteeCount": 492,
+      "inStateContracts": 4473,
+      "outOfStateContracts": 2812
+    },
+    {
+      "id": "PR",
+      "type": "State",
+      "label": "Puerto Rico",
+      "ceCount": 40,
+      "pharmacyCount": 73,
+      "contractCount": 142,
+      "hospitalCount": 0,
+      "granteeCount": 40,
+      "inStateContracts": 114,
+      "outOfStateContracts": 28
+    },
+    {
+      "id": "RI",
+      "type": "State",
+      "label": "Rhode Island",
+      "ceCount": 44,
+      "pharmacyCount": 153,
+      "contractCount": 1228,
+      "hospitalCount": 6,
+      "granteeCount": 38,
+      "inStateContracts": 793,
+      "outOfStateContracts": 435
+    },
+    {
+      "id": "SC",
+      "type": "State",
+      "label": "South Carolina",
+      "ceCount": 112,
+      "pharmacyCount": 500,
+      "contractCount": 2290,
+      "hospitalCount": 19,
+      "granteeCount": 93,
+      "inStateContracts": 1079,
+      "outOfStateContracts": 1211
+    },
+    {
+      "id": "SD",
+      "type": "State",
+      "label": "South Dakota",
+      "ceCount": 79,
+      "pharmacyCount": 149,
+      "contractCount": 601,
+      "hospitalCount": 43,
+      "granteeCount": 36,
+      "inStateContracts": 318,
+      "outOfStateContracts": 283
+    },
+    {
+      "id": "TN",
+      "type": "State",
+      "label": "Tennessee",
+      "ceCount": 211,
+      "pharmacyCount": 655,
+      "contractCount": 3342,
+      "hospitalCount": 29,
+      "granteeCount": 182,
+      "inStateContracts": 1964,
+      "outOfStateContracts": 1378
+    },
+    {
+      "id": "TX",
+      "type": "State",
+      "label": "Texas",
+      "ceCount": 591,
+      "pharmacyCount": 2233,
+      "contractCount": 14246,
+      "hospitalCount": 169,
+      "granteeCount": 422,
+      "inStateContracts": 9590,
+      "outOfStateContracts": 4656
+    },
+    {
+      "id": "UT",
+      "type": "State",
+      "label": "Utah",
+      "ceCount": 53,
+      "pharmacyCount": 178,
+      "contractCount": 735,
+      "hospitalCount": 18,
+      "granteeCount": 35,
+      "inStateContracts": 388,
+      "outOfStateContracts": 347
+    },
+    {
+      "id": "VA",
+      "type": "State",
+      "label": "Virginia",
+      "ceCount": 148,
+      "pharmacyCount": 728,
+      "contractCount": 3219,
+      "hospitalCount": 33,
+      "granteeCount": 115,
+      "inStateContracts": 1437,
+      "outOfStateContracts": 1782
+    },
+    {
+      "id": "VI",
+      "type": "State",
+      "label": "Virgin Islands",
+      "ceCount": 3,
+      "pharmacyCount": 7,
+      "contractCount": 12,
+      "hospitalCount": 0,
+      "granteeCount": 3,
+      "inStateContracts": 9,
+      "outOfStateContracts": 3
+    },
+    {
+      "id": "VT",
+      "type": "State",
+      "label": "Vermont",
+      "ceCount": 61,
+      "pharmacyCount": 115,
+      "contractCount": 1300,
+      "hospitalCount": 11,
+      "granteeCount": 50,
+      "inStateContracts": 548,
+      "outOfStateContracts": 752
+    },
+    {
+      "id": "WA",
+      "type": "State",
+      "label": "Washington",
+      "ceCount": 204,
+      "pharmacyCount": 537,
+      "contractCount": 2682,
+      "hospitalCount": 65,
+      "granteeCount": 139,
+      "inStateContracts": 1333,
+      "outOfStateContracts": 1349
+    },
+    {
+      "id": "WI",
+      "type": "State",
+      "label": "Wisconsin",
+      "ceCount": 171,
+      "pharmacyCount": 517,
+      "contractCount": 2916,
+      "hospitalCount": 92,
+      "granteeCount": 79,
+      "inStateContracts": 1469,
+      "outOfStateContracts": 1447
+    },
+    {
+      "id": "WV",
+      "type": "State",
+      "label": "West Virginia",
+      "ceCount": 126,
+      "pharmacyCount": 310,
+      "contractCount": 2270,
+      "hospitalCount": 36,
+      "granteeCount": 90,
+      "inStateContracts": 990,
+      "outOfStateContracts": 1280
+    },
+    {
+      "id": "WY",
+      "type": "State",
+      "label": "Wyoming",
+      "ceCount": 25,
+      "pharmacyCount": 54,
+      "contractCount": 128,
+      "hospitalCount": 15,
+      "granteeCount": 10,
+      "inStateContracts": 61,
+      "outOfStateContracts": 67
+    }
+  ],
+  "links": [
+    {
+      "source": "AK",
+      "target": "AL",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "AK",
+      "target": "AR",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "AK",
+      "target": "AZ",
+      "weight": 7,
+      "ceCount": 5
+    },
+    {
+      "source": "AK",
+      "target": "CA",
+      "weight": 7,
+      "ceCount": 5
+    },
+    {
+      "source": "AK",
+      "target": "DE",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "AK",
+      "target": "FL",
+      "weight": 15,
+      "ceCount": 10
+    },
+    {
+      "source": "AK",
+      "target": "IL",
+      "weight": 6,
+      "ceCount": 4
+    },
+    {
+      "source": "AK",
+      "target": "IN",
+      "weight": 9,
+      "ceCount": 6
+    },
+    {
+      "source": "AK",
+      "target": "KS",
+      "weight": 6,
+      "ceCount": 4
+    },
+    {
+      "source": "AK",
+      "target": "KY",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "AK",
+      "target": "LA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "AK",
+      "target": "MA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "AK",
+      "target": "MD",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "AK",
+      "target": "MI",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "AK",
+      "target": "MO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "AK",
+      "target": "NC",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "AK",
+      "target": "NJ",
+      "weight": 5,
+      "ceCount": 4
+    },
+    {
+      "source": "AK",
+      "target": "NV",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "AK",
+      "target": "NY",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "AK",
+      "target": "OH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "AK",
+      "target": "OR",
+      "weight": 5,
+      "ceCount": 4
+    },
+    {
+      "source": "AK",
+      "target": "PA",
+      "weight": 10,
+      "ceCount": 5
+    },
+    {
+      "source": "AK",
+      "target": "SC",
+      "weight": 4,
+      "ceCount": 3
+    },
+    {
+      "source": "AK",
+      "target": "TN",
+      "weight": 5,
+      "ceCount": 4
+    },
+    {
+      "source": "AK",
+      "target": "TX",
+      "weight": 14,
+      "ceCount": 9
+    },
+    {
+      "source": "AK",
+      "target": "WA",
+      "weight": 8,
+      "ceCount": 4
+    },
+    {
+      "source": "AL",
+      "target": "AR",
+      "weight": 51,
+      "ceCount": 49
+    },
+    {
+      "source": "AL",
+      "target": "AZ",
+      "weight": 96,
+      "ceCount": 36
+    },
+    {
+      "source": "AL",
+      "target": "CA",
+      "weight": 71,
+      "ceCount": 41
+    },
+    {
+      "source": "AL",
+      "target": "CO",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "AL",
+      "target": "DE",
+      "weight": 32,
+      "ceCount": 32
+    },
+    {
+      "source": "AL",
+      "target": "FL",
+      "weight": 297,
+      "ceCount": 92
+    },
+    {
+      "source": "AL",
+      "target": "GA",
+      "weight": 59,
+      "ceCount": 31
+    },
+    {
+      "source": "AL",
+      "target": "HI",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "AL",
+      "target": "IL",
+      "weight": 60,
+      "ceCount": 45
+    },
+    {
+      "source": "AL",
+      "target": "IN",
+      "weight": 137,
+      "ceCount": 68
+    },
+    {
+      "source": "AL",
+      "target": "KS",
+      "weight": 46,
+      "ceCount": 39
+    },
+    {
+      "source": "AL",
+      "target": "KY",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "AL",
+      "target": "LA",
+      "weight": 42,
+      "ceCount": 33
+    },
+    {
+      "source": "AL",
+      "target": "MA",
+      "weight": 32,
+      "ceCount": 32
+    },
+    {
+      "source": "AL",
+      "target": "MD",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "AL",
+      "target": "MI",
+      "weight": 81,
+      "ceCount": 57
+    },
+    {
+      "source": "AL",
+      "target": "MO",
+      "weight": 26,
+      "ceCount": 26
+    },
+    {
+      "source": "AL",
+      "target": "MS",
+      "weight": 49,
+      "ceCount": 26
+    },
+    {
+      "source": "AL",
+      "target": "NC",
+      "weight": 65,
+      "ceCount": 42
+    },
+    {
+      "source": "AL",
+      "target": "NH",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "AL",
+      "target": "NJ",
+      "weight": 62,
+      "ceCount": 43
+    },
+    {
+      "source": "AL",
+      "target": "NV",
+      "weight": 34,
+      "ceCount": 32
+    },
+    {
+      "source": "AL",
+      "target": "NY",
+      "weight": 24,
+      "ceCount": 22
+    },
+    {
+      "source": "AL",
+      "target": "OH",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "AL",
+      "target": "OK",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "AL",
+      "target": "OR",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "AL",
+      "target": "PA",
+      "weight": 142,
+      "ceCount": 66
+    },
+    {
+      "source": "AL",
+      "target": "SC",
+      "weight": 75,
+      "ceCount": 48
+    },
+    {
+      "source": "AL",
+      "target": "SD",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "AL",
+      "target": "TN",
+      "weight": 175,
+      "ceCount": 104
+    },
+    {
+      "source": "AL",
+      "target": "TX",
+      "weight": 202,
+      "ceCount": 82
+    },
+    {
+      "source": "AL",
+      "target": "WA",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "AL",
+      "target": "WI",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "AR",
+      "target": "AL",
+      "weight": 29,
+      "ceCount": 23
+    },
+    {
+      "source": "AR",
+      "target": "AZ",
+      "weight": 65,
+      "ceCount": 27
+    },
+    {
+      "source": "AR",
+      "target": "CA",
+      "weight": 23,
+      "ceCount": 17
+    },
+    {
+      "source": "AR",
+      "target": "CO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "AR",
+      "target": "CT",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "AR",
+      "target": "DE",
+      "weight": 15,
+      "ceCount": 15
+    },
+    {
+      "source": "AR",
+      "target": "FL",
+      "weight": 142,
+      "ceCount": 61
+    },
+    {
+      "source": "AR",
+      "target": "GA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "AR",
+      "target": "HI",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "AR",
+      "target": "IL",
+      "weight": 28,
+      "ceCount": 18
+    },
+    {
+      "source": "AR",
+      "target": "IN",
+      "weight": 105,
+      "ceCount": 52
+    },
+    {
+      "source": "AR",
+      "target": "KS",
+      "weight": 31,
+      "ceCount": 23
+    },
+    {
+      "source": "AR",
+      "target": "KY",
+      "weight": 41,
+      "ceCount": 14
+    },
+    {
+      "source": "AR",
+      "target": "LA",
+      "weight": 11,
+      "ceCount": 9
+    },
+    {
+      "source": "AR",
+      "target": "MA",
+      "weight": 14,
+      "ceCount": 14
+    },
+    {
+      "source": "AR",
+      "target": "MI",
+      "weight": 51,
+      "ceCount": 27
+    },
+    {
+      "source": "AR",
+      "target": "MN",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "AR",
+      "target": "MO",
+      "weight": 91,
+      "ceCount": 21
+    },
+    {
+      "source": "AR",
+      "target": "MS",
+      "weight": 31,
+      "ceCount": 19
+    },
+    {
+      "source": "AR",
+      "target": "NC",
+      "weight": 21,
+      "ceCount": 16
+    },
+    {
+      "source": "AR",
+      "target": "NE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "AR",
+      "target": "NJ",
+      "weight": 31,
+      "ceCount": 23
+    },
+    {
+      "source": "AR",
+      "target": "NV",
+      "weight": 16,
+      "ceCount": 14
+    },
+    {
+      "source": "AR",
+      "target": "NY",
+      "weight": 20,
+      "ceCount": 17
+    },
+    {
+      "source": "AR",
+      "target": "OH",
+      "weight": 14,
+      "ceCount": 12
+    },
+    {
+      "source": "AR",
+      "target": "OK",
+      "weight": 15,
+      "ceCount": 6
+    },
+    {
+      "source": "AR",
+      "target": "PA",
+      "weight": 63,
+      "ceCount": 28
+    },
+    {
+      "source": "AR",
+      "target": "SC",
+      "weight": 20,
+      "ceCount": 16
+    },
+    {
+      "source": "AR",
+      "target": "TN",
+      "weight": 83,
+      "ceCount": 37
+    },
+    {
+      "source": "AR",
+      "target": "TX",
+      "weight": 156,
+      "ceCount": 61
+    },
+    {
+      "source": "AR",
+      "target": "WA",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "AZ",
+      "target": "AL",
+      "weight": 88,
+      "ceCount": 67
+    },
+    {
+      "source": "AZ",
+      "target": "AR",
+      "weight": 28,
+      "ceCount": 28
+    },
+    {
+      "source": "AZ",
+      "target": "CA",
+      "weight": 208,
+      "ceCount": 81
+    },
+    {
+      "source": "AZ",
+      "target": "DE",
+      "weight": 50,
+      "ceCount": 50
+    },
+    {
+      "source": "AZ",
+      "target": "FL",
+      "weight": 272,
+      "ceCount": 98
+    },
+    {
+      "source": "AZ",
+      "target": "GA",
+      "weight": 20,
+      "ceCount": 20
+    },
+    {
+      "source": "AZ",
+      "target": "HI",
+      "weight": 16,
+      "ceCount": 16
+    },
+    {
+      "source": "AZ",
+      "target": "IL",
+      "weight": 115,
+      "ceCount": 71
+    },
+    {
+      "source": "AZ",
+      "target": "IN",
+      "weight": 196,
+      "ceCount": 91
+    },
+    {
+      "source": "AZ",
+      "target": "KS",
+      "weight": 107,
+      "ceCount": 64
+    },
+    {
+      "source": "AZ",
+      "target": "KY",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "AZ",
+      "target": "LA",
+      "weight": 15,
+      "ceCount": 13
+    },
+    {
+      "source": "AZ",
+      "target": "MA",
+      "weight": 48,
+      "ceCount": 46
+    },
+    {
+      "source": "AZ",
+      "target": "MD",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "AZ",
+      "target": "MI",
+      "weight": 124,
+      "ceCount": 61
+    },
+    {
+      "source": "AZ",
+      "target": "MN",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "AZ",
+      "target": "MO",
+      "weight": 22,
+      "ceCount": 21
+    },
+    {
+      "source": "AZ",
+      "target": "MS",
+      "weight": 22,
+      "ceCount": 22
+    },
+    {
+      "source": "AZ",
+      "target": "NC",
+      "weight": 84,
+      "ceCount": 52
+    },
+    {
+      "source": "AZ",
+      "target": "NE",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "AZ",
+      "target": "NH",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "AZ",
+      "target": "NJ",
+      "weight": 78,
+      "ceCount": 53
+    },
+    {
+      "source": "AZ",
+      "target": "NM",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "AZ",
+      "target": "NV",
+      "weight": 70,
+      "ceCount": 53
+    },
+    {
+      "source": "AZ",
+      "target": "NY",
+      "weight": 46,
+      "ceCount": 34
+    },
+    {
+      "source": "AZ",
+      "target": "OH",
+      "weight": 24,
+      "ceCount": 22
+    },
+    {
+      "source": "AZ",
+      "target": "OK",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "AZ",
+      "target": "OR",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "AZ",
+      "target": "PA",
+      "weight": 215,
+      "ceCount": 106
+    },
+    {
+      "source": "AZ",
+      "target": "SC",
+      "weight": 71,
+      "ceCount": 51
+    },
+    {
+      "source": "AZ",
+      "target": "TN",
+      "weight": 120,
+      "ceCount": 69
+    },
+    {
+      "source": "AZ",
+      "target": "TX",
+      "weight": 210,
+      "ceCount": 70
+    },
+    {
+      "source": "AZ",
+      "target": "WA",
+      "weight": 39,
+      "ceCount": 34
+    },
+    {
+      "source": "AZ",
+      "target": "WI",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CA",
+      "target": "AL",
+      "weight": 361,
+      "ceCount": 308
+    },
+    {
+      "source": "CA",
+      "target": "AR",
+      "weight": 108,
+      "ceCount": 107
+    },
+    {
+      "source": "CA",
+      "target": "AZ",
+      "weight": 526,
+      "ceCount": 221
+    },
+    {
+      "source": "CA",
+      "target": "CO",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "CA",
+      "target": "DE",
+      "weight": 113,
+      "ceCount": 113
+    },
+    {
+      "source": "CA",
+      "target": "FL",
+      "weight": 959,
+      "ceCount": 405
+    },
+    {
+      "source": "CA",
+      "target": "GA",
+      "weight": 36,
+      "ceCount": 36
+    },
+    {
+      "source": "CA",
+      "target": "HI",
+      "weight": 58,
+      "ceCount": 58
+    },
+    {
+      "source": "CA",
+      "target": "ID",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CA",
+      "target": "IL",
+      "weight": 345,
+      "ceCount": 251
+    },
+    {
+      "source": "CA",
+      "target": "IN",
+      "weight": 557,
+      "ceCount": 293
+    },
+    {
+      "source": "CA",
+      "target": "KS",
+      "weight": 371,
+      "ceCount": 290
+    },
+    {
+      "source": "CA",
+      "target": "KY",
+      "weight": 31,
+      "ceCount": 28
+    },
+    {
+      "source": "CA",
+      "target": "LA",
+      "weight": 126,
+      "ceCount": 125
+    },
+    {
+      "source": "CA",
+      "target": "MA",
+      "weight": 226,
+      "ceCount": 220
+    },
+    {
+      "source": "CA",
+      "target": "MD",
+      "weight": 10,
+      "ceCount": 9
+    },
+    {
+      "source": "CA",
+      "target": "ME",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "CA",
+      "target": "MI",
+      "weight": 410,
+      "ceCount": 281
+    },
+    {
+      "source": "CA",
+      "target": "MN",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "CA",
+      "target": "MO",
+      "weight": 100,
+      "ceCount": 98
+    },
+    {
+      "source": "CA",
+      "target": "MS",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "CA",
+      "target": "NC",
+      "weight": 311,
+      "ceCount": 252
+    },
+    {
+      "source": "CA",
+      "target": "NH",
+      "weight": 22,
+      "ceCount": 22
+    },
+    {
+      "source": "CA",
+      "target": "NJ",
+      "weight": 347,
+      "ceCount": 278
+    },
+    {
+      "source": "CA",
+      "target": "NM",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CA",
+      "target": "NV",
+      "weight": 261,
+      "ceCount": 226
+    },
+    {
+      "source": "CA",
+      "target": "NY",
+      "weight": 221,
+      "ceCount": 144
+    },
+    {
+      "source": "CA",
+      "target": "OH",
+      "weight": 54,
+      "ceCount": 45
+    },
+    {
+      "source": "CA",
+      "target": "OR",
+      "weight": 25,
+      "ceCount": 19
+    },
+    {
+      "source": "CA",
+      "target": "PA",
+      "weight": 559,
+      "ceCount": 328
+    },
+    {
+      "source": "CA",
+      "target": "PR",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "CA",
+      "target": "SC",
+      "weight": 348,
+      "ceCount": 309
+    },
+    {
+      "source": "CA",
+      "target": "TN",
+      "weight": 367,
+      "ceCount": 286
+    },
+    {
+      "source": "CA",
+      "target": "TX",
+      "weight": 745,
+      "ceCount": 356
+    },
+    {
+      "source": "CA",
+      "target": "UT",
+      "weight": 10,
+      "ceCount": 9
+    },
+    {
+      "source": "CA",
+      "target": "VT",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CA",
+      "target": "WA",
+      "weight": 124,
+      "ceCount": 98
+    },
+    {
+      "source": "CO",
+      "target": "AL",
+      "weight": 34,
+      "ceCount": 27
+    },
+    {
+      "source": "CO",
+      "target": "AR",
+      "weight": 24,
+      "ceCount": 24
+    },
+    {
+      "source": "CO",
+      "target": "AZ",
+      "weight": 86,
+      "ceCount": 36
+    },
+    {
+      "source": "CO",
+      "target": "CA",
+      "weight": 52,
+      "ceCount": 31
+    },
+    {
+      "source": "CO",
+      "target": "DE",
+      "weight": 22,
+      "ceCount": 22
+    },
+    {
+      "source": "CO",
+      "target": "FL",
+      "weight": 104,
+      "ceCount": 54
+    },
+    {
+      "source": "CO",
+      "target": "GA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CO",
+      "target": "HI",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "CO",
+      "target": "IA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "CO",
+      "target": "IL",
+      "weight": 29,
+      "ceCount": 21
+    },
+    {
+      "source": "CO",
+      "target": "IN",
+      "weight": 85,
+      "ceCount": 45
+    },
+    {
+      "source": "CO",
+      "target": "KS",
+      "weight": 40,
+      "ceCount": 27
+    },
+    {
+      "source": "CO",
+      "target": "KY",
+      "weight": 10,
+      "ceCount": 9
+    },
+    {
+      "source": "CO",
+      "target": "LA",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "CO",
+      "target": "MA",
+      "weight": 16,
+      "ceCount": 14
+    },
+    {
+      "source": "CO",
+      "target": "MI",
+      "weight": 49,
+      "ceCount": 32
+    },
+    {
+      "source": "CO",
+      "target": "MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CO",
+      "target": "MO",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "CO",
+      "target": "MS",
+      "weight": 15,
+      "ceCount": 15
+    },
+    {
+      "source": "CO",
+      "target": "NC",
+      "weight": 23,
+      "ceCount": 20
+    },
+    {
+      "source": "CO",
+      "target": "NE",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "CO",
+      "target": "NH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CO",
+      "target": "NJ",
+      "weight": 43,
+      "ceCount": 28
+    },
+    {
+      "source": "CO",
+      "target": "NM",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "CO",
+      "target": "NV",
+      "weight": 20,
+      "ceCount": 17
+    },
+    {
+      "source": "CO",
+      "target": "NY",
+      "weight": 28,
+      "ceCount": 18
+    },
+    {
+      "source": "CO",
+      "target": "OH",
+      "weight": 5,
+      "ceCount": 4
+    },
+    {
+      "source": "CO",
+      "target": "PA",
+      "weight": 68,
+      "ceCount": 40
+    },
+    {
+      "source": "CO",
+      "target": "SC",
+      "weight": 25,
+      "ceCount": 22
+    },
+    {
+      "source": "CO",
+      "target": "TN",
+      "weight": 39,
+      "ceCount": 29
+    },
+    {
+      "source": "CO",
+      "target": "TX",
+      "weight": 113,
+      "ceCount": 53
+    },
+    {
+      "source": "CO",
+      "target": "UT",
+      "weight": 5,
+      "ceCount": 4
+    },
+    {
+      "source": "CO",
+      "target": "WA",
+      "weight": 22,
+      "ceCount": 21
+    },
+    {
+      "source": "CO",
+      "target": "WY",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CT",
+      "target": "AL",
+      "weight": 39,
+      "ceCount": 28
+    },
+    {
+      "source": "CT",
+      "target": "AR",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "CT",
+      "target": "AZ",
+      "weight": 124,
+      "ceCount": 39
+    },
+    {
+      "source": "CT",
+      "target": "CA",
+      "weight": 50,
+      "ceCount": 29
+    },
+    {
+      "source": "CT",
+      "target": "CO",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "CT",
+      "target": "DE",
+      "weight": 32,
+      "ceCount": 32
+    },
+    {
+      "source": "CT",
+      "target": "FL",
+      "weight": 160,
+      "ceCount": 59
+    },
+    {
+      "source": "CT",
+      "target": "GA",
+      "weight": 24,
+      "ceCount": 24
+    },
+    {
+      "source": "CT",
+      "target": "HI",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "CT",
+      "target": "IL",
+      "weight": 55,
+      "ceCount": 34
+    },
+    {
+      "source": "CT",
+      "target": "IN",
+      "weight": 93,
+      "ceCount": 32
+    },
+    {
+      "source": "CT",
+      "target": "KS",
+      "weight": 54,
+      "ceCount": 38
+    },
+    {
+      "source": "CT",
+      "target": "KY",
+      "weight": 7,
+      "ceCount": 6
+    },
+    {
+      "source": "CT",
+      "target": "LA",
+      "weight": 21,
+      "ceCount": 19
+    },
+    {
+      "source": "CT",
+      "target": "MA",
+      "weight": 102,
+      "ceCount": 49
+    },
+    {
+      "source": "CT",
+      "target": "MD",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "CT",
+      "target": "ME",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CT",
+      "target": "MI",
+      "weight": 65,
+      "ceCount": 38
+    },
+    {
+      "source": "CT",
+      "target": "MN",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "CT",
+      "target": "MO",
+      "weight": 24,
+      "ceCount": 24
+    },
+    {
+      "source": "CT",
+      "target": "MT",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CT",
+      "target": "NC",
+      "weight": 47,
+      "ceCount": 34
+    },
+    {
+      "source": "CT",
+      "target": "NH",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "CT",
+      "target": "NJ",
+      "weight": 95,
+      "ceCount": 42
+    },
+    {
+      "source": "CT",
+      "target": "NV",
+      "weight": 30,
+      "ceCount": 26
+    },
+    {
+      "source": "CT",
+      "target": "NY",
+      "weight": 109,
+      "ceCount": 53
+    },
+    {
+      "source": "CT",
+      "target": "OH",
+      "weight": 10,
+      "ceCount": 9
+    },
+    {
+      "source": "CT",
+      "target": "PA",
+      "weight": 130,
+      "ceCount": 52
+    },
+    {
+      "source": "CT",
+      "target": "PR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CT",
+      "target": "RI",
+      "weight": 13,
+      "ceCount": 7
+    },
+    {
+      "source": "CT",
+      "target": "SC",
+      "weight": 56,
+      "ceCount": 44
+    },
+    {
+      "source": "CT",
+      "target": "TN",
+      "weight": 60,
+      "ceCount": 42
+    },
+    {
+      "source": "CT",
+      "target": "TX",
+      "weight": 128,
+      "ceCount": 41
+    },
+    {
+      "source": "CT",
+      "target": "VA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "CT",
+      "target": "VT",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "DC",
+      "target": "AL",
+      "weight": 19,
+      "ceCount": 16
+    },
+    {
+      "source": "DC",
+      "target": "AR",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "DC",
+      "target": "AZ",
+      "weight": 34,
+      "ceCount": 13
+    },
+    {
+      "source": "DC",
+      "target": "CA",
+      "weight": 48,
+      "ceCount": 18
+    },
+    {
+      "source": "DC",
+      "target": "DE",
+      "weight": 14,
+      "ceCount": 12
+    },
+    {
+      "source": "DC",
+      "target": "FL",
+      "weight": 77,
+      "ceCount": 22
+    },
+    {
+      "source": "DC",
+      "target": "GA",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "DC",
+      "target": "HI",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "DC",
+      "target": "IL",
+      "weight": 26,
+      "ceCount": 16
+    },
+    {
+      "source": "DC",
+      "target": "IN",
+      "weight": 34,
+      "ceCount": 14
+    },
+    {
+      "source": "DC",
+      "target": "KS",
+      "weight": 30,
+      "ceCount": 19
+    },
+    {
+      "source": "DC",
+      "target": "KY",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "DC",
+      "target": "LA",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "DC",
+      "target": "MA",
+      "weight": 18,
+      "ceCount": 16
+    },
+    {
+      "source": "DC",
+      "target": "MD",
+      "weight": 216,
+      "ceCount": 21
+    },
+    {
+      "source": "DC",
+      "target": "MI",
+      "weight": 30,
+      "ceCount": 17
+    },
+    {
+      "source": "DC",
+      "target": "MO",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "DC",
+      "target": "MS",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "DC",
+      "target": "NC",
+      "weight": 29,
+      "ceCount": 16
+    },
+    {
+      "source": "DC",
+      "target": "NE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "DC",
+      "target": "NH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "DC",
+      "target": "NJ",
+      "weight": 33,
+      "ceCount": 18
+    },
+    {
+      "source": "DC",
+      "target": "NV",
+      "weight": 17,
+      "ceCount": 16
+    },
+    {
+      "source": "DC",
+      "target": "NY",
+      "weight": 41,
+      "ceCount": 20
+    },
+    {
+      "source": "DC",
+      "target": "OH",
+      "weight": 6,
+      "ceCount": 5
+    },
+    {
+      "source": "DC",
+      "target": "PA",
+      "weight": 54,
+      "ceCount": 21
+    },
+    {
+      "source": "DC",
+      "target": "SC",
+      "weight": 25,
+      "ceCount": 16
+    },
+    {
+      "source": "DC",
+      "target": "TN",
+      "weight": 34,
+      "ceCount": 19
+    },
+    {
+      "source": "DC",
+      "target": "TX",
+      "weight": 49,
+      "ceCount": 19
+    },
+    {
+      "source": "DC",
+      "target": "VA",
+      "weight": 75,
+      "ceCount": 9
+    },
+    {
+      "source": "DC",
+      "target": "WA",
+      "weight": 8,
+      "ceCount": 6
+    },
+    {
+      "source": "DE",
+      "target": "AL",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "DE",
+      "target": "AR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "DE",
+      "target": "AZ",
+      "weight": 6,
+      "ceCount": 3
+    },
+    {
+      "source": "DE",
+      "target": "CA",
+      "weight": 4,
+      "ceCount": 3
+    },
+    {
+      "source": "DE",
+      "target": "CT",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "DE",
+      "target": "FL",
+      "weight": 12,
+      "ceCount": 5
+    },
+    {
+      "source": "DE",
+      "target": "HI",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "DE",
+      "target": "IL",
+      "weight": 4,
+      "ceCount": 2
+    },
+    {
+      "source": "DE",
+      "target": "IN",
+      "weight": 9,
+      "ceCount": 6
+    },
+    {
+      "source": "DE",
+      "target": "KS",
+      "weight": 5,
+      "ceCount": 3
+    },
+    {
+      "source": "DE",
+      "target": "KY",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "DE",
+      "target": "LA",
+      "weight": 17,
+      "ceCount": 17
+    },
+    {
+      "source": "DE",
+      "target": "MA",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "DE",
+      "target": "MD",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "DE",
+      "target": "MI",
+      "weight": 6,
+      "ceCount": 2
+    },
+    {
+      "source": "DE",
+      "target": "MO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "DE",
+      "target": "MS",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "DE",
+      "target": "NC",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "DE",
+      "target": "NH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "DE",
+      "target": "NJ",
+      "weight": 7,
+      "ceCount": 5
+    },
+    {
+      "source": "DE",
+      "target": "NV",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "DE",
+      "target": "NY",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "DE",
+      "target": "OH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "DE",
+      "target": "OR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "DE",
+      "target": "PA",
+      "weight": 42,
+      "ceCount": 23
+    },
+    {
+      "source": "DE",
+      "target": "SC",
+      "weight": 20,
+      "ceCount": 19
+    },
+    {
+      "source": "DE",
+      "target": "TN",
+      "weight": 7,
+      "ceCount": 4
+    },
+    {
+      "source": "DE",
+      "target": "TX",
+      "weight": 10,
+      "ceCount": 3
+    },
+    {
+      "source": "DE",
+      "target": "VA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "FL",
+      "target": "AL",
+      "weight": 446,
+      "ceCount": 329
+    },
+    {
+      "source": "FL",
+      "target": "AR",
+      "weight": 99,
+      "ceCount": 98
+    },
+    {
+      "source": "FL",
+      "target": "AZ",
+      "weight": 553,
+      "ceCount": 231
+    },
+    {
+      "source": "FL",
+      "target": "CA",
+      "weight": 565,
+      "ceCount": 347
+    },
+    {
+      "source": "FL",
+      "target": "CO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "FL",
+      "target": "CT",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "FL",
+      "target": "DC",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "FL",
+      "target": "DE",
+      "weight": 207,
+      "ceCount": 206
+    },
+    {
+      "source": "FL",
+      "target": "GA",
+      "weight": 258,
+      "ceCount": 161
+    },
+    {
+      "source": "FL",
+      "target": "HI",
+      "weight": 113,
+      "ceCount": 113
+    },
+    {
+      "source": "FL",
+      "target": "IA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "FL",
+      "target": "IL",
+      "weight": 441,
+      "ceCount": 327
+    },
+    {
+      "source": "FL",
+      "target": "IN",
+      "weight": 642,
+      "ceCount": 290
+    },
+    {
+      "source": "FL",
+      "target": "KS",
+      "weight": 425,
+      "ceCount": 340
+    },
+    {
+      "source": "FL",
+      "target": "KY",
+      "weight": 49,
+      "ceCount": 39
+    },
+    {
+      "source": "FL",
+      "target": "LA",
+      "weight": 153,
+      "ceCount": 128
+    },
+    {
+      "source": "FL",
+      "target": "MA",
+      "weight": 320,
+      "ceCount": 313
+    },
+    {
+      "source": "FL",
+      "target": "MD",
+      "weight": 20,
+      "ceCount": 20
+    },
+    {
+      "source": "FL",
+      "target": "ME",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "FL",
+      "target": "MI",
+      "weight": 602,
+      "ceCount": 361
+    },
+    {
+      "source": "FL",
+      "target": "MN",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "FL",
+      "target": "MO",
+      "weight": 177,
+      "ceCount": 175
+    },
+    {
+      "source": "FL",
+      "target": "MS",
+      "weight": 63,
+      "ceCount": 62
+    },
+    {
+      "source": "FL",
+      "target": "NC",
+      "weight": 451,
+      "ceCount": 334
+    },
+    {
+      "source": "FL",
+      "target": "NE",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "FL",
+      "target": "NH",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "FL",
+      "target": "NJ",
+      "weight": 544,
+      "ceCount": 342
+    },
+    {
+      "source": "FL",
+      "target": "NV",
+      "weight": 322,
+      "ceCount": 312
+    },
+    {
+      "source": "FL",
+      "target": "NY",
+      "weight": 337,
+      "ceCount": 168
+    },
+    {
+      "source": "FL",
+      "target": "OH",
+      "weight": 72,
+      "ceCount": 67
+    },
+    {
+      "source": "FL",
+      "target": "OK",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "FL",
+      "target": "OR",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "FL",
+      "target": "PA",
+      "weight": 867,
+      "ceCount": 396
+    },
+    {
+      "source": "FL",
+      "target": "PR",
+      "weight": 14,
+      "ceCount": 14
+    },
+    {
+      "source": "FL",
+      "target": "SC",
+      "weight": 451,
+      "ceCount": 360
+    },
+    {
+      "source": "FL",
+      "target": "TN",
+      "weight": 569,
+      "ceCount": 362
+    },
+    {
+      "source": "FL",
+      "target": "TX",
+      "weight": 925,
+      "ceCount": 418
+    },
+    {
+      "source": "FL",
+      "target": "VA",
+      "weight": 25,
+      "ceCount": 25
+    },
+    {
+      "source": "FL",
+      "target": "VT",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "FL",
+      "target": "WA",
+      "weight": 54,
+      "ceCount": 42
+    },
+    {
+      "source": "FL",
+      "target": "WV",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "GA",
+      "target": "AL",
+      "weight": 60,
+      "ceCount": 41
+    },
+    {
+      "source": "GA",
+      "target": "AR",
+      "weight": 34,
+      "ceCount": 32
+    },
+    {
+      "source": "GA",
+      "target": "AZ",
+      "weight": 67,
+      "ceCount": 27
+    },
+    {
+      "source": "GA",
+      "target": "CA",
+      "weight": 85,
+      "ceCount": 35
+    },
+    {
+      "source": "GA",
+      "target": "DE",
+      "weight": 19,
+      "ceCount": 19
+    },
+    {
+      "source": "GA",
+      "target": "FL",
+      "weight": 390,
+      "ceCount": 180
+    },
+    {
+      "source": "GA",
+      "target": "HI",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "GA",
+      "target": "IA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "GA",
+      "target": "IL",
+      "weight": 69,
+      "ceCount": 46
+    },
+    {
+      "source": "GA",
+      "target": "IN",
+      "weight": 91,
+      "ceCount": 46
+    },
+    {
+      "source": "GA",
+      "target": "KS",
+      "weight": 52,
+      "ceCount": 36
+    },
+    {
+      "source": "GA",
+      "target": "KY",
+      "weight": 15,
+      "ceCount": 12
+    },
+    {
+      "source": "GA",
+      "target": "LA",
+      "weight": 94,
+      "ceCount": 91
+    },
+    {
+      "source": "GA",
+      "target": "MA",
+      "weight": 31,
+      "ceCount": 30
+    },
+    {
+      "source": "GA",
+      "target": "MD",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "GA",
+      "target": "MI",
+      "weight": 66,
+      "ceCount": 44
+    },
+    {
+      "source": "GA",
+      "target": "MN",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "GA",
+      "target": "MO",
+      "weight": 15,
+      "ceCount": 15
+    },
+    {
+      "source": "GA",
+      "target": "MS",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "GA",
+      "target": "NC",
+      "weight": 68,
+      "ceCount": 45
+    },
+    {
+      "source": "GA",
+      "target": "NH",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "GA",
+      "target": "NJ",
+      "weight": 56,
+      "ceCount": 38
+    },
+    {
+      "source": "GA",
+      "target": "NV",
+      "weight": 31,
+      "ceCount": 30
+    },
+    {
+      "source": "GA",
+      "target": "NY",
+      "weight": 65,
+      "ceCount": 32
+    },
+    {
+      "source": "GA",
+      "target": "OH",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "GA",
+      "target": "OK",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "GA",
+      "target": "OR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "GA",
+      "target": "PA",
+      "weight": 119,
+      "ceCount": 56
+    },
+    {
+      "source": "GA",
+      "target": "PR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "GA",
+      "target": "SC",
+      "weight": 169,
+      "ceCount": 113
+    },
+    {
+      "source": "GA",
+      "target": "TN",
+      "weight": 90,
+      "ceCount": 46
+    },
+    {
+      "source": "GA",
+      "target": "TX",
+      "weight": 136,
+      "ceCount": 60
+    },
+    {
+      "source": "GA",
+      "target": "VA",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "GA",
+      "target": "WA",
+      "weight": 10,
+      "ceCount": 8
+    },
+    {
+      "source": "HI",
+      "target": "AL",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "HI",
+      "target": "AR",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "HI",
+      "target": "AZ",
+      "weight": 10,
+      "ceCount": 7
+    },
+    {
+      "source": "HI",
+      "target": "CA",
+      "weight": 16,
+      "ceCount": 12
+    },
+    {
+      "source": "HI",
+      "target": "DE",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "HI",
+      "target": "FL",
+      "weight": 17,
+      "ceCount": 12
+    },
+    {
+      "source": "HI",
+      "target": "IL",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "HI",
+      "target": "IN",
+      "weight": 12,
+      "ceCount": 8
+    },
+    {
+      "source": "HI",
+      "target": "KS",
+      "weight": 13,
+      "ceCount": 11
+    },
+    {
+      "source": "HI",
+      "target": "MA",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "HI",
+      "target": "MI",
+      "weight": 11,
+      "ceCount": 10
+    },
+    {
+      "source": "HI",
+      "target": "MO",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "HI",
+      "target": "NC",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "HI",
+      "target": "NJ",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "HI",
+      "target": "NV",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "HI",
+      "target": "OH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "HI",
+      "target": "PA",
+      "weight": 35,
+      "ceCount": 31
+    },
+    {
+      "source": "HI",
+      "target": "SC",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "HI",
+      "target": "TN",
+      "weight": 18,
+      "ceCount": 15
+    },
+    {
+      "source": "HI",
+      "target": "TX",
+      "weight": 13,
+      "ceCount": 8
+    },
+    {
+      "source": "IA",
+      "target": "AK",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IA",
+      "target": "AL",
+      "weight": 40,
+      "ceCount": 34
+    },
+    {
+      "source": "IA",
+      "target": "AR",
+      "weight": 29,
+      "ceCount": 29
+    },
+    {
+      "source": "IA",
+      "target": "AZ",
+      "weight": 100,
+      "ceCount": 42
+    },
+    {
+      "source": "IA",
+      "target": "CA",
+      "weight": 49,
+      "ceCount": 35
+    },
+    {
+      "source": "IA",
+      "target": "CO",
+      "weight": 4,
+      "ceCount": 3
+    },
+    {
+      "source": "IA",
+      "target": "DE",
+      "weight": 31,
+      "ceCount": 31
+    },
+    {
+      "source": "IA",
+      "target": "FL",
+      "weight": 186,
+      "ceCount": 67
+    },
+    {
+      "source": "IA",
+      "target": "GA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IA",
+      "target": "HI",
+      "weight": 27,
+      "ceCount": 27
+    },
+    {
+      "source": "IA",
+      "target": "IL",
+      "weight": 156,
+      "ceCount": 50
+    },
+    {
+      "source": "IA",
+      "target": "IN",
+      "weight": 112,
+      "ceCount": 61
+    },
+    {
+      "source": "IA",
+      "target": "KS",
+      "weight": 50,
+      "ceCount": 36
+    },
+    {
+      "source": "IA",
+      "target": "KY",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "IA",
+      "target": "LA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "IA",
+      "target": "MA",
+      "weight": 38,
+      "ceCount": 32
+    },
+    {
+      "source": "IA",
+      "target": "MD",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IA",
+      "target": "MI",
+      "weight": 79,
+      "ceCount": 42
+    },
+    {
+      "source": "IA",
+      "target": "MN",
+      "weight": 17,
+      "ceCount": 12
+    },
+    {
+      "source": "IA",
+      "target": "MO",
+      "weight": 47,
+      "ceCount": 42
+    },
+    {
+      "source": "IA",
+      "target": "MS",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "IA",
+      "target": "NC",
+      "weight": 45,
+      "ceCount": 35
+    },
+    {
+      "source": "IA",
+      "target": "ND",
+      "weight": 12,
+      "ceCount": 8
+    },
+    {
+      "source": "IA",
+      "target": "NE",
+      "weight": 31,
+      "ceCount": 13
+    },
+    {
+      "source": "IA",
+      "target": "NJ",
+      "weight": 65,
+      "ceCount": 36
+    },
+    {
+      "source": "IA",
+      "target": "NM",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IA",
+      "target": "NV",
+      "weight": 35,
+      "ceCount": 32
+    },
+    {
+      "source": "IA",
+      "target": "NY",
+      "weight": 17,
+      "ceCount": 8
+    },
+    {
+      "source": "IA",
+      "target": "OH",
+      "weight": 5,
+      "ceCount": 4
+    },
+    {
+      "source": "IA",
+      "target": "OK",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IA",
+      "target": "OR",
+      "weight": 23,
+      "ceCount": 23
+    },
+    {
+      "source": "IA",
+      "target": "PA",
+      "weight": 139,
+      "ceCount": 48
+    },
+    {
+      "source": "IA",
+      "target": "RI",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IA",
+      "target": "SC",
+      "weight": 35,
+      "ceCount": 33
+    },
+    {
+      "source": "IA",
+      "target": "SD",
+      "weight": 7,
+      "ceCount": 5
+    },
+    {
+      "source": "IA",
+      "target": "TN",
+      "weight": 73,
+      "ceCount": 39
+    },
+    {
+      "source": "IA",
+      "target": "TX",
+      "weight": 182,
+      "ceCount": 67
+    },
+    {
+      "source": "IA",
+      "target": "WA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "IA",
+      "target": "WI",
+      "weight": 5,
+      "ceCount": 3
+    },
+    {
+      "source": "ID",
+      "target": "AL",
+      "weight": 21,
+      "ceCount": 17
+    },
+    {
+      "source": "ID",
+      "target": "AR",
+      "weight": 21,
+      "ceCount": 21
+    },
+    {
+      "source": "ID",
+      "target": "AZ",
+      "weight": 51,
+      "ceCount": 23
+    },
+    {
+      "source": "ID",
+      "target": "CA",
+      "weight": 40,
+      "ceCount": 19
+    },
+    {
+      "source": "ID",
+      "target": "DE",
+      "weight": 15,
+      "ceCount": 15
+    },
+    {
+      "source": "ID",
+      "target": "FL",
+      "weight": 89,
+      "ceCount": 35
+    },
+    {
+      "source": "ID",
+      "target": "HI",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "ID",
+      "target": "IL",
+      "weight": 30,
+      "ceCount": 18
+    },
+    {
+      "source": "ID",
+      "target": "IN",
+      "weight": 65,
+      "ceCount": 30
+    },
+    {
+      "source": "ID",
+      "target": "KS",
+      "weight": 21,
+      "ceCount": 19
+    },
+    {
+      "source": "ID",
+      "target": "KY",
+      "weight": 5,
+      "ceCount": 4
+    },
+    {
+      "source": "ID",
+      "target": "LA",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "ID",
+      "target": "MA",
+      "weight": 15,
+      "ceCount": 15
+    },
+    {
+      "source": "ID",
+      "target": "MD",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "ID",
+      "target": "MI",
+      "weight": 30,
+      "ceCount": 20
+    },
+    {
+      "source": "ID",
+      "target": "MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "ID",
+      "target": "MO",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "ID",
+      "target": "MS",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "ID",
+      "target": "NC",
+      "weight": 24,
+      "ceCount": 16
+    },
+    {
+      "source": "ID",
+      "target": "NH",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "ID",
+      "target": "NJ",
+      "weight": 23,
+      "ceCount": 17
+    },
+    {
+      "source": "ID",
+      "target": "NV",
+      "weight": 21,
+      "ceCount": 18
+    },
+    {
+      "source": "ID",
+      "target": "NY",
+      "weight": 17,
+      "ceCount": 11
+    },
+    {
+      "source": "ID",
+      "target": "OH",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "ID",
+      "target": "OR",
+      "weight": 56,
+      "ceCount": 20
+    },
+    {
+      "source": "ID",
+      "target": "PA",
+      "weight": 54,
+      "ceCount": 27
+    },
+    {
+      "source": "ID",
+      "target": "SC",
+      "weight": 27,
+      "ceCount": 19
+    },
+    {
+      "source": "ID",
+      "target": "TN",
+      "weight": 33,
+      "ceCount": 21
+    },
+    {
+      "source": "ID",
+      "target": "TX",
+      "weight": 73,
+      "ceCount": 34
+    },
+    {
+      "source": "ID",
+      "target": "UT",
+      "weight": 24,
+      "ceCount": 16
+    },
+    {
+      "source": "ID",
+      "target": "WA",
+      "weight": 47,
+      "ceCount": 22
+    },
+    {
+      "source": "ID",
+      "target": "WY",
+      "weight": 7,
+      "ceCount": 1
+    },
+    {
+      "source": "IL",
+      "target": "AL",
+      "weight": 77,
+      "ceCount": 63
+    },
+    {
+      "source": "IL",
+      "target": "AR",
+      "weight": 83,
+      "ceCount": 82
+    },
+    {
+      "source": "IL",
+      "target": "AZ",
+      "weight": 191,
+      "ceCount": 79
+    },
+    {
+      "source": "IL",
+      "target": "CA",
+      "weight": 125,
+      "ceCount": 80
+    },
+    {
+      "source": "IL",
+      "target": "CO",
+      "weight": 6,
+      "ceCount": 4
+    },
+    {
+      "source": "IL",
+      "target": "DC",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IL",
+      "target": "DE",
+      "weight": 36,
+      "ceCount": 36
+    },
+    {
+      "source": "IL",
+      "target": "FL",
+      "weight": 302,
+      "ceCount": 141
+    },
+    {
+      "source": "IL",
+      "target": "GA",
+      "weight": 18,
+      "ceCount": 18
+    },
+    {
+      "source": "IL",
+      "target": "HI",
+      "weight": 34,
+      "ceCount": 34
+    },
+    {
+      "source": "IL",
+      "target": "IA",
+      "weight": 62,
+      "ceCount": 34
+    },
+    {
+      "source": "IL",
+      "target": "IN",
+      "weight": 291,
+      "ceCount": 122
+    },
+    {
+      "source": "IL",
+      "target": "KS",
+      "weight": 95,
+      "ceCount": 70
+    },
+    {
+      "source": "IL",
+      "target": "KY",
+      "weight": 35,
+      "ceCount": 26
+    },
+    {
+      "source": "IL",
+      "target": "LA",
+      "weight": 26,
+      "ceCount": 25
+    },
+    {
+      "source": "IL",
+      "target": "MA",
+      "weight": 62,
+      "ceCount": 59
+    },
+    {
+      "source": "IL",
+      "target": "MD",
+      "weight": 13,
+      "ceCount": 13
+    },
+    {
+      "source": "IL",
+      "target": "ME",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "IL",
+      "target": "MI",
+      "weight": 183,
+      "ceCount": 111
+    },
+    {
+      "source": "IL",
+      "target": "MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IL",
+      "target": "MO",
+      "weight": 110,
+      "ceCount": 56
+    },
+    {
+      "source": "IL",
+      "target": "MS",
+      "weight": 17,
+      "ceCount": 17
+    },
+    {
+      "source": "IL",
+      "target": "NC",
+      "weight": 90,
+      "ceCount": 64
+    },
+    {
+      "source": "IL",
+      "target": "NE",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "IL",
+      "target": "NH",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "IL",
+      "target": "NJ",
+      "weight": 105,
+      "ceCount": 73
+    },
+    {
+      "source": "IL",
+      "target": "NV",
+      "weight": 67,
+      "ceCount": 60
+    },
+    {
+      "source": "IL",
+      "target": "NY",
+      "weight": 79,
+      "ceCount": 46
+    },
+    {
+      "source": "IL",
+      "target": "OH",
+      "weight": 23,
+      "ceCount": 17
+    },
+    {
+      "source": "IL",
+      "target": "OR",
+      "weight": 8,
+      "ceCount": 7
+    },
+    {
+      "source": "IL",
+      "target": "PA",
+      "weight": 251,
+      "ceCount": 128
+    },
+    {
+      "source": "IL",
+      "target": "PR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IL",
+      "target": "SC",
+      "weight": 77,
+      "ceCount": 72
+    },
+    {
+      "source": "IL",
+      "target": "TN",
+      "weight": 154,
+      "ceCount": 88
+    },
+    {
+      "source": "IL",
+      "target": "TX",
+      "weight": 317,
+      "ceCount": 151
+    },
+    {
+      "source": "IL",
+      "target": "VA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "IL",
+      "target": "WA",
+      "weight": 24,
+      "ceCount": 22
+    },
+    {
+      "source": "IL",
+      "target": "WI",
+      "weight": 33,
+      "ceCount": 11
+    },
+    {
+      "source": "IN",
+      "target": "AL",
+      "weight": 58,
+      "ceCount": 49
+    },
+    {
+      "source": "IN",
+      "target": "AR",
+      "weight": 43,
+      "ceCount": 43
+    },
+    {
+      "source": "IN",
+      "target": "AZ",
+      "weight": 96,
+      "ceCount": 46
+    },
+    {
+      "source": "IN",
+      "target": "CA",
+      "weight": 100,
+      "ceCount": 58
+    },
+    {
+      "source": "IN",
+      "target": "DE",
+      "weight": 14,
+      "ceCount": 14
+    },
+    {
+      "source": "IN",
+      "target": "FL",
+      "weight": 219,
+      "ceCount": 82
+    },
+    {
+      "source": "IN",
+      "target": "GA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "IN",
+      "target": "HI",
+      "weight": 15,
+      "ceCount": 15
+    },
+    {
+      "source": "IN",
+      "target": "IA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IN",
+      "target": "IL",
+      "weight": 151,
+      "ceCount": 77
+    },
+    {
+      "source": "IN",
+      "target": "KS",
+      "weight": 63,
+      "ceCount": 53
+    },
+    {
+      "source": "IN",
+      "target": "KY",
+      "weight": 19,
+      "ceCount": 11
+    },
+    {
+      "source": "IN",
+      "target": "LA",
+      "weight": 41,
+      "ceCount": 41
+    },
+    {
+      "source": "IN",
+      "target": "MA",
+      "weight": 46,
+      "ceCount": 46
+    },
+    {
+      "source": "IN",
+      "target": "MD",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IN",
+      "target": "ME",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "IN",
+      "target": "MI",
+      "weight": 112,
+      "ceCount": 62
+    },
+    {
+      "source": "IN",
+      "target": "MN",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "IN",
+      "target": "MO",
+      "weight": 14,
+      "ceCount": 13
+    },
+    {
+      "source": "IN",
+      "target": "MS",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "IN",
+      "target": "NC",
+      "weight": 85,
+      "ceCount": 55
+    },
+    {
+      "source": "IN",
+      "target": "NH",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "IN",
+      "target": "NJ",
+      "weight": 65,
+      "ceCount": 48
+    },
+    {
+      "source": "IN",
+      "target": "NV",
+      "weight": 46,
+      "ceCount": 45
+    },
+    {
+      "source": "IN",
+      "target": "NY",
+      "weight": 34,
+      "ceCount": 27
+    },
+    {
+      "source": "IN",
+      "target": "OH",
+      "weight": 37,
+      "ceCount": 30
+    },
+    {
+      "source": "IN",
+      "target": "OR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IN",
+      "target": "PA",
+      "weight": 149,
+      "ceCount": 85
+    },
+    {
+      "source": "IN",
+      "target": "PR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "IN",
+      "target": "SC",
+      "weight": 89,
+      "ceCount": 75
+    },
+    {
+      "source": "IN",
+      "target": "TN",
+      "weight": 79,
+      "ceCount": 55
+    },
+    {
+      "source": "IN",
+      "target": "TX",
+      "weight": 177,
+      "ceCount": 86
+    },
+    {
+      "source": "IN",
+      "target": "WA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "KS",
+      "target": "AL",
+      "weight": 20,
+      "ceCount": 19
+    },
+    {
+      "source": "KS",
+      "target": "AR",
+      "weight": 41,
+      "ceCount": 41
+    },
+    {
+      "source": "KS",
+      "target": "AZ",
+      "weight": 71,
+      "ceCount": 24
+    },
+    {
+      "source": "KS",
+      "target": "CA",
+      "weight": 11,
+      "ceCount": 8
+    },
+    {
+      "source": "KS",
+      "target": "CO",
+      "weight": 9,
+      "ceCount": 6
+    },
+    {
+      "source": "KS",
+      "target": "DE",
+      "weight": 19,
+      "ceCount": 19
+    },
+    {
+      "source": "KS",
+      "target": "FL",
+      "weight": 123,
+      "ceCount": 62
+    },
+    {
+      "source": "KS",
+      "target": "GA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "KS",
+      "target": "HI",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "KS",
+      "target": "IA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "KS",
+      "target": "IL",
+      "weight": 19,
+      "ceCount": 13
+    },
+    {
+      "source": "KS",
+      "target": "IN",
+      "weight": 99,
+      "ceCount": 50
+    },
+    {
+      "source": "KS",
+      "target": "KY",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "KS",
+      "target": "LA",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "KS",
+      "target": "MA",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "KS",
+      "target": "MI",
+      "weight": 45,
+      "ceCount": 32
+    },
+    {
+      "source": "KS",
+      "target": "MO",
+      "weight": 152,
+      "ceCount": 37
+    },
+    {
+      "source": "KS",
+      "target": "MS",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "KS",
+      "target": "NC",
+      "weight": 11,
+      "ceCount": 9
+    },
+    {
+      "source": "KS",
+      "target": "NE",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "KS",
+      "target": "NH",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "KS",
+      "target": "NJ",
+      "weight": 23,
+      "ceCount": 18
+    },
+    {
+      "source": "KS",
+      "target": "NV",
+      "weight": 10,
+      "ceCount": 9
+    },
+    {
+      "source": "KS",
+      "target": "NY",
+      "weight": 7,
+      "ceCount": 5
+    },
+    {
+      "source": "KS",
+      "target": "OH",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "KS",
+      "target": "OK",
+      "weight": 5,
+      "ceCount": 1
+    },
+    {
+      "source": "KS",
+      "target": "OR",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "KS",
+      "target": "PA",
+      "weight": 52,
+      "ceCount": 32
+    },
+    {
+      "source": "KS",
+      "target": "SC",
+      "weight": 8,
+      "ceCount": 7
+    },
+    {
+      "source": "KS",
+      "target": "TN",
+      "weight": 63,
+      "ceCount": 47
+    },
+    {
+      "source": "KS",
+      "target": "TX",
+      "weight": 118,
+      "ceCount": 62
+    },
+    {
+      "source": "KS",
+      "target": "WA",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "KY",
+      "target": "AL",
+      "weight": 68,
+      "ceCount": 53
+    },
+    {
+      "source": "KY",
+      "target": "AR",
+      "weight": 60,
+      "ceCount": 60
+    },
+    {
+      "source": "KY",
+      "target": "AZ",
+      "weight": 102,
+      "ceCount": 48
+    },
+    {
+      "source": "KY",
+      "target": "CA",
+      "weight": 101,
+      "ceCount": 57
+    },
+    {
+      "source": "KY",
+      "target": "CO",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "KY",
+      "target": "DE",
+      "weight": 30,
+      "ceCount": 30
+    },
+    {
+      "source": "KY",
+      "target": "FL",
+      "weight": 303,
+      "ceCount": 125
+    },
+    {
+      "source": "KY",
+      "target": "GA",
+      "weight": 8,
+      "ceCount": 7
+    },
+    {
+      "source": "KY",
+      "target": "HI",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "KY",
+      "target": "IL",
+      "weight": 140,
+      "ceCount": 86
+    },
+    {
+      "source": "KY",
+      "target": "IN",
+      "weight": 323,
+      "ceCount": 112
+    },
+    {
+      "source": "KY",
+      "target": "KS",
+      "weight": 97,
+      "ceCount": 64
+    },
+    {
+      "source": "KY",
+      "target": "LA",
+      "weight": 14,
+      "ceCount": 13
+    },
+    {
+      "source": "KY",
+      "target": "MA",
+      "weight": 57,
+      "ceCount": 47
+    },
+    {
+      "source": "KY",
+      "target": "MD",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "KY",
+      "target": "MI",
+      "weight": 115,
+      "ceCount": 90
+    },
+    {
+      "source": "KY",
+      "target": "MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "KY",
+      "target": "MO",
+      "weight": 27,
+      "ceCount": 26
+    },
+    {
+      "source": "KY",
+      "target": "MS",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "KY",
+      "target": "NC",
+      "weight": 111,
+      "ceCount": 59
+    },
+    {
+      "source": "KY",
+      "target": "NE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "KY",
+      "target": "NH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "KY",
+      "target": "NJ",
+      "weight": 88,
+      "ceCount": 66
+    },
+    {
+      "source": "KY",
+      "target": "NV",
+      "weight": 47,
+      "ceCount": 46
+    },
+    {
+      "source": "KY",
+      "target": "NY",
+      "weight": 95,
+      "ceCount": 39
+    },
+    {
+      "source": "KY",
+      "target": "OH",
+      "weight": 194,
+      "ceCount": 71
+    },
+    {
+      "source": "KY",
+      "target": "PA",
+      "weight": 208,
+      "ceCount": 115
+    },
+    {
+      "source": "KY",
+      "target": "SC",
+      "weight": 76,
+      "ceCount": 54
+    },
+    {
+      "source": "KY",
+      "target": "TN",
+      "weight": 162,
+      "ceCount": 85
+    },
+    {
+      "source": "KY",
+      "target": "TX",
+      "weight": 290,
+      "ceCount": 121
+    },
+    {
+      "source": "KY",
+      "target": "VA",
+      "weight": 12,
+      "ceCount": 6
+    },
+    {
+      "source": "KY",
+      "target": "WA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "KY",
+      "target": "WV",
+      "weight": 72,
+      "ceCount": 17
+    },
+    {
+      "source": "LA",
+      "target": "AL",
+      "weight": 135,
+      "ceCount": 105
+    },
+    {
+      "source": "LA",
+      "target": "AR",
+      "weight": 108,
+      "ceCount": 107
+    },
+    {
+      "source": "LA",
+      "target": "AZ",
+      "weight": 271,
+      "ceCount": 137
+    },
+    {
+      "source": "LA",
+      "target": "CA",
+      "weight": 202,
+      "ceCount": 107
+    },
+    {
+      "source": "LA",
+      "target": "CT",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "LA",
+      "target": "DE",
+      "weight": 112,
+      "ceCount": 111
+    },
+    {
+      "source": "LA",
+      "target": "FL",
+      "weight": 585,
+      "ceCount": 202
+    },
+    {
+      "source": "LA",
+      "target": "GA",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "LA",
+      "target": "HI",
+      "weight": 14,
+      "ceCount": 14
+    },
+    {
+      "source": "LA",
+      "target": "IA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "LA",
+      "target": "IL",
+      "weight": 130,
+      "ceCount": 94
+    },
+    {
+      "source": "LA",
+      "target": "IN",
+      "weight": 424,
+      "ceCount": 170
+    },
+    {
+      "source": "LA",
+      "target": "KS",
+      "weight": 161,
+      "ceCount": 107
+    },
+    {
+      "source": "LA",
+      "target": "KY",
+      "weight": 26,
+      "ceCount": 25
+    },
+    {
+      "source": "LA",
+      "target": "MA",
+      "weight": 86,
+      "ceCount": 86
+    },
+    {
+      "source": "LA",
+      "target": "MD",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "LA",
+      "target": "MI",
+      "weight": 167,
+      "ceCount": 104
+    },
+    {
+      "source": "LA",
+      "target": "MO",
+      "weight": 86,
+      "ceCount": 72
+    },
+    {
+      "source": "LA",
+      "target": "MS",
+      "weight": 96,
+      "ceCount": 41
+    },
+    {
+      "source": "LA",
+      "target": "NC",
+      "weight": 152,
+      "ceCount": 98
+    },
+    {
+      "source": "LA",
+      "target": "NE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "LA",
+      "target": "NH",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "LA",
+      "target": "NJ",
+      "weight": 174,
+      "ceCount": 125
+    },
+    {
+      "source": "LA",
+      "target": "NV",
+      "weight": 76,
+      "ceCount": 76
+    },
+    {
+      "source": "LA",
+      "target": "NY",
+      "weight": 83,
+      "ceCount": 48
+    },
+    {
+      "source": "LA",
+      "target": "OH",
+      "weight": 34,
+      "ceCount": 34
+    },
+    {
+      "source": "LA",
+      "target": "PA",
+      "weight": 275,
+      "ceCount": 152
+    },
+    {
+      "source": "LA",
+      "target": "SC",
+      "weight": 142,
+      "ceCount": 117
+    },
+    {
+      "source": "LA",
+      "target": "TN",
+      "weight": 298,
+      "ceCount": 165
+    },
+    {
+      "source": "LA",
+      "target": "TX",
+      "weight": 549,
+      "ceCount": 228
+    },
+    {
+      "source": "LA",
+      "target": "WA",
+      "weight": 11,
+      "ceCount": 8
+    },
+    {
+      "source": "MA",
+      "target": "AL",
+      "weight": 55,
+      "ceCount": 40
+    },
+    {
+      "source": "MA",
+      "target": "AR",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "MA",
+      "target": "AZ",
+      "weight": 116,
+      "ceCount": 44
+    },
+    {
+      "source": "MA",
+      "target": "CA",
+      "weight": 89,
+      "ceCount": 46
+    },
+    {
+      "source": "MA",
+      "target": "CO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MA",
+      "target": "CT",
+      "weight": 40,
+      "ceCount": 18
+    },
+    {
+      "source": "MA",
+      "target": "DC",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MA",
+      "target": "DE",
+      "weight": 27,
+      "ceCount": 27
+    },
+    {
+      "source": "MA",
+      "target": "FL",
+      "weight": 150,
+      "ceCount": 53
+    },
+    {
+      "source": "MA",
+      "target": "GA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MA",
+      "target": "HI",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "MA",
+      "target": "IL",
+      "weight": 93,
+      "ceCount": 53
+    },
+    {
+      "source": "MA",
+      "target": "IN",
+      "weight": 100,
+      "ceCount": 35
+    },
+    {
+      "source": "MA",
+      "target": "KS",
+      "weight": 70,
+      "ceCount": 44
+    },
+    {
+      "source": "MA",
+      "target": "KY",
+      "weight": 8,
+      "ceCount": 7
+    },
+    {
+      "source": "MA",
+      "target": "LA",
+      "weight": 15,
+      "ceCount": 15
+    },
+    {
+      "source": "MA",
+      "target": "MD",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "MA",
+      "target": "ME",
+      "weight": 10,
+      "ceCount": 6
+    },
+    {
+      "source": "MA",
+      "target": "MI",
+      "weight": 82,
+      "ceCount": 46
+    },
+    {
+      "source": "MA",
+      "target": "MN",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "MA",
+      "target": "MO",
+      "weight": 19,
+      "ceCount": 19
+    },
+    {
+      "source": "MA",
+      "target": "MS",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "MA",
+      "target": "NC",
+      "weight": 52,
+      "ceCount": 44
+    },
+    {
+      "source": "MA",
+      "target": "NH",
+      "weight": 54,
+      "ceCount": 22
+    },
+    {
+      "source": "MA",
+      "target": "NJ",
+      "weight": 89,
+      "ceCount": 49
+    },
+    {
+      "source": "MA",
+      "target": "NV",
+      "weight": 43,
+      "ceCount": 39
+    },
+    {
+      "source": "MA",
+      "target": "NY",
+      "weight": 64,
+      "ceCount": 36
+    },
+    {
+      "source": "MA",
+      "target": "OH",
+      "weight": 12,
+      "ceCount": 11
+    },
+    {
+      "source": "MA",
+      "target": "OK",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MA",
+      "target": "PA",
+      "weight": 176,
+      "ceCount": 69
+    },
+    {
+      "source": "MA",
+      "target": "RI",
+      "weight": 76,
+      "ceCount": 21
+    },
+    {
+      "source": "MA",
+      "target": "SC",
+      "weight": 58,
+      "ceCount": 47
+    },
+    {
+      "source": "MA",
+      "target": "TN",
+      "weight": 82,
+      "ceCount": 45
+    },
+    {
+      "source": "MA",
+      "target": "TX",
+      "weight": 112,
+      "ceCount": 46
+    },
+    {
+      "source": "MA",
+      "target": "VA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "MA",
+      "target": "VT",
+      "weight": 8,
+      "ceCount": 5
+    },
+    {
+      "source": "MA",
+      "target": "WA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "MA",
+      "target": "WI",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MD",
+      "target": "AL",
+      "weight": 43,
+      "ceCount": 35
+    },
+    {
+      "source": "MD",
+      "target": "AR",
+      "weight": 13,
+      "ceCount": 13
+    },
+    {
+      "source": "MD",
+      "target": "AZ",
+      "weight": 45,
+      "ceCount": 25
+    },
+    {
+      "source": "MD",
+      "target": "CA",
+      "weight": 71,
+      "ceCount": 39
+    },
+    {
+      "source": "MD",
+      "target": "DC",
+      "weight": 95,
+      "ceCount": 25
+    },
+    {
+      "source": "MD",
+      "target": "DE",
+      "weight": 27,
+      "ceCount": 20
+    },
+    {
+      "source": "MD",
+      "target": "FL",
+      "weight": 140,
+      "ceCount": 59
+    },
+    {
+      "source": "MD",
+      "target": "GA",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "MD",
+      "target": "HI",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "MD",
+      "target": "IL",
+      "weight": 61,
+      "ceCount": 47
+    },
+    {
+      "source": "MD",
+      "target": "IN",
+      "weight": 58,
+      "ceCount": 31
+    },
+    {
+      "source": "MD",
+      "target": "KS",
+      "weight": 60,
+      "ceCount": 45
+    },
+    {
+      "source": "MD",
+      "target": "KY",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "MD",
+      "target": "LA",
+      "weight": 9,
+      "ceCount": 8
+    },
+    {
+      "source": "MD",
+      "target": "MA",
+      "weight": 40,
+      "ceCount": 40
+    },
+    {
+      "source": "MD",
+      "target": "ME",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MD",
+      "target": "MI",
+      "weight": 59,
+      "ceCount": 42
+    },
+    {
+      "source": "MD",
+      "target": "MO",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "MD",
+      "target": "MS",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "MD",
+      "target": "NC",
+      "weight": 59,
+      "ceCount": 44
+    },
+    {
+      "source": "MD",
+      "target": "NH",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "MD",
+      "target": "NJ",
+      "weight": 68,
+      "ceCount": 47
+    },
+    {
+      "source": "MD",
+      "target": "NV",
+      "weight": 39,
+      "ceCount": 35
+    },
+    {
+      "source": "MD",
+      "target": "NY",
+      "weight": 35,
+      "ceCount": 20
+    },
+    {
+      "source": "MD",
+      "target": "OH",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "MD",
+      "target": "OR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MD",
+      "target": "PA",
+      "weight": 125,
+      "ceCount": 51
+    },
+    {
+      "source": "MD",
+      "target": "SC",
+      "weight": 41,
+      "ceCount": 34
+    },
+    {
+      "source": "MD",
+      "target": "TN",
+      "weight": 66,
+      "ceCount": 43
+    },
+    {
+      "source": "MD",
+      "target": "TX",
+      "weight": 95,
+      "ceCount": 47
+    },
+    {
+      "source": "MD",
+      "target": "VA",
+      "weight": 32,
+      "ceCount": 16
+    },
+    {
+      "source": "MD",
+      "target": "WA",
+      "weight": 7,
+      "ceCount": 5
+    },
+    {
+      "source": "MD",
+      "target": "WV",
+      "weight": 31,
+      "ceCount": 7
+    },
+    {
+      "source": "ME",
+      "target": "AL",
+      "weight": 32,
+      "ceCount": 22
+    },
+    {
+      "source": "ME",
+      "target": "AR",
+      "weight": 33,
+      "ceCount": 33
+    },
+    {
+      "source": "ME",
+      "target": "AZ",
+      "weight": 76,
+      "ceCount": 25
+    },
+    {
+      "source": "ME",
+      "target": "CA",
+      "weight": 56,
+      "ceCount": 25
+    },
+    {
+      "source": "ME",
+      "target": "CT",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "ME",
+      "target": "DE",
+      "weight": 17,
+      "ceCount": 17
+    },
+    {
+      "source": "ME",
+      "target": "FL",
+      "weight": 135,
+      "ceCount": 44
+    },
+    {
+      "source": "ME",
+      "target": "GA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "ME",
+      "target": "HI",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "ME",
+      "target": "IL",
+      "weight": 41,
+      "ceCount": 21
+    },
+    {
+      "source": "ME",
+      "target": "IN",
+      "weight": 95,
+      "ceCount": 42
+    },
+    {
+      "source": "ME",
+      "target": "KS",
+      "weight": 40,
+      "ceCount": 25
+    },
+    {
+      "source": "ME",
+      "target": "KY",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "ME",
+      "target": "LA",
+      "weight": 31,
+      "ceCount": 31
+    },
+    {
+      "source": "ME",
+      "target": "MA",
+      "weight": 113,
+      "ceCount": 66
+    },
+    {
+      "source": "ME",
+      "target": "MI",
+      "weight": 62,
+      "ceCount": 32
+    },
+    {
+      "source": "ME",
+      "target": "MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "ME",
+      "target": "MO",
+      "weight": 16,
+      "ceCount": 16
+    },
+    {
+      "source": "ME",
+      "target": "NC",
+      "weight": 46,
+      "ceCount": 23
+    },
+    {
+      "source": "ME",
+      "target": "NH",
+      "weight": 12,
+      "ceCount": 7
+    },
+    {
+      "source": "ME",
+      "target": "NJ",
+      "weight": 52,
+      "ceCount": 29
+    },
+    {
+      "source": "ME",
+      "target": "NV",
+      "weight": 25,
+      "ceCount": 18
+    },
+    {
+      "source": "ME",
+      "target": "NY",
+      "weight": 43,
+      "ceCount": 21
+    },
+    {
+      "source": "ME",
+      "target": "OH",
+      "weight": 12,
+      "ceCount": 10
+    },
+    {
+      "source": "ME",
+      "target": "PA",
+      "weight": 82,
+      "ceCount": 31
+    },
+    {
+      "source": "ME",
+      "target": "PR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "ME",
+      "target": "SC",
+      "weight": 50,
+      "ceCount": 40
+    },
+    {
+      "source": "ME",
+      "target": "TN",
+      "weight": 39,
+      "ceCount": 24
+    },
+    {
+      "source": "ME",
+      "target": "TX",
+      "weight": 113,
+      "ceCount": 42
+    },
+    {
+      "source": "MI",
+      "target": "AL",
+      "weight": 66,
+      "ceCount": 53
+    },
+    {
+      "source": "MI",
+      "target": "AR",
+      "weight": 90,
+      "ceCount": 90
+    },
+    {
+      "source": "MI",
+      "target": "AZ",
+      "weight": 200,
+      "ceCount": 80
+    },
+    {
+      "source": "MI",
+      "target": "CA",
+      "weight": 59,
+      "ceCount": 45
+    },
+    {
+      "source": "MI",
+      "target": "CO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MI",
+      "target": "DE",
+      "weight": 56,
+      "ceCount": 56
+    },
+    {
+      "source": "MI",
+      "target": "FL",
+      "weight": 313,
+      "ceCount": 143
+    },
+    {
+      "source": "MI",
+      "target": "GA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "MI",
+      "target": "HI",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "MI",
+      "target": "IL",
+      "weight": 140,
+      "ceCount": 98
+    },
+    {
+      "source": "MI",
+      "target": "IN",
+      "weight": 385,
+      "ceCount": 129
+    },
+    {
+      "source": "MI",
+      "target": "KS",
+      "weight": 90,
+      "ceCount": 68
+    },
+    {
+      "source": "MI",
+      "target": "KY",
+      "weight": 33,
+      "ceCount": 29
+    },
+    {
+      "source": "MI",
+      "target": "LA",
+      "weight": 58,
+      "ceCount": 57
+    },
+    {
+      "source": "MI",
+      "target": "MA",
+      "weight": 45,
+      "ceCount": 42
+    },
+    {
+      "source": "MI",
+      "target": "MD",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "MI",
+      "target": "ME",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MI",
+      "target": "MN",
+      "weight": 16,
+      "ceCount": 16
+    },
+    {
+      "source": "MI",
+      "target": "MO",
+      "weight": 49,
+      "ceCount": 49
+    },
+    {
+      "source": "MI",
+      "target": "MS",
+      "weight": 23,
+      "ceCount": 23
+    },
+    {
+      "source": "MI",
+      "target": "NC",
+      "weight": 95,
+      "ceCount": 63
+    },
+    {
+      "source": "MI",
+      "target": "NE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MI",
+      "target": "NH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MI",
+      "target": "NJ",
+      "weight": 128,
+      "ceCount": 89
+    },
+    {
+      "source": "MI",
+      "target": "NV",
+      "weight": 44,
+      "ceCount": 40
+    },
+    {
+      "source": "MI",
+      "target": "NY",
+      "weight": 54,
+      "ceCount": 28
+    },
+    {
+      "source": "MI",
+      "target": "OH",
+      "weight": 186,
+      "ceCount": 137
+    },
+    {
+      "source": "MI",
+      "target": "PA",
+      "weight": 237,
+      "ceCount": 128
+    },
+    {
+      "source": "MI",
+      "target": "PR",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "MI",
+      "target": "SC",
+      "weight": 91,
+      "ceCount": 80
+    },
+    {
+      "source": "MI",
+      "target": "TN",
+      "weight": 128,
+      "ceCount": 97
+    },
+    {
+      "source": "MI",
+      "target": "TX",
+      "weight": 277,
+      "ceCount": 124
+    },
+    {
+      "source": "MI",
+      "target": "VA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MI",
+      "target": "WA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "MI",
+      "target": "WI",
+      "weight": 13,
+      "ceCount": 13
+    },
+    {
+      "source": "MN",
+      "target": "AL",
+      "weight": 34,
+      "ceCount": 28
+    },
+    {
+      "source": "MN",
+      "target": "AR",
+      "weight": 28,
+      "ceCount": 28
+    },
+    {
+      "source": "MN",
+      "target": "AZ",
+      "weight": 87,
+      "ceCount": 39
+    },
+    {
+      "source": "MN",
+      "target": "CA",
+      "weight": 60,
+      "ceCount": 33
+    },
+    {
+      "source": "MN",
+      "target": "DE",
+      "weight": 15,
+      "ceCount": 15
+    },
+    {
+      "source": "MN",
+      "target": "FL",
+      "weight": 118,
+      "ceCount": 63
+    },
+    {
+      "source": "MN",
+      "target": "GA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MN",
+      "target": "HI",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "MN",
+      "target": "IA",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "MN",
+      "target": "IL",
+      "weight": 52,
+      "ceCount": 33
+    },
+    {
+      "source": "MN",
+      "target": "IN",
+      "weight": 107,
+      "ceCount": 55
+    },
+    {
+      "source": "MN",
+      "target": "KS",
+      "weight": 38,
+      "ceCount": 29
+    },
+    {
+      "source": "MN",
+      "target": "KY",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "MN",
+      "target": "LA",
+      "weight": 11,
+      "ceCount": 10
+    },
+    {
+      "source": "MN",
+      "target": "MA",
+      "weight": 21,
+      "ceCount": 21
+    },
+    {
+      "source": "MN",
+      "target": "MD",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "MN",
+      "target": "MI",
+      "weight": 70,
+      "ceCount": 40
+    },
+    {
+      "source": "MN",
+      "target": "MO",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "MN",
+      "target": "MS",
+      "weight": 13,
+      "ceCount": 13
+    },
+    {
+      "source": "MN",
+      "target": "NC",
+      "weight": 48,
+      "ceCount": 31
+    },
+    {
+      "source": "MN",
+      "target": "ND",
+      "weight": 66,
+      "ceCount": 37
+    },
+    {
+      "source": "MN",
+      "target": "NE",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "MN",
+      "target": "NJ",
+      "weight": 48,
+      "ceCount": 34
+    },
+    {
+      "source": "MN",
+      "target": "NV",
+      "weight": 24,
+      "ceCount": 23
+    },
+    {
+      "source": "MN",
+      "target": "NY",
+      "weight": 40,
+      "ceCount": 35
+    },
+    {
+      "source": "MN",
+      "target": "OH",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "MN",
+      "target": "PA",
+      "weight": 96,
+      "ceCount": 55
+    },
+    {
+      "source": "MN",
+      "target": "SC",
+      "weight": 46,
+      "ceCount": 38
+    },
+    {
+      "source": "MN",
+      "target": "SD",
+      "weight": 8,
+      "ceCount": 6
+    },
+    {
+      "source": "MN",
+      "target": "TN",
+      "weight": 42,
+      "ceCount": 31
+    },
+    {
+      "source": "MN",
+      "target": "TX",
+      "weight": 126,
+      "ceCount": 59
+    },
+    {
+      "source": "MN",
+      "target": "WA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "MN",
+      "target": "WI",
+      "weight": 57,
+      "ceCount": 20
+    },
+    {
+      "source": "MO",
+      "target": "AL",
+      "weight": 51,
+      "ceCount": 41
+    },
+    {
+      "source": "MO",
+      "target": "AR",
+      "weight": 74,
+      "ceCount": 68
+    },
+    {
+      "source": "MO",
+      "target": "AZ",
+      "weight": 123,
+      "ceCount": 46
+    },
+    {
+      "source": "MO",
+      "target": "CA",
+      "weight": 59,
+      "ceCount": 39
+    },
+    {
+      "source": "MO",
+      "target": "CO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MO",
+      "target": "DE",
+      "weight": 33,
+      "ceCount": 33
+    },
+    {
+      "source": "MO",
+      "target": "FL",
+      "weight": 209,
+      "ceCount": 92
+    },
+    {
+      "source": "MO",
+      "target": "GA",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "MO",
+      "target": "HI",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "MO",
+      "target": "IA",
+      "weight": 23,
+      "ceCount": 20
+    },
+    {
+      "source": "MO",
+      "target": "IL",
+      "weight": 226,
+      "ceCount": 50
+    },
+    {
+      "source": "MO",
+      "target": "IN",
+      "weight": 178,
+      "ceCount": 83
+    },
+    {
+      "source": "MO",
+      "target": "KS",
+      "weight": 135,
+      "ceCount": 58
+    },
+    {
+      "source": "MO",
+      "target": "KY",
+      "weight": 19,
+      "ceCount": 18
+    },
+    {
+      "source": "MO",
+      "target": "LA",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "MO",
+      "target": "MA",
+      "weight": 27,
+      "ceCount": 27
+    },
+    {
+      "source": "MO",
+      "target": "MD",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "MO",
+      "target": "MI",
+      "weight": 75,
+      "ceCount": 44
+    },
+    {
+      "source": "MO",
+      "target": "MN",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "MO",
+      "target": "MS",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "MO",
+      "target": "NC",
+      "weight": 56,
+      "ceCount": 36
+    },
+    {
+      "source": "MO",
+      "target": "NE",
+      "weight": 10,
+      "ceCount": 8
+    },
+    {
+      "source": "MO",
+      "target": "NJ",
+      "weight": 72,
+      "ceCount": 44
+    },
+    {
+      "source": "MO",
+      "target": "NV",
+      "weight": 35,
+      "ceCount": 29
+    },
+    {
+      "source": "MO",
+      "target": "NY",
+      "weight": 53,
+      "ceCount": 34
+    },
+    {
+      "source": "MO",
+      "target": "OH",
+      "weight": 26,
+      "ceCount": 16
+    },
+    {
+      "source": "MO",
+      "target": "OK",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "MO",
+      "target": "OR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MO",
+      "target": "PA",
+      "weight": 134,
+      "ceCount": 60
+    },
+    {
+      "source": "MO",
+      "target": "PR",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "MO",
+      "target": "SC",
+      "weight": 34,
+      "ceCount": 31
+    },
+    {
+      "source": "MO",
+      "target": "TN",
+      "weight": 107,
+      "ceCount": 58
+    },
+    {
+      "source": "MO",
+      "target": "TX",
+      "weight": 188,
+      "ceCount": 80
+    },
+    {
+      "source": "MO",
+      "target": "WA",
+      "weight": 13,
+      "ceCount": 12
+    },
+    {
+      "source": "MO",
+      "target": "WI",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "MS",
+      "target": "AL",
+      "weight": 148,
+      "ceCount": 38
+    },
+    {
+      "source": "MS",
+      "target": "AR",
+      "weight": 49,
+      "ceCount": 49
+    },
+    {
+      "source": "MS",
+      "target": "AZ",
+      "weight": 74,
+      "ceCount": 31
+    },
+    {
+      "source": "MS",
+      "target": "CA",
+      "weight": 40,
+      "ceCount": 25
+    },
+    {
+      "source": "MS",
+      "target": "CO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MS",
+      "target": "DE",
+      "weight": 15,
+      "ceCount": 15
+    },
+    {
+      "source": "MS",
+      "target": "FL",
+      "weight": 173,
+      "ceCount": 75
+    },
+    {
+      "source": "MS",
+      "target": "GA",
+      "weight": 21,
+      "ceCount": 19
+    },
+    {
+      "source": "MS",
+      "target": "HI",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "MS",
+      "target": "IL",
+      "weight": 42,
+      "ceCount": 30
+    },
+    {
+      "source": "MS",
+      "target": "IN",
+      "weight": 106,
+      "ceCount": 56
+    },
+    {
+      "source": "MS",
+      "target": "KS",
+      "weight": 43,
+      "ceCount": 36
+    },
+    {
+      "source": "MS",
+      "target": "KY",
+      "weight": 11,
+      "ceCount": 10
+    },
+    {
+      "source": "MS",
+      "target": "LA",
+      "weight": 47,
+      "ceCount": 27
+    },
+    {
+      "source": "MS",
+      "target": "MA",
+      "weight": 24,
+      "ceCount": 24
+    },
+    {
+      "source": "MS",
+      "target": "MI",
+      "weight": 63,
+      "ceCount": 41
+    },
+    {
+      "source": "MS",
+      "target": "MO",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "MS",
+      "target": "NC",
+      "weight": 41,
+      "ceCount": 34
+    },
+    {
+      "source": "MS",
+      "target": "NH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MS",
+      "target": "NJ",
+      "weight": 36,
+      "ceCount": 27
+    },
+    {
+      "source": "MS",
+      "target": "NV",
+      "weight": 25,
+      "ceCount": 23
+    },
+    {
+      "source": "MS",
+      "target": "NY",
+      "weight": 34,
+      "ceCount": 15
+    },
+    {
+      "source": "MS",
+      "target": "OH",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "MS",
+      "target": "OK",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "MS",
+      "target": "PA",
+      "weight": 102,
+      "ceCount": 48
+    },
+    {
+      "source": "MS",
+      "target": "SC",
+      "weight": 38,
+      "ceCount": 27
+    },
+    {
+      "source": "MS",
+      "target": "TN",
+      "weight": 135,
+      "ceCount": 61
+    },
+    {
+      "source": "MS",
+      "target": "TX",
+      "weight": 169,
+      "ceCount": 73
+    },
+    {
+      "source": "MS",
+      "target": "WA",
+      "weight": 4,
+      "ceCount": 3
+    },
+    {
+      "source": "MT",
+      "target": "AL",
+      "weight": 11,
+      "ceCount": 10
+    },
+    {
+      "source": "MT",
+      "target": "AR",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "MT",
+      "target": "AZ",
+      "weight": 18,
+      "ceCount": 9
+    },
+    {
+      "source": "MT",
+      "target": "CA",
+      "weight": 14,
+      "ceCount": 12
+    },
+    {
+      "source": "MT",
+      "target": "CO",
+      "weight": 9,
+      "ceCount": 3
+    },
+    {
+      "source": "MT",
+      "target": "DE",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "MT",
+      "target": "FL",
+      "weight": 30,
+      "ceCount": 16
+    },
+    {
+      "source": "MT",
+      "target": "HI",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MT",
+      "target": "ID",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MT",
+      "target": "IL",
+      "weight": 13,
+      "ceCount": 9
+    },
+    {
+      "source": "MT",
+      "target": "IN",
+      "weight": 25,
+      "ceCount": 13
+    },
+    {
+      "source": "MT",
+      "target": "KS",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "MT",
+      "target": "KY",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "MT",
+      "target": "LA",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "MT",
+      "target": "MA",
+      "weight": 8,
+      "ceCount": 7
+    },
+    {
+      "source": "MT",
+      "target": "MI",
+      "weight": 22,
+      "ceCount": 14
+    },
+    {
+      "source": "MT",
+      "target": "MO",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "MT",
+      "target": "MS",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MT",
+      "target": "NC",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "MT",
+      "target": "ND",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "MT",
+      "target": "NE",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "MT",
+      "target": "NJ",
+      "weight": 13,
+      "ceCount": 10
+    },
+    {
+      "source": "MT",
+      "target": "NV",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "MT",
+      "target": "NY",
+      "weight": 5,
+      "ceCount": 3
+    },
+    {
+      "source": "MT",
+      "target": "OH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "MT",
+      "target": "OR",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "MT",
+      "target": "PA",
+      "weight": 29,
+      "ceCount": 17
+    },
+    {
+      "source": "MT",
+      "target": "SC",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "MT",
+      "target": "TN",
+      "weight": 19,
+      "ceCount": 13
+    },
+    {
+      "source": "MT",
+      "target": "TX",
+      "weight": 33,
+      "ceCount": 18
+    },
+    {
+      "source": "MT",
+      "target": "UT",
+      "weight": 16,
+      "ceCount": 15
+    },
+    {
+      "source": "MT",
+      "target": "WA",
+      "weight": 12,
+      "ceCount": 7
+    },
+    {
+      "source": "MT",
+      "target": "WY",
+      "weight": 4,
+      "ceCount": 1
+    },
+    {
+      "source": "NC",
+      "target": "AL",
+      "weight": 94,
+      "ceCount": 84
+    },
+    {
+      "source": "NC",
+      "target": "AR",
+      "weight": 76,
+      "ceCount": 76
+    },
+    {
+      "source": "NC",
+      "target": "AZ",
+      "weight": 165,
+      "ceCount": 63
+    },
+    {
+      "source": "NC",
+      "target": "CA",
+      "weight": 128,
+      "ceCount": 87
+    },
+    {
+      "source": "NC",
+      "target": "CO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NC",
+      "target": "DC",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NC",
+      "target": "DE",
+      "weight": 59,
+      "ceCount": 58
+    },
+    {
+      "source": "NC",
+      "target": "FL",
+      "weight": 409,
+      "ceCount": 130
+    },
+    {
+      "source": "NC",
+      "target": "GA",
+      "weight": 23,
+      "ceCount": 23
+    },
+    {
+      "source": "NC",
+      "target": "HI",
+      "weight": 32,
+      "ceCount": 32
+    },
+    {
+      "source": "NC",
+      "target": "IL",
+      "weight": 130,
+      "ceCount": 91
+    },
+    {
+      "source": "NC",
+      "target": "IN",
+      "weight": 258,
+      "ceCount": 101
+    },
+    {
+      "source": "NC",
+      "target": "KS",
+      "weight": 116,
+      "ceCount": 87
+    },
+    {
+      "source": "NC",
+      "target": "KY",
+      "weight": 8,
+      "ceCount": 7
+    },
+    {
+      "source": "NC",
+      "target": "LA",
+      "weight": 33,
+      "ceCount": 27
+    },
+    {
+      "source": "NC",
+      "target": "MA",
+      "weight": 82,
+      "ceCount": 78
+    },
+    {
+      "source": "NC",
+      "target": "MD",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "NC",
+      "target": "ME",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "NC",
+      "target": "MI",
+      "weight": 148,
+      "ceCount": 90
+    },
+    {
+      "source": "NC",
+      "target": "MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NC",
+      "target": "MO",
+      "weight": 51,
+      "ceCount": 50
+    },
+    {
+      "source": "NC",
+      "target": "MS",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "NC",
+      "target": "NH",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NC",
+      "target": "NJ",
+      "weight": 130,
+      "ceCount": 91
+    },
+    {
+      "source": "NC",
+      "target": "NV",
+      "weight": 80,
+      "ceCount": 79
+    },
+    {
+      "source": "NC",
+      "target": "NY",
+      "weight": 51,
+      "ceCount": 44
+    },
+    {
+      "source": "NC",
+      "target": "OH",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "NC",
+      "target": "OR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NC",
+      "target": "PA",
+      "weight": 270,
+      "ceCount": 126
+    },
+    {
+      "source": "NC",
+      "target": "RI",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NC",
+      "target": "SC",
+      "weight": 264,
+      "ceCount": 100
+    },
+    {
+      "source": "NC",
+      "target": "TN",
+      "weight": 173,
+      "ceCount": 94
+    },
+    {
+      "source": "NC",
+      "target": "TX",
+      "weight": 285,
+      "ceCount": 123
+    },
+    {
+      "source": "NC",
+      "target": "VA",
+      "weight": 71,
+      "ceCount": 58
+    },
+    {
+      "source": "NC",
+      "target": "WA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "ND",
+      "target": "AL",
+      "weight": 6,
+      "ceCount": 4
+    },
+    {
+      "source": "ND",
+      "target": "AR",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "ND",
+      "target": "AZ",
+      "weight": 19,
+      "ceCount": 6
+    },
+    {
+      "source": "ND",
+      "target": "CA",
+      "weight": 7,
+      "ceCount": 4
+    },
+    {
+      "source": "ND",
+      "target": "DE",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "ND",
+      "target": "FL",
+      "weight": 16,
+      "ceCount": 6
+    },
+    {
+      "source": "ND",
+      "target": "IL",
+      "weight": 7,
+      "ceCount": 4
+    },
+    {
+      "source": "ND",
+      "target": "IN",
+      "weight": 22,
+      "ceCount": 6
+    },
+    {
+      "source": "ND",
+      "target": "KS",
+      "weight": 11,
+      "ceCount": 6
+    },
+    {
+      "source": "ND",
+      "target": "KY",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "ND",
+      "target": "LA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "ND",
+      "target": "MA",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "ND",
+      "target": "MI",
+      "weight": 10,
+      "ceCount": 4
+    },
+    {
+      "source": "ND",
+      "target": "MN",
+      "weight": 76,
+      "ceCount": 5
+    },
+    {
+      "source": "ND",
+      "target": "MO",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "ND",
+      "target": "MS",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "ND",
+      "target": "NC",
+      "weight": 6,
+      "ceCount": 4
+    },
+    {
+      "source": "ND",
+      "target": "NJ",
+      "weight": 9,
+      "ceCount": 5
+    },
+    {
+      "source": "ND",
+      "target": "NV",
+      "weight": 4,
+      "ceCount": 3
+    },
+    {
+      "source": "ND",
+      "target": "NY",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "ND",
+      "target": "OH",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "ND",
+      "target": "PA",
+      "weight": 18,
+      "ceCount": 8
+    },
+    {
+      "source": "ND",
+      "target": "SC",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "ND",
+      "target": "SD",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "ND",
+      "target": "TN",
+      "weight": 13,
+      "ceCount": 7
+    },
+    {
+      "source": "ND",
+      "target": "TX",
+      "weight": 17,
+      "ceCount": 5
+    },
+    {
+      "source": "ND",
+      "target": "WA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "ND",
+      "target": "WI",
+      "weight": 3,
+      "ceCount": 1
+    },
+    {
+      "source": "NE",
+      "target": "AL",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "NE",
+      "target": "AR",
+      "weight": 29,
+      "ceCount": 29
+    },
+    {
+      "source": "NE",
+      "target": "AZ",
+      "weight": 16,
+      "ceCount": 9
+    },
+    {
+      "source": "NE",
+      "target": "CA",
+      "weight": 10,
+      "ceCount": 7
+    },
+    {
+      "source": "NE",
+      "target": "CO",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NE",
+      "target": "DE",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NE",
+      "target": "FL",
+      "weight": 49,
+      "ceCount": 35
+    },
+    {
+      "source": "NE",
+      "target": "IA",
+      "weight": 14,
+      "ceCount": 4
+    },
+    {
+      "source": "NE",
+      "target": "IL",
+      "weight": 11,
+      "ceCount": 7
+    },
+    {
+      "source": "NE",
+      "target": "IN",
+      "weight": 44,
+      "ceCount": 31
+    },
+    {
+      "source": "NE",
+      "target": "KS",
+      "weight": 12,
+      "ceCount": 10
+    },
+    {
+      "source": "NE",
+      "target": "KY",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NE",
+      "target": "LA",
+      "weight": 6,
+      "ceCount": 5
+    },
+    {
+      "source": "NE",
+      "target": "MA",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "NE",
+      "target": "MI",
+      "weight": 17,
+      "ceCount": 13
+    },
+    {
+      "source": "NE",
+      "target": "MO",
+      "weight": 17,
+      "ceCount": 17
+    },
+    {
+      "source": "NE",
+      "target": "NC",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "NE",
+      "target": "NJ",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "NE",
+      "target": "NV",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "NE",
+      "target": "NY",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NE",
+      "target": "PA",
+      "weight": 18,
+      "ceCount": 11
+    },
+    {
+      "source": "NE",
+      "target": "SC",
+      "weight": 10,
+      "ceCount": 7
+    },
+    {
+      "source": "NE",
+      "target": "SD",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NE",
+      "target": "TN",
+      "weight": 13,
+      "ceCount": 10
+    },
+    {
+      "source": "NE",
+      "target": "TX",
+      "weight": 49,
+      "ceCount": 36
+    },
+    {
+      "source": "NH",
+      "target": "AL",
+      "weight": 22,
+      "ceCount": 15
+    },
+    {
+      "source": "NH",
+      "target": "AR",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "NH",
+      "target": "AZ",
+      "weight": 62,
+      "ceCount": 21
+    },
+    {
+      "source": "NH",
+      "target": "CA",
+      "weight": 12,
+      "ceCount": 7
+    },
+    {
+      "source": "NH",
+      "target": "CT",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NH",
+      "target": "DE",
+      "weight": 14,
+      "ceCount": 14
+    },
+    {
+      "source": "NH",
+      "target": "FL",
+      "weight": 69,
+      "ceCount": 31
+    },
+    {
+      "source": "NH",
+      "target": "HI",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NH",
+      "target": "IL",
+      "weight": 32,
+      "ceCount": 16
+    },
+    {
+      "source": "NH",
+      "target": "IN",
+      "weight": 51,
+      "ceCount": 26
+    },
+    {
+      "source": "NH",
+      "target": "KS",
+      "weight": 29,
+      "ceCount": 16
+    },
+    {
+      "source": "NH",
+      "target": "KY",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NH",
+      "target": "LA",
+      "weight": 8,
+      "ceCount": 7
+    },
+    {
+      "source": "NH",
+      "target": "MA",
+      "weight": 76,
+      "ceCount": 32
+    },
+    {
+      "source": "NH",
+      "target": "ME",
+      "weight": 11,
+      "ceCount": 6
+    },
+    {
+      "source": "NH",
+      "target": "MI",
+      "weight": 29,
+      "ceCount": 17
+    },
+    {
+      "source": "NH",
+      "target": "MO",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "NH",
+      "target": "MS",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "NH",
+      "target": "NC",
+      "weight": 25,
+      "ceCount": 16
+    },
+    {
+      "source": "NH",
+      "target": "NJ",
+      "weight": 40,
+      "ceCount": 16
+    },
+    {
+      "source": "NH",
+      "target": "NV",
+      "weight": 17,
+      "ceCount": 15
+    },
+    {
+      "source": "NH",
+      "target": "NY",
+      "weight": 18,
+      "ceCount": 11
+    },
+    {
+      "source": "NH",
+      "target": "OH",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "NH",
+      "target": "PA",
+      "weight": 52,
+      "ceCount": 21
+    },
+    {
+      "source": "NH",
+      "target": "PR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NH",
+      "target": "SC",
+      "weight": 24,
+      "ceCount": 20
+    },
+    {
+      "source": "NH",
+      "target": "TN",
+      "weight": 34,
+      "ceCount": 17
+    },
+    {
+      "source": "NH",
+      "target": "TX",
+      "weight": 60,
+      "ceCount": 31
+    },
+    {
+      "source": "NH",
+      "target": "VT",
+      "weight": 57,
+      "ceCount": 10
+    },
+    {
+      "source": "NH",
+      "target": "WA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "NJ",
+      "target": "AL",
+      "weight": 16,
+      "ceCount": 16
+    },
+    {
+      "source": "NJ",
+      "target": "AR",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "NJ",
+      "target": "AZ",
+      "weight": 42,
+      "ceCount": 21
+    },
+    {
+      "source": "NJ",
+      "target": "CA",
+      "weight": 20,
+      "ceCount": 12
+    },
+    {
+      "source": "NJ",
+      "target": "DE",
+      "weight": 19,
+      "ceCount": 19
+    },
+    {
+      "source": "NJ",
+      "target": "FL",
+      "weight": 42,
+      "ceCount": 22
+    },
+    {
+      "source": "NJ",
+      "target": "GA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "NJ",
+      "target": "HI",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "NJ",
+      "target": "IL",
+      "weight": 12,
+      "ceCount": 10
+    },
+    {
+      "source": "NJ",
+      "target": "IN",
+      "weight": 39,
+      "ceCount": 22
+    },
+    {
+      "source": "NJ",
+      "target": "KS",
+      "weight": 13,
+      "ceCount": 12
+    },
+    {
+      "source": "NJ",
+      "target": "KY",
+      "weight": 11,
+      "ceCount": 10
+    },
+    {
+      "source": "NJ",
+      "target": "LA",
+      "weight": 11,
+      "ceCount": 10
+    },
+    {
+      "source": "NJ",
+      "target": "MA",
+      "weight": 13,
+      "ceCount": 11
+    },
+    {
+      "source": "NJ",
+      "target": "MI",
+      "weight": 27,
+      "ceCount": 22
+    },
+    {
+      "source": "NJ",
+      "target": "MO",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "NJ",
+      "target": "MS",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "NJ",
+      "target": "NC",
+      "weight": 15,
+      "ceCount": 11
+    },
+    {
+      "source": "NJ",
+      "target": "NH",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NJ",
+      "target": "NV",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "NJ",
+      "target": "NY",
+      "weight": 69,
+      "ceCount": 32
+    },
+    {
+      "source": "NJ",
+      "target": "OH",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "NJ",
+      "target": "OR",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "NJ",
+      "target": "PA",
+      "weight": 100,
+      "ceCount": 64
+    },
+    {
+      "source": "NJ",
+      "target": "RI",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NJ",
+      "target": "SC",
+      "weight": 23,
+      "ceCount": 19
+    },
+    {
+      "source": "NJ",
+      "target": "TN",
+      "weight": 28,
+      "ceCount": 17
+    },
+    {
+      "source": "NJ",
+      "target": "TX",
+      "weight": 54,
+      "ceCount": 24
+    },
+    {
+      "source": "NJ",
+      "target": "VA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NJ",
+      "target": "WV",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NM",
+      "target": "AL",
+      "weight": 13,
+      "ceCount": 10
+    },
+    {
+      "source": "NM",
+      "target": "AR",
+      "weight": 23,
+      "ceCount": 23
+    },
+    {
+      "source": "NM",
+      "target": "AZ",
+      "weight": 172,
+      "ceCount": 47
+    },
+    {
+      "source": "NM",
+      "target": "CA",
+      "weight": 51,
+      "ceCount": 27
+    },
+    {
+      "source": "NM",
+      "target": "CO",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "NM",
+      "target": "DE",
+      "weight": 7,
+      "ceCount": 6
+    },
+    {
+      "source": "NM",
+      "target": "FL",
+      "weight": 110,
+      "ceCount": 52
+    },
+    {
+      "source": "NM",
+      "target": "GA",
+      "weight": 14,
+      "ceCount": 14
+    },
+    {
+      "source": "NM",
+      "target": "HI",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NM",
+      "target": "IL",
+      "weight": 15,
+      "ceCount": 8
+    },
+    {
+      "source": "NM",
+      "target": "IN",
+      "weight": 56,
+      "ceCount": 24
+    },
+    {
+      "source": "NM",
+      "target": "KS",
+      "weight": 17,
+      "ceCount": 11
+    },
+    {
+      "source": "NM",
+      "target": "KY",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "NM",
+      "target": "LA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NM",
+      "target": "MA",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "NM",
+      "target": "MI",
+      "weight": 29,
+      "ceCount": 22
+    },
+    {
+      "source": "NM",
+      "target": "MN",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NM",
+      "target": "MO",
+      "weight": 13,
+      "ceCount": 13
+    },
+    {
+      "source": "NM",
+      "target": "MS",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "NM",
+      "target": "NC",
+      "weight": 20,
+      "ceCount": 16
+    },
+    {
+      "source": "NM",
+      "target": "NJ",
+      "weight": 20,
+      "ceCount": 17
+    },
+    {
+      "source": "NM",
+      "target": "NV",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "NM",
+      "target": "NY",
+      "weight": 21,
+      "ceCount": 15
+    },
+    {
+      "source": "NM",
+      "target": "OH",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "NM",
+      "target": "OR",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "NM",
+      "target": "PA",
+      "weight": 47,
+      "ceCount": 36
+    },
+    {
+      "source": "NM",
+      "target": "SC",
+      "weight": 16,
+      "ceCount": 16
+    },
+    {
+      "source": "NM",
+      "target": "TN",
+      "weight": 21,
+      "ceCount": 18
+    },
+    {
+      "source": "NM",
+      "target": "TX",
+      "weight": 128,
+      "ceCount": 47
+    },
+    {
+      "source": "NM",
+      "target": "WA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NV",
+      "target": "AL",
+      "weight": 25,
+      "ceCount": 22
+    },
+    {
+      "source": "NV",
+      "target": "AR",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "NV",
+      "target": "AZ",
+      "weight": 111,
+      "ceCount": 30
+    },
+    {
+      "source": "NV",
+      "target": "CA",
+      "weight": 103,
+      "ceCount": 36
+    },
+    {
+      "source": "NV",
+      "target": "DE",
+      "weight": 20,
+      "ceCount": 20
+    },
+    {
+      "source": "NV",
+      "target": "FL",
+      "weight": 141,
+      "ceCount": 38
+    },
+    {
+      "source": "NV",
+      "target": "GA",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "NV",
+      "target": "HI",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NV",
+      "target": "IL",
+      "weight": 28,
+      "ceCount": 24
+    },
+    {
+      "source": "NV",
+      "target": "IN",
+      "weight": 74,
+      "ceCount": 26
+    },
+    {
+      "source": "NV",
+      "target": "KS",
+      "weight": 41,
+      "ceCount": 24
+    },
+    {
+      "source": "NV",
+      "target": "KY",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "NV",
+      "target": "LA",
+      "weight": 9,
+      "ceCount": 8
+    },
+    {
+      "source": "NV",
+      "target": "MA",
+      "weight": 16,
+      "ceCount": 16
+    },
+    {
+      "source": "NV",
+      "target": "MD",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "NV",
+      "target": "MI",
+      "weight": 29,
+      "ceCount": 23
+    },
+    {
+      "source": "NV",
+      "target": "MO",
+      "weight": 17,
+      "ceCount": 17
+    },
+    {
+      "source": "NV",
+      "target": "MS",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NV",
+      "target": "NC",
+      "weight": 31,
+      "ceCount": 21
+    },
+    {
+      "source": "NV",
+      "target": "NE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NV",
+      "target": "NH",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "NV",
+      "target": "NJ",
+      "weight": 42,
+      "ceCount": 27
+    },
+    {
+      "source": "NV",
+      "target": "NY",
+      "weight": 36,
+      "ceCount": 25
+    },
+    {
+      "source": "NV",
+      "target": "OH",
+      "weight": 10,
+      "ceCount": 9
+    },
+    {
+      "source": "NV",
+      "target": "PA",
+      "weight": 59,
+      "ceCount": 30
+    },
+    {
+      "source": "NV",
+      "target": "SC",
+      "weight": 27,
+      "ceCount": 24
+    },
+    {
+      "source": "NV",
+      "target": "TN",
+      "weight": 45,
+      "ceCount": 28
+    },
+    {
+      "source": "NV",
+      "target": "TX",
+      "weight": 68,
+      "ceCount": 37
+    },
+    {
+      "source": "NV",
+      "target": "WA",
+      "weight": 21,
+      "ceCount": 15
+    },
+    {
+      "source": "NY",
+      "target": "AL",
+      "weight": 107,
+      "ceCount": 91
+    },
+    {
+      "source": "NY",
+      "target": "AR",
+      "weight": 78,
+      "ceCount": 77
+    },
+    {
+      "source": "NY",
+      "target": "AZ",
+      "weight": 292,
+      "ceCount": 137
+    },
+    {
+      "source": "NY",
+      "target": "CA",
+      "weight": 187,
+      "ceCount": 100
+    },
+    {
+      "source": "NY",
+      "target": "CT",
+      "weight": 17,
+      "ceCount": 11
+    },
+    {
+      "source": "NY",
+      "target": "DC",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NY",
+      "target": "DE",
+      "weight": 136,
+      "ceCount": 136
+    },
+    {
+      "source": "NY",
+      "target": "FL",
+      "weight": 458,
+      "ceCount": 217
+    },
+    {
+      "source": "NY",
+      "target": "GA",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "NY",
+      "target": "HI",
+      "weight": 18,
+      "ceCount": 18
+    },
+    {
+      "source": "NY",
+      "target": "IL",
+      "weight": 195,
+      "ceCount": 127
+    },
+    {
+      "source": "NY",
+      "target": "IN",
+      "weight": 379,
+      "ceCount": 198
+    },
+    {
+      "source": "NY",
+      "target": "KS",
+      "weight": 143,
+      "ceCount": 109
+    },
+    {
+      "source": "NY",
+      "target": "KY",
+      "weight": 54,
+      "ceCount": 53
+    },
+    {
+      "source": "NY",
+      "target": "LA",
+      "weight": 62,
+      "ceCount": 62
+    },
+    {
+      "source": "NY",
+      "target": "MA",
+      "weight": 127,
+      "ceCount": 108
+    },
+    {
+      "source": "NY",
+      "target": "MD",
+      "weight": 15,
+      "ceCount": 15
+    },
+    {
+      "source": "NY",
+      "target": "MI",
+      "weight": 168,
+      "ceCount": 107
+    },
+    {
+      "source": "NY",
+      "target": "MN",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "NY",
+      "target": "MO",
+      "weight": 68,
+      "ceCount": 68
+    },
+    {
+      "source": "NY",
+      "target": "MS",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "NY",
+      "target": "NC",
+      "weight": 137,
+      "ceCount": 110
+    },
+    {
+      "source": "NY",
+      "target": "NE",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NY",
+      "target": "NH",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "NY",
+      "target": "NJ",
+      "weight": 312,
+      "ceCount": 157
+    },
+    {
+      "source": "NY",
+      "target": "NV",
+      "weight": 93,
+      "ceCount": 85
+    },
+    {
+      "source": "NY",
+      "target": "OH",
+      "weight": 32,
+      "ceCount": 29
+    },
+    {
+      "source": "NY",
+      "target": "OR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "NY",
+      "target": "PA",
+      "weight": 463,
+      "ceCount": 227
+    },
+    {
+      "source": "NY",
+      "target": "PR",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "NY",
+      "target": "SC",
+      "weight": 159,
+      "ceCount": 141
+    },
+    {
+      "source": "NY",
+      "target": "TN",
+      "weight": 213,
+      "ceCount": 169
+    },
+    {
+      "source": "NY",
+      "target": "TX",
+      "weight": 325,
+      "ceCount": 168
+    },
+    {
+      "source": "NY",
+      "target": "VA",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "NY",
+      "target": "VT",
+      "weight": 8,
+      "ceCount": 6
+    },
+    {
+      "source": "NY",
+      "target": "WA",
+      "weight": 9,
+      "ceCount": 7
+    },
+    {
+      "source": "NY",
+      "target": "WV",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "OH",
+      "target": "AL",
+      "weight": 76,
+      "ceCount": 59
+    },
+    {
+      "source": "OH",
+      "target": "AR",
+      "weight": 71,
+      "ceCount": 71
+    },
+    {
+      "source": "OH",
+      "target": "AZ",
+      "weight": 127,
+      "ceCount": 58
+    },
+    {
+      "source": "OH",
+      "target": "CA",
+      "weight": 141,
+      "ceCount": 78
+    },
+    {
+      "source": "OH",
+      "target": "DE",
+      "weight": 48,
+      "ceCount": 48
+    },
+    {
+      "source": "OH",
+      "target": "FL",
+      "weight": 326,
+      "ceCount": 126
+    },
+    {
+      "source": "OH",
+      "target": "GA",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "OH",
+      "target": "HI",
+      "weight": 21,
+      "ceCount": 21
+    },
+    {
+      "source": "OH",
+      "target": "IA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "OH",
+      "target": "IL",
+      "weight": 146,
+      "ceCount": 97
+    },
+    {
+      "source": "OH",
+      "target": "IN",
+      "weight": 264,
+      "ceCount": 123
+    },
+    {
+      "source": "OH",
+      "target": "KS",
+      "weight": 103,
+      "ceCount": 63
+    },
+    {
+      "source": "OH",
+      "target": "KY",
+      "weight": 50,
+      "ceCount": 26
+    },
+    {
+      "source": "OH",
+      "target": "LA",
+      "weight": 38,
+      "ceCount": 38
+    },
+    {
+      "source": "OH",
+      "target": "MA",
+      "weight": 56,
+      "ceCount": 54
+    },
+    {
+      "source": "OH",
+      "target": "MD",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "OH",
+      "target": "ME",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "OH",
+      "target": "MI",
+      "weight": 155,
+      "ceCount": 85
+    },
+    {
+      "source": "OH",
+      "target": "MN",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "OH",
+      "target": "MO",
+      "weight": 24,
+      "ceCount": 24
+    },
+    {
+      "source": "OH",
+      "target": "MS",
+      "weight": 10,
+      "ceCount": 9
+    },
+    {
+      "source": "OH",
+      "target": "NC",
+      "weight": 123,
+      "ceCount": 83
+    },
+    {
+      "source": "OH",
+      "target": "NH",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "OH",
+      "target": "NJ",
+      "weight": 111,
+      "ceCount": 64
+    },
+    {
+      "source": "OH",
+      "target": "NV",
+      "weight": 56,
+      "ceCount": 52
+    },
+    {
+      "source": "OH",
+      "target": "NY",
+      "weight": 104,
+      "ceCount": 75
+    },
+    {
+      "source": "OH",
+      "target": "OR",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "OH",
+      "target": "PA",
+      "weight": 252,
+      "ceCount": 99
+    },
+    {
+      "source": "OH",
+      "target": "SC",
+      "weight": 117,
+      "ceCount": 97
+    },
+    {
+      "source": "OH",
+      "target": "TN",
+      "weight": 131,
+      "ceCount": 79
+    },
+    {
+      "source": "OH",
+      "target": "TX",
+      "weight": 266,
+      "ceCount": 128
+    },
+    {
+      "source": "OH",
+      "target": "WA",
+      "weight": 10,
+      "ceCount": 9
+    },
+    {
+      "source": "OH",
+      "target": "WV",
+      "weight": 44,
+      "ceCount": 15
+    },
+    {
+      "source": "OK",
+      "target": "AL",
+      "weight": 25,
+      "ceCount": 20
+    },
+    {
+      "source": "OK",
+      "target": "AR",
+      "weight": 61,
+      "ceCount": 58
+    },
+    {
+      "source": "OK",
+      "target": "AZ",
+      "weight": 100,
+      "ceCount": 44
+    },
+    {
+      "source": "OK",
+      "target": "CA",
+      "weight": 34,
+      "ceCount": 23
+    },
+    {
+      "source": "OK",
+      "target": "DE",
+      "weight": 25,
+      "ceCount": 24
+    },
+    {
+      "source": "OK",
+      "target": "FL",
+      "weight": 144,
+      "ceCount": 72
+    },
+    {
+      "source": "OK",
+      "target": "GA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "OK",
+      "target": "HI",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "OK",
+      "target": "IL",
+      "weight": 36,
+      "ceCount": 21
+    },
+    {
+      "source": "OK",
+      "target": "IN",
+      "weight": 122,
+      "ceCount": 64
+    },
+    {
+      "source": "OK",
+      "target": "KS",
+      "weight": 35,
+      "ceCount": 22
+    },
+    {
+      "source": "OK",
+      "target": "KY",
+      "weight": 8,
+      "ceCount": 7
+    },
+    {
+      "source": "OK",
+      "target": "LA",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "OK",
+      "target": "MA",
+      "weight": 19,
+      "ceCount": 18
+    },
+    {
+      "source": "OK",
+      "target": "MI",
+      "weight": 42,
+      "ceCount": 26
+    },
+    {
+      "source": "OK",
+      "target": "MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "OK",
+      "target": "MO",
+      "weight": 33,
+      "ceCount": 27
+    },
+    {
+      "source": "OK",
+      "target": "MS",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "OK",
+      "target": "NC",
+      "weight": 26,
+      "ceCount": 21
+    },
+    {
+      "source": "OK",
+      "target": "NE",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "OK",
+      "target": "NH",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "OK",
+      "target": "NJ",
+      "weight": 40,
+      "ceCount": 27
+    },
+    {
+      "source": "OK",
+      "target": "NV",
+      "weight": 19,
+      "ceCount": 16
+    },
+    {
+      "source": "OK",
+      "target": "NY",
+      "weight": 21,
+      "ceCount": 13
+    },
+    {
+      "source": "OK",
+      "target": "OH",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "OK",
+      "target": "OR",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "OK",
+      "target": "PA",
+      "weight": 76,
+      "ceCount": 38
+    },
+    {
+      "source": "OK",
+      "target": "SC",
+      "weight": 24,
+      "ceCount": 21
+    },
+    {
+      "source": "OK",
+      "target": "TN",
+      "weight": 56,
+      "ceCount": 33
+    },
+    {
+      "source": "OK",
+      "target": "TX",
+      "weight": 180,
+      "ceCount": 76
+    },
+    {
+      "source": "OK",
+      "target": "WA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "OK",
+      "target": "WI",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "OR",
+      "target": "AK",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "OR",
+      "target": "AL",
+      "weight": 28,
+      "ceCount": 23
+    },
+    {
+      "source": "OR",
+      "target": "AR",
+      "weight": 34,
+      "ceCount": 34
+    },
+    {
+      "source": "OR",
+      "target": "AZ",
+      "weight": 107,
+      "ceCount": 47
+    },
+    {
+      "source": "OR",
+      "target": "CA",
+      "weight": 82,
+      "ceCount": 38
+    },
+    {
+      "source": "OR",
+      "target": "DE",
+      "weight": 27,
+      "ceCount": 27
+    },
+    {
+      "source": "OR",
+      "target": "FL",
+      "weight": 136,
+      "ceCount": 67
+    },
+    {
+      "source": "OR",
+      "target": "HI",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "OR",
+      "target": "ID",
+      "weight": 44,
+      "ceCount": 8
+    },
+    {
+      "source": "OR",
+      "target": "IL",
+      "weight": 40,
+      "ceCount": 27
+    },
+    {
+      "source": "OR",
+      "target": "IN",
+      "weight": 94,
+      "ceCount": 61
+    },
+    {
+      "source": "OR",
+      "target": "KS",
+      "weight": 33,
+      "ceCount": 27
+    },
+    {
+      "source": "OR",
+      "target": "KY",
+      "weight": 6,
+      "ceCount": 5
+    },
+    {
+      "source": "OR",
+      "target": "LA",
+      "weight": 17,
+      "ceCount": 16
+    },
+    {
+      "source": "OR",
+      "target": "MA",
+      "weight": 24,
+      "ceCount": 24
+    },
+    {
+      "source": "OR",
+      "target": "MI",
+      "weight": 67,
+      "ceCount": 40
+    },
+    {
+      "source": "OR",
+      "target": "MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "OR",
+      "target": "MO",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "OR",
+      "target": "MS",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "OR",
+      "target": "NC",
+      "weight": 34,
+      "ceCount": 28
+    },
+    {
+      "source": "OR",
+      "target": "NH",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "OR",
+      "target": "NJ",
+      "weight": 36,
+      "ceCount": 28
+    },
+    {
+      "source": "OR",
+      "target": "NV",
+      "weight": 24,
+      "ceCount": 21
+    },
+    {
+      "source": "OR",
+      "target": "NY",
+      "weight": 10,
+      "ceCount": 8
+    },
+    {
+      "source": "OR",
+      "target": "OH",
+      "weight": 8,
+      "ceCount": 7
+    },
+    {
+      "source": "OR",
+      "target": "PA",
+      "weight": 99,
+      "ceCount": 56
+    },
+    {
+      "source": "OR",
+      "target": "PR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "OR",
+      "target": "SC",
+      "weight": 39,
+      "ceCount": 34
+    },
+    {
+      "source": "OR",
+      "target": "TN",
+      "weight": 58,
+      "ceCount": 37
+    },
+    {
+      "source": "OR",
+      "target": "TX",
+      "weight": 140,
+      "ceCount": 67
+    },
+    {
+      "source": "OR",
+      "target": "UT",
+      "weight": 15,
+      "ceCount": 15
+    },
+    {
+      "source": "OR",
+      "target": "WA",
+      "weight": 119,
+      "ceCount": 67
+    },
+    {
+      "source": "PA",
+      "target": "AL",
+      "weight": 85,
+      "ceCount": 69
+    },
+    {
+      "source": "PA",
+      "target": "AR",
+      "weight": 48,
+      "ceCount": 48
+    },
+    {
+      "source": "PA",
+      "target": "AZ",
+      "weight": 161,
+      "ceCount": 70
+    },
+    {
+      "source": "PA",
+      "target": "CA",
+      "weight": 90,
+      "ceCount": 67
+    },
+    {
+      "source": "PA",
+      "target": "CT",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "PA",
+      "target": "DE",
+      "weight": 84,
+      "ceCount": 72
+    },
+    {
+      "source": "PA",
+      "target": "FL",
+      "weight": 307,
+      "ceCount": 130
+    },
+    {
+      "source": "PA",
+      "target": "GA",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "PA",
+      "target": "HI",
+      "weight": 14,
+      "ceCount": 14
+    },
+    {
+      "source": "PA",
+      "target": "IL",
+      "weight": 112,
+      "ceCount": 74
+    },
+    {
+      "source": "PA",
+      "target": "IN",
+      "weight": 239,
+      "ceCount": 113
+    },
+    {
+      "source": "PA",
+      "target": "KS",
+      "weight": 127,
+      "ceCount": 84
+    },
+    {
+      "source": "PA",
+      "target": "KY",
+      "weight": 22,
+      "ceCount": 21
+    },
+    {
+      "source": "PA",
+      "target": "LA",
+      "weight": 38,
+      "ceCount": 38
+    },
+    {
+      "source": "PA",
+      "target": "MA",
+      "weight": 94,
+      "ceCount": 71
+    },
+    {
+      "source": "PA",
+      "target": "MD",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "PA",
+      "target": "ME",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "PA",
+      "target": "MI",
+      "weight": 136,
+      "ceCount": 81
+    },
+    {
+      "source": "PA",
+      "target": "MN",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "PA",
+      "target": "MO",
+      "weight": 44,
+      "ceCount": 44
+    },
+    {
+      "source": "PA",
+      "target": "MS",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "PA",
+      "target": "NC",
+      "weight": 100,
+      "ceCount": 73
+    },
+    {
+      "source": "PA",
+      "target": "NE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "PA",
+      "target": "NH",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "PA",
+      "target": "NJ",
+      "weight": 284,
+      "ceCount": 105
+    },
+    {
+      "source": "PA",
+      "target": "NV",
+      "weight": 69,
+      "ceCount": 59
+    },
+    {
+      "source": "PA",
+      "target": "NY",
+      "weight": 116,
+      "ceCount": 79
+    },
+    {
+      "source": "PA",
+      "target": "OH",
+      "weight": 52,
+      "ceCount": 43
+    },
+    {
+      "source": "PA",
+      "target": "OR",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "PA",
+      "target": "PR",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "PA",
+      "target": "SC",
+      "weight": 96,
+      "ceCount": 88
+    },
+    {
+      "source": "PA",
+      "target": "TN",
+      "weight": 160,
+      "ceCount": 102
+    },
+    {
+      "source": "PA",
+      "target": "TX",
+      "weight": 248,
+      "ceCount": 119
+    },
+    {
+      "source": "PA",
+      "target": "VA",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "PA",
+      "target": "WA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "PA",
+      "target": "WV",
+      "weight": 16,
+      "ceCount": 6
+    },
+    {
+      "source": "PR",
+      "target": "AZ",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "CA",
+      "weight": 5,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "DE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "FL",
+      "weight": 5,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "GA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "IN",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "MO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "NJ",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "NY",
+      "weight": 4,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "OH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "PA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "TN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "TX",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "PR",
+      "target": "WA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "RI",
+      "target": "AL",
+      "weight": 15,
+      "ceCount": 14
+    },
+    {
+      "source": "RI",
+      "target": "AR",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "RI",
+      "target": "AZ",
+      "weight": 18,
+      "ceCount": 8
+    },
+    {
+      "source": "RI",
+      "target": "CA",
+      "weight": 21,
+      "ceCount": 13
+    },
+    {
+      "source": "RI",
+      "target": "CT",
+      "weight": 6,
+      "ceCount": 3
+    },
+    {
+      "source": "RI",
+      "target": "DC",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "RI",
+      "target": "DE",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "RI",
+      "target": "FL",
+      "weight": 35,
+      "ceCount": 16
+    },
+    {
+      "source": "RI",
+      "target": "HI",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "RI",
+      "target": "IL",
+      "weight": 24,
+      "ceCount": 18
+    },
+    {
+      "source": "RI",
+      "target": "IN",
+      "weight": 20,
+      "ceCount": 10
+    },
+    {
+      "source": "RI",
+      "target": "KS",
+      "weight": 18,
+      "ceCount": 13
+    },
+    {
+      "source": "RI",
+      "target": "LA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "RI",
+      "target": "MA",
+      "weight": 57,
+      "ceCount": 18
+    },
+    {
+      "source": "RI",
+      "target": "MI",
+      "weight": 27,
+      "ceCount": 15
+    },
+    {
+      "source": "RI",
+      "target": "MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "RI",
+      "target": "MO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "RI",
+      "target": "NC",
+      "weight": 17,
+      "ceCount": 13
+    },
+    {
+      "source": "RI",
+      "target": "NH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "RI",
+      "target": "NJ",
+      "weight": 18,
+      "ceCount": 13
+    },
+    {
+      "source": "RI",
+      "target": "NV",
+      "weight": 12,
+      "ceCount": 11
+    },
+    {
+      "source": "RI",
+      "target": "NY",
+      "weight": 11,
+      "ceCount": 6
+    },
+    {
+      "source": "RI",
+      "target": "PA",
+      "weight": 41,
+      "ceCount": 19
+    },
+    {
+      "source": "RI",
+      "target": "PR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "RI",
+      "target": "SC",
+      "weight": 16,
+      "ceCount": 13
+    },
+    {
+      "source": "RI",
+      "target": "TN",
+      "weight": 18,
+      "ceCount": 13
+    },
+    {
+      "source": "RI",
+      "target": "TX",
+      "weight": 42,
+      "ceCount": 16
+    },
+    {
+      "source": "SC",
+      "target": "AL",
+      "weight": 24,
+      "ceCount": 17
+    },
+    {
+      "source": "SC",
+      "target": "AR",
+      "weight": 27,
+      "ceCount": 27
+    },
+    {
+      "source": "SC",
+      "target": "AZ",
+      "weight": 87,
+      "ceCount": 37
+    },
+    {
+      "source": "SC",
+      "target": "CA",
+      "weight": 56,
+      "ceCount": 31
+    },
+    {
+      "source": "SC",
+      "target": "DE",
+      "weight": 26,
+      "ceCount": 26
+    },
+    {
+      "source": "SC",
+      "target": "FL",
+      "weight": 160,
+      "ceCount": 49
+    },
+    {
+      "source": "SC",
+      "target": "GA",
+      "weight": 23,
+      "ceCount": 13
+    },
+    {
+      "source": "SC",
+      "target": "HI",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "SC",
+      "target": "IL",
+      "weight": 42,
+      "ceCount": 29
+    },
+    {
+      "source": "SC",
+      "target": "IN",
+      "weight": 88,
+      "ceCount": 35
+    },
+    {
+      "source": "SC",
+      "target": "KS",
+      "weight": 52,
+      "ceCount": 32
+    },
+    {
+      "source": "SC",
+      "target": "KY",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "SC",
+      "target": "LA",
+      "weight": 34,
+      "ceCount": 30
+    },
+    {
+      "source": "SC",
+      "target": "MA",
+      "weight": 18,
+      "ceCount": 18
+    },
+    {
+      "source": "SC",
+      "target": "MD",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "SC",
+      "target": "MI",
+      "weight": 41,
+      "ceCount": 27
+    },
+    {
+      "source": "SC",
+      "target": "MN",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "SC",
+      "target": "MO",
+      "weight": 19,
+      "ceCount": 19
+    },
+    {
+      "source": "SC",
+      "target": "MS",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "SC",
+      "target": "NC",
+      "weight": 117,
+      "ceCount": 62
+    },
+    {
+      "source": "SC",
+      "target": "NH",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "SC",
+      "target": "NJ",
+      "weight": 42,
+      "ceCount": 27
+    },
+    {
+      "source": "SC",
+      "target": "NV",
+      "weight": 16,
+      "ceCount": 15
+    },
+    {
+      "source": "SC",
+      "target": "NY",
+      "weight": 34,
+      "ceCount": 21
+    },
+    {
+      "source": "SC",
+      "target": "OH",
+      "weight": 22,
+      "ceCount": 21
+    },
+    {
+      "source": "SC",
+      "target": "PA",
+      "weight": 84,
+      "ceCount": 36
+    },
+    {
+      "source": "SC",
+      "target": "TN",
+      "weight": 62,
+      "ceCount": 37
+    },
+    {
+      "source": "SC",
+      "target": "TX",
+      "weight": 88,
+      "ceCount": 39
+    },
+    {
+      "source": "SC",
+      "target": "VA",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "SC",
+      "target": "WA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "SD",
+      "target": "AL",
+      "weight": 7,
+      "ceCount": 5
+    },
+    {
+      "source": "SD",
+      "target": "AR",
+      "weight": 11,
+      "ceCount": 11
+    },
+    {
+      "source": "SD",
+      "target": "AZ",
+      "weight": 16,
+      "ceCount": 6
+    },
+    {
+      "source": "SD",
+      "target": "CA",
+      "weight": 6,
+      "ceCount": 5
+    },
+    {
+      "source": "SD",
+      "target": "CO",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "SD",
+      "target": "DE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "SD",
+      "target": "FL",
+      "weight": 23,
+      "ceCount": 11
+    },
+    {
+      "source": "SD",
+      "target": "IA",
+      "weight": 21,
+      "ceCount": 7
+    },
+    {
+      "source": "SD",
+      "target": "IL",
+      "weight": 10,
+      "ceCount": 6
+    },
+    {
+      "source": "SD",
+      "target": "IN",
+      "weight": 25,
+      "ceCount": 12
+    },
+    {
+      "source": "SD",
+      "target": "KS",
+      "weight": 12,
+      "ceCount": 7
+    },
+    {
+      "source": "SD",
+      "target": "KY",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "SD",
+      "target": "MA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "SD",
+      "target": "MI",
+      "weight": 11,
+      "ceCount": 5
+    },
+    {
+      "source": "SD",
+      "target": "MN",
+      "weight": 30,
+      "ceCount": 5
+    },
+    {
+      "source": "SD",
+      "target": "MO",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "SD",
+      "target": "NC",
+      "weight": 6,
+      "ceCount": 5
+    },
+    {
+      "source": "SD",
+      "target": "ND",
+      "weight": 6,
+      "ceCount": 3
+    },
+    {
+      "source": "SD",
+      "target": "NE",
+      "weight": 8,
+      "ceCount": 5
+    },
+    {
+      "source": "SD",
+      "target": "NJ",
+      "weight": 8,
+      "ceCount": 6
+    },
+    {
+      "source": "SD",
+      "target": "NV",
+      "weight": 5,
+      "ceCount": 4
+    },
+    {
+      "source": "SD",
+      "target": "NY",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "SD",
+      "target": "OH",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "SD",
+      "target": "PA",
+      "weight": 19,
+      "ceCount": 10
+    },
+    {
+      "source": "SD",
+      "target": "SC",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "SD",
+      "target": "TN",
+      "weight": 11,
+      "ceCount": 7
+    },
+    {
+      "source": "SD",
+      "target": "TX",
+      "weight": 21,
+      "ceCount": 12
+    },
+    {
+      "source": "SD",
+      "target": "WA",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "TN",
+      "target": "AL",
+      "weight": 47,
+      "ceCount": 33
+    },
+    {
+      "source": "TN",
+      "target": "AR",
+      "weight": 30,
+      "ceCount": 22
+    },
+    {
+      "source": "TN",
+      "target": "AZ",
+      "weight": 97,
+      "ceCount": 44
+    },
+    {
+      "source": "TN",
+      "target": "CA",
+      "weight": 33,
+      "ceCount": 33
+    },
+    {
+      "source": "TN",
+      "target": "DE",
+      "weight": 28,
+      "ceCount": 28
+    },
+    {
+      "source": "TN",
+      "target": "FL",
+      "weight": 146,
+      "ceCount": 65
+    },
+    {
+      "source": "TN",
+      "target": "GA",
+      "weight": 29,
+      "ceCount": 14
+    },
+    {
+      "source": "TN",
+      "target": "HI",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "TN",
+      "target": "IL",
+      "weight": 58,
+      "ceCount": 45
+    },
+    {
+      "source": "TN",
+      "target": "IN",
+      "weight": 112,
+      "ceCount": 55
+    },
+    {
+      "source": "TN",
+      "target": "KS",
+      "weight": 56,
+      "ceCount": 37
+    },
+    {
+      "source": "TN",
+      "target": "KY",
+      "weight": 53,
+      "ceCount": 29
+    },
+    {
+      "source": "TN",
+      "target": "LA",
+      "weight": 20,
+      "ceCount": 16
+    },
+    {
+      "source": "TN",
+      "target": "MA",
+      "weight": 35,
+      "ceCount": 35
+    },
+    {
+      "source": "TN",
+      "target": "MD",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "TN",
+      "target": "MI",
+      "weight": 64,
+      "ceCount": 40
+    },
+    {
+      "source": "TN",
+      "target": "MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "TN",
+      "target": "MO",
+      "weight": 26,
+      "ceCount": 26
+    },
+    {
+      "source": "TN",
+      "target": "MS",
+      "weight": 77,
+      "ceCount": 23
+    },
+    {
+      "source": "TN",
+      "target": "NC",
+      "weight": 51,
+      "ceCount": 34
+    },
+    {
+      "source": "TN",
+      "target": "NH",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "TN",
+      "target": "NJ",
+      "weight": 49,
+      "ceCount": 37
+    },
+    {
+      "source": "TN",
+      "target": "NV",
+      "weight": 31,
+      "ceCount": 28
+    },
+    {
+      "source": "TN",
+      "target": "NY",
+      "weight": 29,
+      "ceCount": 12
+    },
+    {
+      "source": "TN",
+      "target": "OH",
+      "weight": 12,
+      "ceCount": 11
+    },
+    {
+      "source": "TN",
+      "target": "OK",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "TN",
+      "target": "OR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "TN",
+      "target": "PA",
+      "weight": 106,
+      "ceCount": 54
+    },
+    {
+      "source": "TN",
+      "target": "SC",
+      "weight": 47,
+      "ceCount": 38
+    },
+    {
+      "source": "TN",
+      "target": "TX",
+      "weight": 122,
+      "ceCount": 64
+    },
+    {
+      "source": "TN",
+      "target": "VA",
+      "weight": 5,
+      "ceCount": 3
+    },
+    {
+      "source": "TN",
+      "target": "WA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "TX",
+      "target": "AL",
+      "weight": 159,
+      "ceCount": 118
+    },
+    {
+      "source": "TX",
+      "target": "AR",
+      "weight": 135,
+      "ceCount": 127
+    },
+    {
+      "source": "TX",
+      "target": "AZ",
+      "weight": 357,
+      "ceCount": 154
+    },
+    {
+      "source": "TX",
+      "target": "CA",
+      "weight": 235,
+      "ceCount": 127
+    },
+    {
+      "source": "TX",
+      "target": "CO",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "TX",
+      "target": "DC",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "TX",
+      "target": "DE",
+      "weight": 100,
+      "ceCount": 99
+    },
+    {
+      "source": "TX",
+      "target": "FL",
+      "weight": 607,
+      "ceCount": 260
+    },
+    {
+      "source": "TX",
+      "target": "GA",
+      "weight": 37,
+      "ceCount": 36
+    },
+    {
+      "source": "TX",
+      "target": "HI",
+      "weight": 29,
+      "ceCount": 29
+    },
+    {
+      "source": "TX",
+      "target": "IA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "TX",
+      "target": "IL",
+      "weight": 191,
+      "ceCount": 133
+    },
+    {
+      "source": "TX",
+      "target": "IN",
+      "weight": 429,
+      "ceCount": 220
+    },
+    {
+      "source": "TX",
+      "target": "KS",
+      "weight": 201,
+      "ceCount": 139
+    },
+    {
+      "source": "TX",
+      "target": "KY",
+      "weight": 20,
+      "ceCount": 19
+    },
+    {
+      "source": "TX",
+      "target": "LA",
+      "weight": 178,
+      "ceCount": 136
+    },
+    {
+      "source": "TX",
+      "target": "MA",
+      "weight": 172,
+      "ceCount": 87
+    },
+    {
+      "source": "TX",
+      "target": "MD",
+      "weight": 12,
+      "ceCount": 10
+    },
+    {
+      "source": "TX",
+      "target": "MI",
+      "weight": 216,
+      "ceCount": 125
+    },
+    {
+      "source": "TX",
+      "target": "MN",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "TX",
+      "target": "MO",
+      "weight": 96,
+      "ceCount": 94
+    },
+    {
+      "source": "TX",
+      "target": "MS",
+      "weight": 12,
+      "ceCount": 12
+    },
+    {
+      "source": "TX",
+      "target": "NC",
+      "weight": 137,
+      "ceCount": 113
+    },
+    {
+      "source": "TX",
+      "target": "NE",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "TX",
+      "target": "NH",
+      "weight": 22,
+      "ceCount": 16
+    },
+    {
+      "source": "TX",
+      "target": "NJ",
+      "weight": 216,
+      "ceCount": 142
+    },
+    {
+      "source": "TX",
+      "target": "NM",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "TX",
+      "target": "NV",
+      "weight": 111,
+      "ceCount": 96
+    },
+    {
+      "source": "TX",
+      "target": "NY",
+      "weight": 87,
+      "ceCount": 50
+    },
+    {
+      "source": "TX",
+      "target": "OH",
+      "weight": 37,
+      "ceCount": 37
+    },
+    {
+      "source": "TX",
+      "target": "OK",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "TX",
+      "target": "OR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "TX",
+      "target": "PA",
+      "weight": 357,
+      "ceCount": 181
+    },
+    {
+      "source": "TX",
+      "target": "PR",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "TX",
+      "target": "SC",
+      "weight": 189,
+      "ceCount": 143
+    },
+    {
+      "source": "TX",
+      "target": "TN",
+      "weight": 245,
+      "ceCount": 159
+    },
+    {
+      "source": "TX",
+      "target": "UT",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "TX",
+      "target": "WA",
+      "weight": 35,
+      "ceCount": 31
+    },
+    {
+      "source": "UT",
+      "target": "AL",
+      "weight": 10,
+      "ceCount": 5
+    },
+    {
+      "source": "UT",
+      "target": "AR",
+      "weight": 9,
+      "ceCount": 9
+    },
+    {
+      "source": "UT",
+      "target": "AZ",
+      "weight": 29,
+      "ceCount": 10
+    },
+    {
+      "source": "UT",
+      "target": "CA",
+      "weight": 25,
+      "ceCount": 10
+    },
+    {
+      "source": "UT",
+      "target": "CO",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "UT",
+      "target": "DE",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "UT",
+      "target": "FL",
+      "weight": 36,
+      "ceCount": 17
+    },
+    {
+      "source": "UT",
+      "target": "GA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "UT",
+      "target": "IL",
+      "weight": 7,
+      "ceCount": 5
+    },
+    {
+      "source": "UT",
+      "target": "IN",
+      "weight": 31,
+      "ceCount": 14
+    },
+    {
+      "source": "UT",
+      "target": "KS",
+      "weight": 16,
+      "ceCount": 7
+    },
+    {
+      "source": "UT",
+      "target": "KY",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "UT",
+      "target": "LA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "UT",
+      "target": "MA",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "UT",
+      "target": "MD",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "UT",
+      "target": "MI",
+      "weight": 17,
+      "ceCount": 6
+    },
+    {
+      "source": "UT",
+      "target": "MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "UT",
+      "target": "MO",
+      "weight": 5,
+      "ceCount": 4
+    },
+    {
+      "source": "UT",
+      "target": "MS",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "UT",
+      "target": "NC",
+      "weight": 8,
+      "ceCount": 6
+    },
+    {
+      "source": "UT",
+      "target": "NE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "UT",
+      "target": "NJ",
+      "weight": 9,
+      "ceCount": 6
+    },
+    {
+      "source": "UT",
+      "target": "NV",
+      "weight": 14,
+      "ceCount": 6
+    },
+    {
+      "source": "UT",
+      "target": "NY",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "UT",
+      "target": "OH",
+      "weight": 5,
+      "ceCount": 4
+    },
+    {
+      "source": "UT",
+      "target": "OR",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "UT",
+      "target": "PA",
+      "weight": 26,
+      "ceCount": 11
+    },
+    {
+      "source": "UT",
+      "target": "SC",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "UT",
+      "target": "TN",
+      "weight": 16,
+      "ceCount": 10
+    },
+    {
+      "source": "UT",
+      "target": "TX",
+      "weight": 29,
+      "ceCount": 12
+    },
+    {
+      "source": "UT",
+      "target": "WA",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "UT",
+      "target": "WY",
+      "weight": 3,
+      "ceCount": 1
+    },
+    {
+      "source": "VA",
+      "target": "AL",
+      "weight": 52,
+      "ceCount": 46
+    },
+    {
+      "source": "VA",
+      "target": "AR",
+      "weight": 32,
+      "ceCount": 31
+    },
+    {
+      "source": "VA",
+      "target": "AZ",
+      "weight": 94,
+      "ceCount": 38
+    },
+    {
+      "source": "VA",
+      "target": "CA",
+      "weight": 96,
+      "ceCount": 51
+    },
+    {
+      "source": "VA",
+      "target": "DC",
+      "weight": 14,
+      "ceCount": 9
+    },
+    {
+      "source": "VA",
+      "target": "DE",
+      "weight": 31,
+      "ceCount": 31
+    },
+    {
+      "source": "VA",
+      "target": "FL",
+      "weight": 204,
+      "ceCount": 76
+    },
+    {
+      "source": "VA",
+      "target": "GA",
+      "weight": 18,
+      "ceCount": 18
+    },
+    {
+      "source": "VA",
+      "target": "HI",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "VA",
+      "target": "IA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "VA",
+      "target": "IL",
+      "weight": 71,
+      "ceCount": 42
+    },
+    {
+      "source": "VA",
+      "target": "IN",
+      "weight": 122,
+      "ceCount": 50
+    },
+    {
+      "source": "VA",
+      "target": "KS",
+      "weight": 55,
+      "ceCount": 44
+    },
+    {
+      "source": "VA",
+      "target": "KY",
+      "weight": 12,
+      "ceCount": 11
+    },
+    {
+      "source": "VA",
+      "target": "LA",
+      "weight": 30,
+      "ceCount": 19
+    },
+    {
+      "source": "VA",
+      "target": "MA",
+      "weight": 37,
+      "ceCount": 37
+    },
+    {
+      "source": "VA",
+      "target": "MD",
+      "weight": 20,
+      "ceCount": 14
+    },
+    {
+      "source": "VA",
+      "target": "ME",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "VA",
+      "target": "MI",
+      "weight": 65,
+      "ceCount": 42
+    },
+    {
+      "source": "VA",
+      "target": "MO",
+      "weight": 24,
+      "ceCount": 24
+    },
+    {
+      "source": "VA",
+      "target": "MS",
+      "weight": 5,
+      "ceCount": 5
+    },
+    {
+      "source": "VA",
+      "target": "NC",
+      "weight": 114,
+      "ceCount": 58
+    },
+    {
+      "source": "VA",
+      "target": "NH",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "VA",
+      "target": "NJ",
+      "weight": 68,
+      "ceCount": 49
+    },
+    {
+      "source": "VA",
+      "target": "NV",
+      "weight": 37,
+      "ceCount": 33
+    },
+    {
+      "source": "VA",
+      "target": "NY",
+      "weight": 56,
+      "ceCount": 36
+    },
+    {
+      "source": "VA",
+      "target": "OH",
+      "weight": 17,
+      "ceCount": 13
+    },
+    {
+      "source": "VA",
+      "target": "PA",
+      "weight": 129,
+      "ceCount": 56
+    },
+    {
+      "source": "VA",
+      "target": "SC",
+      "weight": 65,
+      "ceCount": 52
+    },
+    {
+      "source": "VA",
+      "target": "TN",
+      "weight": 115,
+      "ceCount": 53
+    },
+    {
+      "source": "VA",
+      "target": "TX",
+      "weight": 151,
+      "ceCount": 60
+    },
+    {
+      "source": "VA",
+      "target": "WA",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "VA",
+      "target": "WI",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "VA",
+      "target": "WV",
+      "weight": 27,
+      "ceCount": 9
+    },
+    {
+      "source": "VI",
+      "target": "AZ",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "VI",
+      "target": "FL",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "VI",
+      "target": "MI",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "VT",
+      "target": "AL",
+      "weight": 12,
+      "ceCount": 10
+    },
+    {
+      "source": "VT",
+      "target": "AR",
+      "weight": 18,
+      "ceCount": 18
+    },
+    {
+      "source": "VT",
+      "target": "AZ",
+      "weight": 32,
+      "ceCount": 13
+    },
+    {
+      "source": "VT",
+      "target": "CA",
+      "weight": 12,
+      "ceCount": 9
+    },
+    {
+      "source": "VT",
+      "target": "DE",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "VT",
+      "target": "FL",
+      "weight": 53,
+      "ceCount": 25
+    },
+    {
+      "source": "VT",
+      "target": "GA",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "VT",
+      "target": "HI",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "VT",
+      "target": "IA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "VT",
+      "target": "IL",
+      "weight": 27,
+      "ceCount": 18
+    },
+    {
+      "source": "VT",
+      "target": "IN",
+      "weight": 44,
+      "ceCount": 15
+    },
+    {
+      "source": "VT",
+      "target": "KS",
+      "weight": 15,
+      "ceCount": 10
+    },
+    {
+      "source": "VT",
+      "target": "KY",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "VT",
+      "target": "LA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "VT",
+      "target": "MA",
+      "weight": 50,
+      "ceCount": 32
+    },
+    {
+      "source": "VT",
+      "target": "MD",
+      "weight": 3,
+      "ceCount": 1
+    },
+    {
+      "source": "VT",
+      "target": "ME",
+      "weight": 7,
+      "ceCount": 2
+    },
+    {
+      "source": "VT",
+      "target": "MI",
+      "weight": 34,
+      "ceCount": 22
+    },
+    {
+      "source": "VT",
+      "target": "MN",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "VT",
+      "target": "MO",
+      "weight": 10,
+      "ceCount": 8
+    },
+    {
+      "source": "VT",
+      "target": "MS",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "VT",
+      "target": "MT",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "VT",
+      "target": "NC",
+      "weight": 17,
+      "ceCount": 9
+    },
+    {
+      "source": "VT",
+      "target": "NH",
+      "weight": 91,
+      "ceCount": 21
+    },
+    {
+      "source": "VT",
+      "target": "NJ",
+      "weight": 24,
+      "ceCount": 12
+    },
+    {
+      "source": "VT",
+      "target": "NV",
+      "weight": 9,
+      "ceCount": 8
+    },
+    {
+      "source": "VT",
+      "target": "NY",
+      "weight": 87,
+      "ceCount": 39
+    },
+    {
+      "source": "VT",
+      "target": "OH",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "VT",
+      "target": "PA",
+      "weight": 53,
+      "ceCount": 29
+    },
+    {
+      "source": "VT",
+      "target": "SC",
+      "weight": 10,
+      "ceCount": 9
+    },
+    {
+      "source": "VT",
+      "target": "TN",
+      "weight": 25,
+      "ceCount": 12
+    },
+    {
+      "source": "VT",
+      "target": "TX",
+      "weight": 71,
+      "ceCount": 27
+    },
+    {
+      "source": "VT",
+      "target": "VA",
+      "weight": 7,
+      "ceCount": 1
+    },
+    {
+      "source": "VT",
+      "target": "WA",
+      "weight": 6,
+      "ceCount": 4
+    },
+    {
+      "source": "VT",
+      "target": "WI",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "VT",
+      "target": "WV",
+      "weight": 5,
+      "ceCount": 1
+    },
+    {
+      "source": "VT",
+      "target": "WY",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WA",
+      "target": "AL",
+      "weight": 37,
+      "ceCount": 31
+    },
+    {
+      "source": "WA",
+      "target": "AR",
+      "weight": 32,
+      "ceCount": 32
+    },
+    {
+      "source": "WA",
+      "target": "AZ",
+      "weight": 124,
+      "ceCount": 45
+    },
+    {
+      "source": "WA",
+      "target": "CA",
+      "weight": 86,
+      "ceCount": 45
+    },
+    {
+      "source": "WA",
+      "target": "DE",
+      "weight": 22,
+      "ceCount": 22
+    },
+    {
+      "source": "WA",
+      "target": "FL",
+      "weight": 127,
+      "ceCount": 66
+    },
+    {
+      "source": "WA",
+      "target": "GA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "WA",
+      "target": "HI",
+      "weight": 8,
+      "ceCount": 8
+    },
+    {
+      "source": "WA",
+      "target": "ID",
+      "weight": 14,
+      "ceCount": 7
+    },
+    {
+      "source": "WA",
+      "target": "IL",
+      "weight": 49,
+      "ceCount": 31
+    },
+    {
+      "source": "WA",
+      "target": "IN",
+      "weight": 103,
+      "ceCount": 61
+    },
+    {
+      "source": "WA",
+      "target": "KS",
+      "weight": 57,
+      "ceCount": 36
+    },
+    {
+      "source": "WA",
+      "target": "KY",
+      "weight": 10,
+      "ceCount": 9
+    },
+    {
+      "source": "WA",
+      "target": "LA",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "WA",
+      "target": "MA",
+      "weight": 23,
+      "ceCount": 23
+    },
+    {
+      "source": "WA",
+      "target": "MI",
+      "weight": 72,
+      "ceCount": 41
+    },
+    {
+      "source": "WA",
+      "target": "MO",
+      "weight": 16,
+      "ceCount": 16
+    },
+    {
+      "source": "WA",
+      "target": "MS",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "WA",
+      "target": "MT",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "WA",
+      "target": "NC",
+      "weight": 28,
+      "ceCount": 25
+    },
+    {
+      "source": "WA",
+      "target": "NE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WA",
+      "target": "NH",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "WA",
+      "target": "NJ",
+      "weight": 47,
+      "ceCount": 36
+    },
+    {
+      "source": "WA",
+      "target": "NV",
+      "weight": 30,
+      "ceCount": 27
+    },
+    {
+      "source": "WA",
+      "target": "NY",
+      "weight": 23,
+      "ceCount": 14
+    },
+    {
+      "source": "WA",
+      "target": "OH",
+      "weight": 7,
+      "ceCount": 6
+    },
+    {
+      "source": "WA",
+      "target": "OR",
+      "weight": 97,
+      "ceCount": 48
+    },
+    {
+      "source": "WA",
+      "target": "PA",
+      "weight": 96,
+      "ceCount": 40
+    },
+    {
+      "source": "WA",
+      "target": "SC",
+      "weight": 25,
+      "ceCount": 23
+    },
+    {
+      "source": "WA",
+      "target": "TN",
+      "weight": 65,
+      "ceCount": 40
+    },
+    {
+      "source": "WA",
+      "target": "TX",
+      "weight": 121,
+      "ceCount": 66
+    },
+    {
+      "source": "WA",
+      "target": "UT",
+      "weight": 10,
+      "ceCount": 10
+    },
+    {
+      "source": "WI",
+      "target": "AL",
+      "weight": 41,
+      "ceCount": 33
+    },
+    {
+      "source": "WI",
+      "target": "AR",
+      "weight": 24,
+      "ceCount": 23
+    },
+    {
+      "source": "WI",
+      "target": "AZ",
+      "weight": 107,
+      "ceCount": 40
+    },
+    {
+      "source": "WI",
+      "target": "CA",
+      "weight": 50,
+      "ceCount": 27
+    },
+    {
+      "source": "WI",
+      "target": "CO",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WI",
+      "target": "CT",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WI",
+      "target": "DC",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WI",
+      "target": "DE",
+      "weight": 28,
+      "ceCount": 28
+    },
+    {
+      "source": "WI",
+      "target": "FL",
+      "weight": 122,
+      "ceCount": 52
+    },
+    {
+      "source": "WI",
+      "target": "GA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WI",
+      "target": "HI",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "WI",
+      "target": "IA",
+      "weight": 5,
+      "ceCount": 4
+    },
+    {
+      "source": "WI",
+      "target": "IL",
+      "weight": 147,
+      "ceCount": 74
+    },
+    {
+      "source": "WI",
+      "target": "IN",
+      "weight": 124,
+      "ceCount": 53
+    },
+    {
+      "source": "WI",
+      "target": "KS",
+      "weight": 47,
+      "ceCount": 26
+    },
+    {
+      "source": "WI",
+      "target": "KY",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "WI",
+      "target": "LA",
+      "weight": 7,
+      "ceCount": 7
+    },
+    {
+      "source": "WI",
+      "target": "MA",
+      "weight": 19,
+      "ceCount": 17
+    },
+    {
+      "source": "WI",
+      "target": "MI",
+      "weight": 77,
+      "ceCount": 43
+    },
+    {
+      "source": "WI",
+      "target": "MN",
+      "weight": 127,
+      "ceCount": 37
+    },
+    {
+      "source": "WI",
+      "target": "MO",
+      "weight": 28,
+      "ceCount": 27
+    },
+    {
+      "source": "WI",
+      "target": "MS",
+      "weight": 13,
+      "ceCount": 13
+    },
+    {
+      "source": "WI",
+      "target": "NC",
+      "weight": 40,
+      "ceCount": 26
+    },
+    {
+      "source": "WI",
+      "target": "ND",
+      "weight": 6,
+      "ceCount": 6
+    },
+    {
+      "source": "WI",
+      "target": "NH",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "WI",
+      "target": "NJ",
+      "weight": 52,
+      "ceCount": 33
+    },
+    {
+      "source": "WI",
+      "target": "NV",
+      "weight": 25,
+      "ceCount": 17
+    },
+    {
+      "source": "WI",
+      "target": "NY",
+      "weight": 19,
+      "ceCount": 17
+    },
+    {
+      "source": "WI",
+      "target": "OH",
+      "weight": 13,
+      "ceCount": 12
+    },
+    {
+      "source": "WI",
+      "target": "OR",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WI",
+      "target": "PA",
+      "weight": 91,
+      "ceCount": 46
+    },
+    {
+      "source": "WI",
+      "target": "SC",
+      "weight": 28,
+      "ceCount": 25
+    },
+    {
+      "source": "WI",
+      "target": "TN",
+      "weight": 61,
+      "ceCount": 35
+    },
+    {
+      "source": "WI",
+      "target": "TX",
+      "weight": 113,
+      "ceCount": 46
+    },
+    {
+      "source": "WI",
+      "target": "WA",
+      "weight": 15,
+      "ceCount": 14
+    },
+    {
+      "source": "WV",
+      "target": "AL",
+      "weight": 17,
+      "ceCount": 14
+    },
+    {
+      "source": "WV",
+      "target": "AR",
+      "weight": 49,
+      "ceCount": 49
+    },
+    {
+      "source": "WV",
+      "target": "AZ",
+      "weight": 48,
+      "ceCount": 24
+    },
+    {
+      "source": "WV",
+      "target": "CA",
+      "weight": 23,
+      "ceCount": 15
+    },
+    {
+      "source": "WV",
+      "target": "CO",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "WV",
+      "target": "DC",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "WV",
+      "target": "DE",
+      "weight": 20,
+      "ceCount": 20
+    },
+    {
+      "source": "WV",
+      "target": "FL",
+      "weight": 128,
+      "ceCount": 56
+    },
+    {
+      "source": "WV",
+      "target": "GA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WV",
+      "target": "HI",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "WV",
+      "target": "IL",
+      "weight": 59,
+      "ceCount": 40
+    },
+    {
+      "source": "WV",
+      "target": "IN",
+      "weight": 101,
+      "ceCount": 52
+    },
+    {
+      "source": "WV",
+      "target": "KS",
+      "weight": 29,
+      "ceCount": 21
+    },
+    {
+      "source": "WV",
+      "target": "KY",
+      "weight": 63,
+      "ceCount": 20
+    },
+    {
+      "source": "WV",
+      "target": "LA",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "WV",
+      "target": "MA",
+      "weight": 15,
+      "ceCount": 13
+    },
+    {
+      "source": "WV",
+      "target": "MD",
+      "weight": 19,
+      "ceCount": 7
+    },
+    {
+      "source": "WV",
+      "target": "MI",
+      "weight": 49,
+      "ceCount": 36
+    },
+    {
+      "source": "WV",
+      "target": "MO",
+      "weight": 13,
+      "ceCount": 13
+    },
+    {
+      "source": "WV",
+      "target": "MS",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "WV",
+      "target": "MT",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "WV",
+      "target": "NC",
+      "weight": 38,
+      "ceCount": 24
+    },
+    {
+      "source": "WV",
+      "target": "NJ",
+      "weight": 42,
+      "ceCount": 28
+    },
+    {
+      "source": "WV",
+      "target": "NM",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WV",
+      "target": "NV",
+      "weight": 14,
+      "ceCount": 13
+    },
+    {
+      "source": "WV",
+      "target": "NY",
+      "weight": 14,
+      "ceCount": 6
+    },
+    {
+      "source": "WV",
+      "target": "OH",
+      "weight": 142,
+      "ceCount": 55
+    },
+    {
+      "source": "WV",
+      "target": "PA",
+      "weight": 136,
+      "ceCount": 55
+    },
+    {
+      "source": "WV",
+      "target": "SC",
+      "weight": 19,
+      "ceCount": 15
+    },
+    {
+      "source": "WV",
+      "target": "TN",
+      "weight": 36,
+      "ceCount": 27
+    },
+    {
+      "source": "WV",
+      "target": "TX",
+      "weight": 127,
+      "ceCount": 56
+    },
+    {
+      "source": "WV",
+      "target": "VA",
+      "weight": 62,
+      "ceCount": 19
+    },
+    {
+      "source": "WY",
+      "target": "AL",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WY",
+      "target": "AR",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "WY",
+      "target": "AZ",
+      "weight": 8,
+      "ceCount": 4
+    },
+    {
+      "source": "WY",
+      "target": "CA",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "WY",
+      "target": "CO",
+      "weight": 6,
+      "ceCount": 5
+    },
+    {
+      "source": "WY",
+      "target": "DE",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WY",
+      "target": "FL",
+      "weight": 9,
+      "ceCount": 6
+    },
+    {
+      "source": "WY",
+      "target": "IN",
+      "weight": 10,
+      "ceCount": 7
+    },
+    {
+      "source": "WY",
+      "target": "MI",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "WY",
+      "target": "MS",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WY",
+      "target": "MT",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "WY",
+      "target": "NC",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WY",
+      "target": "NY",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WY",
+      "target": "PA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "WY",
+      "target": "SC",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WY",
+      "target": "TN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "WY",
+      "target": "TX",
+      "weight": 11,
+      "ceCount": 6
+    },
+    {
+      "source": "WY",
+      "target": "WA",
+      "weight": 3,
+      "ceCount": 3
+    }
+  ]
+}

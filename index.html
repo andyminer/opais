@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>340B Network Analysis</title>
-  <!-- Load 3D Force Graph first -->
   <script src="https://unpkg.com/3d-force-graph"></script>
   <style>
-    /* Base Styles with Tuftian Principles */
+    /* Base Styles */
     body {
       margin: 0;
       padding: 0;
@@ -16,8 +15,8 @@
       line-height: 1.6;
     }
 
-    /* Elegant Control Panel */
-    #state-selector {
+    /* Control Panel */
+    #info-panel {
       position: fixed;
       top: 2rem;
       left: 2rem;
@@ -26,23 +25,38 @@
       background: rgba(252, 252, 252, 0.95);
       border-radius: 3px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      max-width: 280px;
+      max-width: 300px;
       backdrop-filter: blur(8px);
     }
 
-    #state-selector h2 {
+    #info-panel h2 {
       font-size: 1.2rem;
       font-weight: 400;
-      margin: 0 0 1rem 0;
+      margin: 0 0 0.75rem 0;
       color: #2c3e50;
       border-bottom: 1px solid #eee;
       padding-bottom: 0.5rem;
     }
 
-    /* Refined Button Design */
-    .state-button {
-      padding: 6px 12px;
-      margin: 3px;
+    .panel-stats {
+      font-size: 0.82rem;
+      color: #666;
+      line-height: 1.7;
+    }
+    .panel-stats strong {
+      color: #2c3e50;
+    }
+    .panel-hint {
+      font-size: 0.78rem;
+      color: #999;
+      margin-top: 0.75rem;
+      font-style: italic;
+    }
+
+    /* Buttons */
+    .nav-button {
+      padding: 6px 14px;
+      margin-top: 0.75rem;
       border: 1px solid #d1d5db;
       background-color: transparent;
       color: #2c3e50;
@@ -51,15 +65,29 @@
       border-radius: 2px;
       font-family: inherit;
       transition: all 0.2s ease;
+      display: inline-block;
     }
-    .state-button:hover {
+    .nav-button:hover {
       background-color: #f8f9fa;
       border-color: #9ca3af;
     }
-    .state-button.active {
+    .drill-button {
+      padding: 8px 16px;
+      margin-top: 1rem;
+      border: 1px solid #2c3e50;
       background-color: #2c3e50;
       color: #fff;
-      border-color: #2c3e50;
+      font-size: 13px;
+      cursor: pointer;
+      border-radius: 2px;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    .drill-button:hover {
+      background-color: #1a252f;
     }
 
     /* Graph Container */
@@ -72,7 +100,7 @@
       background: linear-gradient(to bottom right, #fcfcfc, #f5f5f5);
     }
 
-    /* Refined Tooltip Design */
+    /* Tooltip */
     .node-tooltip {
       position: absolute;
       pointer-events: none;
@@ -86,14 +114,14 @@
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       z-index: 20;
-      max-width: 280px;
+      max-width: 300px;
     }
     .node-tooltip strong {
       color: #1a1a1a;
       font-weight: 500;
     }
 
-    /* Elegant Loading State */
+    /* Loading */
     #loading {
       position: fixed;
       top: 50%;
@@ -109,7 +137,7 @@
       color: #2c3e50;
     }
 
-    /* Refined Search Interface */
+    /* Search */
     #search-container {
       position: fixed;
       top: 2rem;
@@ -138,7 +166,7 @@
       box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
     }
 
-    /* Node Type Legend */
+    /* Legend */
     #legend {
       position: fixed;
       bottom: 2rem;
@@ -156,28 +184,36 @@
       align-items: center;
       margin-bottom: 0.5rem;
     }
+    .legend-item:last-child {
+      margin-bottom: 0;
+    }
     .legend-color {
       width: 12px;
       height: 12px;
       margin-right: 8px;
       border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .legend-detail {
+      color: #999;
+      margin-left: 4px;
+      font-size: 0.75rem;
     }
 
-    /* Detail Panel Styling */
+    /* Detail Panel */
     .detail-panel {
       position: fixed;
-      /* Bump down so it won't overlap with search container */
       top: 10rem;
       right: 2rem;
       width: 300px;
-      max-height: 80vh;
+      max-height: 75vh;
       overflow-y: auto;
       background: rgba(252, 252, 252, 0.95);
       padding: 1.5rem;
       border-radius: 3px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       backdrop-filter: blur(8px);
-      display: none; /* Hidden by default */
+      display: none;
       z-index: 20;
     }
     .detail-title {
@@ -204,157 +240,115 @@
       border-radius: 2px;
       font-size: 0.85rem;
     }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.25rem 0;
+      font-size: 0.85rem;
+    }
+    .stat-row .stat-label { color: #666; }
+    .stat-row .stat-value { color: #2c3e50; font-weight: 500; }
+    .stat-divider {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 0.5rem 0;
+    }
   </style>
 </head>
 <body>
-  <!-- State Selector -->
-  <div id="state-selector">
-    <h2>340B Network Analysis</h2>
-    <div>
-      <button class="state-button" data-state="CO">CO</button>
-      <button class="state-button" data-state="CT">CT</button>
-      <button class="state-button" data-state="KY">KY</button>
-      <button class="state-button" data-state="MA">MA</button>
-      <button class="state-button" data-state="MI">MI</button>
-      <button class="state-button" data-state="ND">ND</button>
-      <button class="state-button" data-state="NE">NE</button>
-      <button class="state-button" data-state="NM">NM</button>
-      <button class="state-button" data-state="NY">NY</button>
-      <button class="state-button" data-state="OR">OR</button>
-      <button class="state-button" data-state="PA">PA</button>
-      <button class="state-button" data-state="SD">SD</button>
-      <button class="state-button" data-state="UT">UT</button>
-    </div>
-  </div>
+  <!-- Info Panel (dynamic content based on view) -->
+  <div id="info-panel"></div>
 
-  <!-- The Detail Panel -->
+  <!-- Detail Panel -->
   <div id="detail-panel" class="detail-panel">
-    <h3 class="detail-title">Selected Node Details</h3>
+    <h3 class="detail-title" id="detail-title">Details</h3>
     <div id="node-details"></div>
     <div class="connections-section">
-      <h4>Connected Nodes</h4>
+      <h4 id="connections-header">Connected Nodes</h4>
       <div id="connection-details"></div>
     </div>
   </div>
 
-  <!-- The 3D Graph Container -->
+  <!-- Graph Container -->
   <div id="graph-container"></div>
 
-  <!-- Tooltip and Loading Spinner -->
+  <!-- Tooltip & Loading -->
   <div id="tooltip" class="node-tooltip"></div>
   <div id="loading">Analyzing network data...</div>
 
-  <!-- Search bar -->
+  <!-- Search -->
   <div id="search-container">
-    <input type="text" id="search-input" placeholder="Search entities or pharmacies...">
+    <input type="text" id="search-input" placeholder="Search states...">
   </div>
 
   <!-- Legend -->
-  <div id="legend">
-    <div class="legend-item">
-      <div class="legend-color" style="background: #D95F02"></div>
-      <span>Hospitals</span>
-      <span class="legend-detail">(DSH, CAH, RRC, PED, SCH, CAN)</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-color" style="background: #1B3147"></div>
-      <span>Grantees</span>
-      <span class="legend-detail">(CH, STD, TB, etc.)</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-color" style="background: #DEDEDE"></div>
-      <span>Contract Pharmacies</span>
-    </div>
-  </div>
+  <div id="legend"></div>
 
   <script>
-    // Entity type grouping
+    // ── Constants ──────────────────────────────────────────────
     const entityTypeGroups = {
-      // Hospitals
-      'DSH': 'hospital',
-      'CAH': 'hospital',
-      'RRC': 'hospital',
-      'PED': 'hospital',
-      'SCH': 'hospital',
-      'CAN': 'hospital',
-
-      // All others are grantees
-      'CH': 'grantee',
-      'STD': 'grantee',
-      'FQHCLA': 'grantee',
-      'RWI': 'grantee',
-      'RWII': 'grantee',
-      'HV': 'grantee',
-      'FP': 'grantee',
-      'TB': 'grantee',
-      'RWIID': 'grantee',
-      'HM': 'grantee',
-      'RW4': 'grantee',
-      'FQHC638': 'grantee',
-      'UI': 'grantee',
-      'RWIIR': 'grantee',
-      'NH': 'grantee',
-      'BL': 'grantee'
+      'DSH': 'hospital', 'CAH': 'hospital', 'RRC': 'hospital',
+      'PED': 'hospital', 'SCH': 'hospital', 'CAN': 'hospital',
+      'CH': 'grantee', 'STD': 'grantee', 'FQHCLA': 'grantee',
+      'RWI': 'grantee', 'RWII': 'grantee', 'HV': 'grantee',
+      'FP': 'grantee', 'TB': 'grantee', 'RWIID': 'grantee',
+      'HM': 'grantee', 'RW4': 'grantee', 'FQHC638': 'grantee',
+      'UI': 'grantee', 'RWIIR': 'grantee', 'NH': 'grantee',
+      'BL': 'grantee', 'SPNS': 'grantee'
     };
 
-    // Colors
     const groupColors = {
-      'hospital': '#D95F02',   // Burnt orange
-      'grantee': '#1B3147',   // Deep navy
-      'pharmacy': '#DEDEDE'   // Light neutral gray
+      'hospital': '#D95F02',
+      'grantee':  '#1B3147',
+      'pharmacy': '#DEDEDE'
     };
 
-    // Graph state
+    // ── State ─────────────────────────────────────────────────
     let Graph = null;
+    let currentView = 'national';   // 'national' | 'state'
     let currentState = null;
+    let nationalData = null;
     let hoveredNode = null;
     let clickedNode = null;
     let neighbors = new Set();
     const adjacency = {};
 
     // DOM elements
-    const tooltip = document.getElementById('tooltip');
-    const loading = document.getElementById('loading');
+    const tooltip  = document.getElementById('tooltip');
+    const loading  = document.getElementById('loading');
     const searchInput = document.getElementById('search-input');
 
-    // Initialize the graph
-    function initGraph(graphData) {
-      // Clear if re-initializing
-      if (Graph) {
-        Graph.graphData({ nodes: [], links: [] });
-      }
-
-      buildAdjacency(graphData);
-
-      if (!Graph) {
-        Graph = ForceGraph3D()
-          (document.getElementById("graph-container"))
-          .backgroundColor("#fcfcfc")
-          .nodeResolution(16)
-          .nodeRelSize(4)
-          .nodeColor(getNodeColor)
-          .nodeLabel(node => getNodeLabel(node))
-          .linkColor(getLinkColor)
-          .linkWidth(getLinkWidth)
-          .cameraPosition({ x: 0, y: 0, z: 800 }, true)
-          .onNodeHover(handleNodeHover)
-          .onNodeClick(handleNodeClick)
-          .onEngineTick(updateTooltipPosition);
-      }
-
-      Graph.graphData(graphData);
+    // ── Color helpers ─────────────────────────────────────────
+    function hexToRgb(hex) {
+      const n = parseInt(hex.slice(1), 16);
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
     }
 
+    function lerpColor(hex1, hex2, t) {
+      const [r1, g1, b1] = hexToRgb(hex1);
+      const [r2, g2, b2] = hexToRgb(hex2);
+      const r = Math.round(r1 + (r2 - r1) * t);
+      const g = Math.round(g1 + (g2 - g1) * t);
+      const b = Math.round(b1 + (b2 - b1) * t);
+      return `rgb(${r},${g},${b})`;
+    }
+
+    function stateNodeColor(node) {
+      const total = (node.hospitalCount || 0) + (node.granteeCount || 0);
+      if (total === 0) return groupColors.grantee;
+      const ratio = node.hospitalCount / total; // 1 = all hospital, 0 = all grantee
+      return lerpColor(groupColors.grantee, groupColors.hospital, ratio);
+    }
+
+    // ── Number formatting ─────────────────────────────────────
+    function fmt(n) {
+      return (n || 0).toLocaleString();
+    }
+
+    // ── Adjacency ─────────────────────────────────────────────
     function buildAdjacency(graphData) {
-      // Clear adjacency
       Object.keys(adjacency).forEach(key => delete adjacency[key]);
-
-      // Initialize adjacency sets
-      graphData.nodes.forEach(n => {
-        adjacency[n.id] = new Set();
-      });
-
-      // Populate adjacency
+      graphData.nodes.forEach(n => { adjacency[n.id] = new Set(); });
       graphData.links.forEach(link => {
         const srcId = typeof link.source === 'object' ? link.source.id : link.source;
         const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
@@ -363,237 +357,100 @@
       });
     }
 
+    // ── Node color ────────────────────────────────────────────
     function getNodeColor(node) {
-      if (!clickedNode) {
-        // No node is clicked, color normally
-        if (node.type === "Pharmacy") {
-          return groupColors.pharmacy;
-        }
-        const group = entityTypeGroups[node.entityType] || 'grantee';
-        return groupColors[group];
-      }
+      const baseColor = computeBaseColor(node);
 
-      // If a node is clicked, highlight only connected
-      if (node.id === clickedNode.id || neighbors.has(node.id)) {
-        if (node.type === "Pharmacy") {
-          return groupColors.pharmacy;
-        }
-        const group = entityTypeGroups[node.entityType] || 'grantee';
-        return groupColors[group];
-      }
-
-      // Fade out everything else
+      if (!clickedNode) return baseColor;
+      if (node.id === clickedNode.id || neighbors.has(node.id)) return baseColor;
       return "rgba(224, 224, 224, 0.2)";
     }
 
+    function computeBaseColor(node) {
+      if (node.type === 'State') return stateNodeColor(node);
+      if (node.type === 'Pharmacy') return groupColors.pharmacy;
+      return groupColors[entityTypeGroups[node.entityType] || 'grantee'];
+    }
+
+    // ── Node label ────────────────────────────────────────────
     function getNodeLabel(node) {
-      if (node.type === "Pharmacy") {
+      if (node.type === 'State') {
+        return `${node.label} (${node.id}) — ${fmt(node.contractCount)} contracts`;
+      }
+      if (node.type === 'Pharmacy') {
         return node.pharmacyName || `Pharmacy: ${node.id}`;
       }
       return `${node.entityName || 'Unknown'} (${node.entityType || 'Unknown'})`;
     }
 
+    // ── Link color ────────────────────────────────────────────
     function getLinkColor(link) {
-      // Check if same state
+      if (currentView === 'national') {
+        const base = "rgba(44, 62, 80, 0.12)";
+        const faded = "rgba(221, 221, 221, 0.03)";
+        if (!clickedNode) return base;
+        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+        const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+        if (srcId === clickedNode.id || tgtId === clickedNode.id) return "rgba(185, 117, 47, 0.35)";
+        return faded;
+      }
+
+      // State view — in-state vs out-of-state
       const sameState = link.source?.state && link.target?.cpState &&
                         link.source.state === link.target.cpState;
-
-      // If no node is clicked, color based on state relationship
       if (!clickedNode) {
-        return sameState
-          ? "rgba(44, 62, 80, 0.1)" // In-state: subtle gray
-          : "rgba(185, 117, 47, 0.2)"; // Out-of-state: warm accent
+        return sameState ? "rgba(44, 62, 80, 0.1)" : "rgba(185, 117, 47, 0.2)";
       }
-
       const srcId = typeof link.source === 'object' ? link.source.id : link.source;
       const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
-
-      // If connected to clicked node, keep coloring
       if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
           (tgtId === clickedNode.id && neighbors.has(srcId))) {
-        return sameState
-          ? "rgba(44, 62, 80, 0.1)"
-          : "rgba(185, 117, 47, 0.2)";
+        return sameState ? "rgba(44, 62, 80, 0.15)" : "rgba(185, 117, 47, 0.3)";
       }
-
-      // Otherwise fade
       return "rgba(221, 221, 221, 0.05)";
     }
 
+    // ── Link width ────────────────────────────────────────────
     function getLinkWidth(link) {
-      // Reverse the width logic - thicker for out-of-state
+      if (currentView === 'national') {
+        const w = link.weight || 1;
+        const base = Math.max(0.4, Math.sqrt(w) * 0.25);
+        if (!clickedNode) return base;
+        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+        const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+        if (srcId === clickedNode.id || tgtId === clickedNode.id) return base * 1.5;
+        return 0.15;
+      }
+
+      // State view
       const sameState = link.source?.state && link.target?.cpState &&
                         link.source.state === link.target.cpState;
-      const baseWidth = sameState ? 1 : 2; // Thinner if in-state
-
-      if (!clickedNode) {
-        return baseWidth;
-      }
+      const baseWidth = sameState ? 1 : 2;
+      if (!clickedNode) return baseWidth;
       const srcId = typeof link.source === 'object' ? link.source.id : link.source;
       const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
-
-      // If link is connected to the clicked node, keep
       if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
           (tgtId === clickedNode.id && neighbors.has(srcId))) {
         return baseWidth;
       }
-
-      // Otherwise fade
       return 0.2;
     }
 
-    // Update the detail panel
-    function updateDetailPanel(node) {
-      const panel = document.getElementById('detail-panel');
-      const nodeDetails = document.getElementById('node-details');
-      const connectionDetails = document.getElementById('connection-details');
-
-      // Hide if no node
-      if (!node) {
-        panel.style.display = 'none';
-        return;
-      }
-      // Show panel
-      panel.style.display = 'block';
-
-      // Node info
-      if (node.type === 'Pharmacy') {
-        nodeDetails.innerHTML = `
-          <p><strong>Pharmacy:</strong> ${node.pharmacyName || ''}</p>
-          <p><strong>Address:</strong><br>
-            ${node.cpAddress1 || ''}<br>
-            ${node.cpAddress2 ? node.cpAddress2 + '<br>' : ''}
-            ${node.cpAddress3 ? node.cpAddress3 + '<br>' : ''}
-            ${node.cpCity || ''}, ${node.cpState || ''} ${node.cpZip || ''}
-          </p>
-        `;
-      } else {
-        nodeDetails.innerHTML = `
-          <p><strong>Entity:</strong> ${node.entityName || ''}</p>
-          <p><strong>Type:</strong> ${node.entityType || ''}</p>
-          <p><strong>ID:</strong> ${node.id || ''}</p>
-          <p><strong>Address:</strong><br>
-            ${node.address1 || ''}<br>
-            ${node.address2 ? node.address2 + '<br>' : ''}
-            ${node.address3 ? node.address3 + '<br>' : ''}
-            ${node.city || ''}, ${node.state || ''} ${node.zip || ''}
-          </p>
-        `;
-      }
-
-      // Connected nodes
-      const graphData = Graph.graphData();
-      const links = graphData.links.filter(link => 
-        (typeof link.source === 'object' ? link.source.id : link.source) === node.id ||
-        (typeof link.target === 'object' ? link.target.id : link.target) === node.id
-      );
-
-      const connectedNodes = links.map(link => {
-        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
-        const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
-        // If node is the source, the connected node is the target; vice versa
-        const connectedNode = (srcId === node.id) ? link.target : link.source;
-        const contractInfo = {
-          beginDate: link.beginDate || 'Unknown',
-          termDate: (link.termDate === '' ? 'Open' : link.termDate)
-        };
-        return { node: connectedNode, contract: contractInfo };
-      });
-
-      connectionDetails.innerHTML = connectedNodes.map(({ node, contract }) => {
-        // Node might be an object or an ID
-        const cNode = (typeof node === 'object') 
-            ? node 
-            : graphData.nodes.find(n => n.id === node);
-        if (!cNode) return '';
-
-        // Display name
-        const displayName = cNode.type === 'Pharmacy'
-          ? (cNode.pharmacyName || cNode.id)
-          : (cNode.entityName || cNode.id);
-
-        // Also show city/state
-        const city = cNode.type === 'Pharmacy' ? (cNode.cpCity || '') : (cNode.city || '');
-        const state = cNode.type === 'Pharmacy' ? (cNode.cpState || '') : (cNode.state || '');
-
-        return `
-          <div class="connection-item">
-            <strong>${displayName}</strong><br>
-            <small>Location: ${city}, ${state}</small><br>
-            <small>Contract: ${contract.beginDate} - ${contract.termDate}</small>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Node hover
-    function handleNodeHover(node) {
-      hoveredNode = node || null;
-      if (!hoveredNode) {
-        hideTooltip();
-        return;
-      }
-      showTooltip(hoveredNode);
-    }
-
-    // Node click
-    function handleNodeClick(node) {
-      // If same node is clicked again, unselect
-      if (!node || (clickedNode && node.id === clickedNode.id)) {
-        clickedNode = null;
-        neighbors.clear();
-        updateDetailPanel(null);
-      } else {
-        clickedNode = node;
-        neighbors = new Set(adjacency[node.id] || []);
-        updateDetailPanel(node);
-      }
-
-      // Update graph
-      Graph
-        .graphData(Graph.graphData())
-        .nodeColor(getNodeColor)
-        .linkColor(getLinkColor)
-        .linkWidth(getLinkWidth);
-    }
-
-    // Instantiate the graph (and background click)
-    Graph = ForceGraph3D()
-      (document.getElementById("graph-container"))
-      .backgroundColor("#fcfcfc")
-      .nodeResolution(16)
-      .nodeRelSize(4)
-      .nodeColor(getNodeColor)
-      .nodeLabel(node => getNodeLabel(node))
-      .linkColor(getLinkColor)
-      .linkWidth(getLinkWidth)
-      .cameraPosition({ x: 0, y: 0, z: 800 }, true)
-      .onNodeHover(handleNodeHover)
-      .onNodeClick(handleNodeClick)
-      .onBackgroundClick(() => {
-        clickedNode = null;
-        neighbors.clear();
-        updateDetailPanel(null);
-        Graph
-          .graphData(Graph.graphData())
-          .nodeColor(getNodeColor)
-          .linkColor(getLinkColor)
-          .linkWidth(getLinkWidth);
-      })
-      .onEngineTick(updateTooltipPosition);
-
-    // Update tooltip position
-    function updateTooltipPosition() {
-      if (hoveredNode) {
-        const coords = Graph.graph2ScreenCoords(hoveredNode.x, hoveredNode.y, hoveredNode.z);
-        tooltip.style.left = `${coords.x + 8}px`;
-        tooltip.style.top = `${coords.y + 8}px`;
-      }
-    }
-
+    // ── Tooltip ───────────────────────────────────────────────
     function showTooltip(node) {
       if (!node) return;
-      if (node.type === "Pharmacy") {
+      if (node.type === 'State') {
+        const pctOut = node.contractCount
+          ? Math.round(100 * node.outOfStateContracts / node.contractCount)
+          : 0;
+        tooltip.innerHTML = `
+          <strong>${node.label}</strong> (${node.id})<br>
+          <strong>CEs:</strong> ${fmt(node.ceCount)}<br>
+          <strong>Pharmacies:</strong> ${fmt(node.pharmacyCount)}<br>
+          <strong>Contracts:</strong> ${fmt(node.contractCount)}<br>
+          <strong>Cross-state:</strong> ${fmt(node.outOfStateContracts)} (${pctOut}%)
+        `;
+      } else if (node.type === 'Pharmacy') {
         tooltip.innerHTML = `
           <strong>Pharmacy:</strong> ${node.pharmacyName || ""}<br>
           <strong>ID:</strong> ${node.id}<br>
@@ -614,105 +471,447 @@
       tooltip.style.visibility = "hidden";
     }
 
-    // Loading state for JSON fetch
-    async function loadState(state) {
-      if (state === currentState) return;
-      loading.style.display = 'block';
-      try {
-        const response = await fetch(`opais_network_${state}.json`);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        currentState = state;
-        updateActiveButton(state);
-        initGraph(data);
-      } catch (error) {
-        console.error('Error loading state data:', error);
-        alert(`Error loading data for ${state}. Please try again.`);
-      } finally {
-        loading.style.display = 'none';
+    function updateTooltipPosition() {
+      if (hoveredNode) {
+        const coords = Graph.graph2ScreenCoords(hoveredNode.x, hoveredNode.y, hoveredNode.z);
+        tooltip.style.left = `${coords.x + 8}px`;
+        tooltip.style.top = `${coords.y + 8}px`;
       }
     }
 
-    function updateActiveButton(state) {
-      document.querySelectorAll('.state-button').forEach(button => {
-        button.classList.toggle('active', button.dataset.state === state);
-      });
+    // ── Detail panel ──────────────────────────────────────────
+    function updateDetailPanel(node) {
+      const panel = document.getElementById('detail-panel');
+      const nodeDetails = document.getElementById('node-details');
+      const connectionDetails = document.getElementById('connection-details');
+      const detailTitle = document.getElementById('detail-title');
+      const connectionsHeader = document.getElementById('connections-header');
+
+      if (!node) {
+        panel.style.display = 'none';
+        return;
+      }
+      panel.style.display = 'block';
+
+      if (node.type === 'State') {
+        detailTitle.textContent = `${node.label} (${node.id})`;
+        connectionsHeader.textContent = 'Cross-State Relationships';
+
+        const pctHosp = (node.hospitalCount + node.granteeCount) > 0
+          ? Math.round(100 * node.hospitalCount / (node.hospitalCount + node.granteeCount))
+          : 0;
+
+        nodeDetails.innerHTML = `
+          <div class="stat-row"><span class="stat-label">Covered Entities</span><span class="stat-value">${fmt(node.ceCount)}</span></div>
+          <div class="stat-row"><span class="stat-label">Hospitals</span><span class="stat-value">${fmt(node.hospitalCount)}</span></div>
+          <div class="stat-row"><span class="stat-label">Grantees</span><span class="stat-value">${fmt(node.granteeCount)}</span></div>
+          <hr class="stat-divider">
+          <div class="stat-row"><span class="stat-label">Contract Pharmacies</span><span class="stat-value">${fmt(node.pharmacyCount)}</span></div>
+          <div class="stat-row"><span class="stat-label">Total Contracts</span><span class="stat-value">${fmt(node.contractCount)}</span></div>
+          <hr class="stat-divider">
+          <div class="stat-row"><span class="stat-label">In-State Contracts</span><span class="stat-value">${fmt(node.inStateContracts)}</span></div>
+          <div class="stat-row"><span class="stat-label">Cross-State Contracts</span><span class="stat-value">${fmt(node.outOfStateContracts)}</span></div>
+          <button class="drill-button" onclick="drillIntoState('${node.id}')">
+            View ${node.label} Network &rarr;
+          </button>
+        `;
+
+        // Connected states — aggregate by neighbor, sort by weight
+        const graphData = Graph.graphData();
+        const links = graphData.links.filter(link => {
+          const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+          const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+          return srcId === node.id || tgtId === node.id;
+        });
+
+        // Aggregate links by connected state (there can be both directions)
+        const stateAgg = {};
+        links.forEach(link => {
+          const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+          const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+          const otherId = srcId === node.id ? tgtId : srcId;
+          if (!stateAgg[otherId]) stateAgg[otherId] = { weight: 0, ceCount: 0 };
+          stateAgg[otherId].weight += (link.weight || 0);
+          stateAgg[otherId].ceCount += (link.ceCount || 0);
+        });
+
+        const sortedStates = Object.entries(stateAgg)
+          .sort((a, b) => b[1].weight - a[1].weight);
+
+        const nodeMap = {};
+        graphData.nodes.forEach(n => { nodeMap[n.id] = n; });
+
+        connectionDetails.innerHTML = sortedStates.map(([stateId, agg]) => {
+          const sn = nodeMap[stateId];
+          const label = sn ? sn.label : stateId;
+          return `
+            <div class="connection-item">
+              <strong>${label} (${stateId})</strong><br>
+              <small>${fmt(agg.weight)} contracts from ${fmt(agg.ceCount)} CEs</small>
+            </div>
+          `;
+        }).join('');
+
+      } else if (node.type === 'Pharmacy') {
+        detailTitle.textContent = 'Contract Pharmacy';
+        connectionsHeader.textContent = 'Connected Entities';
+        nodeDetails.innerHTML = `
+          <p><strong>${node.pharmacyName || ''}</strong></p>
+          <p style="font-size:0.85rem; color:#666;">
+            ${node.cpAddress1 || ''}<br>
+            ${node.cpAddress2 ? node.cpAddress2 + '<br>' : ''}
+            ${node.cpCity || ''}, ${node.cpState || ''} ${node.cpZip || ''}
+          </p>
+        `;
+        renderStateConnections(node, connectionDetails);
+      } else {
+        detailTitle.textContent = 'Covered Entity';
+        connectionsHeader.textContent = 'Contract Pharmacies';
+        nodeDetails.innerHTML = `
+          <p><strong>${node.entityName || ''}</strong></p>
+          <p style="font-size:0.85rem; color:#666;">
+            Type: ${node.entityType || ''}<br>
+            ID: ${node.id || ''}<br>
+            ${node.address1 || ''}<br>
+            ${node.address2 ? node.address2 + '<br>' : ''}
+            ${node.city || ''}, ${node.state || ''} ${node.zip || ''}
+          </p>
+        `;
+        renderStateConnections(node, connectionDetails);
+      }
     }
 
-    // Dynamic search functionality
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.trim().toLowerCase();
-      if (!query) {
-        // Reset everything
+    function renderStateConnections(node, container) {
+      const graphData = Graph.graphData();
+      const links = graphData.links.filter(link =>
+        (typeof link.source === 'object' ? link.source.id : link.source) === node.id ||
+        (typeof link.target === 'object' ? link.target.id : link.target) === node.id
+      );
+
+      const items = links.map(link => {
+        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+        const connectedNode = (srcId === node.id) ? link.target : link.source;
+        const cNode = typeof connectedNode === 'object'
+          ? connectedNode
+          : graphData.nodes.find(n => n.id === connectedNode);
+        if (!cNode) return '';
+
+        const name = cNode.type === 'Pharmacy'
+          ? (cNode.pharmacyName || cNode.id)
+          : (cNode.entityName || cNode.id);
+        const city = cNode.type === 'Pharmacy' ? (cNode.cpCity || '') : (cNode.city || '');
+        const state = cNode.type === 'Pharmacy' ? (cNode.cpState || '') : (cNode.state || '');
+        const begin = link.beginDate || 'Unknown';
+        const term = link.termDate === '' ? 'Open' : (link.termDate || 'Open');
+
+        return `
+          <div class="connection-item">
+            <strong>${name}</strong><br>
+            <small>${city}, ${state}</small><br>
+            <small>${begin} – ${term}</small>
+          </div>
+        `;
+      });
+      container.innerHTML = items.join('');
+    }
+
+    // ── Hover / click handlers ────────────────────────────────
+    function handleNodeHover(node) {
+      hoveredNode = node || null;
+      if (!hoveredNode) { hideTooltip(); return; }
+      showTooltip(hoveredNode);
+    }
+
+    function handleNodeClick(node) {
+      if (!node || (clickedNode && node.id === clickedNode.id)) {
         clickedNode = null;
         neighbors.clear();
         updateDetailPanel(null);
-        Graph
+      } else {
+        clickedNode = node;
+        neighbors = new Set(adjacency[node.id] || []);
+        updateDetailPanel(node);
+      }
+      refreshGraphAppearance();
+    }
+
+    function handleBackgroundClick() {
+      clickedNode = null;
+      neighbors.clear();
+      updateDetailPanel(null);
+      refreshGraphAppearance();
+    }
+
+    function refreshGraphAppearance() {
+      Graph
+        .nodeColor(getNodeColor)
+        .linkColor(getLinkColor)
+        .linkWidth(getLinkWidth);
+    }
+
+    // ── Graph init ────────────────────────────────────────────
+    function initGraph(graphData) {
+      // Reset selection
+      clickedNode = null;
+      hoveredNode = null;
+      neighbors.clear();
+      updateDetailPanel(null);
+
+      buildAdjacency(graphData);
+
+      if (!Graph) {
+        Graph = ForceGraph3D()
+          (document.getElementById("graph-container"))
+          .backgroundColor("#fcfcfc")
+          .nodeResolution(16)
           .nodeColor(getNodeColor)
+          .nodeLabel(getNodeLabel)
           .linkColor(getLinkColor)
-          .linkWidth(getLinkWidth);
+          .linkWidth(getLinkWidth)
+          .onNodeHover(handleNodeHover)
+          .onNodeClick(handleNodeClick)
+          .onBackgroundClick(handleBackgroundClick)
+          .onEngineTick(updateTooltipPosition);
+      }
+
+      // View-specific configuration
+      if (currentView === 'national') {
+        Graph
+          .nodeRelSize(2)
+          .nodeVal(node => Math.pow(node.contractCount || 1, 0.55))
+          .nodeOpacity(0.9)
+          .linkDirectionalParticles(0)
+          .d3AlphaDecay(0.02)
+          .d3VelocityDecay(0.3)
+          .cameraPosition({ x: 0, y: 0, z: 700 });
+
+        // Spread state nodes apart
+        Graph.d3Force('charge').strength(-120);
+        Graph.d3Force('link').distance(80);
+      } else {
+        Graph
+          .nodeRelSize(4)
+          .nodeVal(1)
+          .nodeOpacity(1.0)
+          .linkDirectionalParticles(0)
+          .d3AlphaDecay(0.0228)
+          .d3VelocityDecay(0.4)
+          .cameraPosition({ x: 0, y: 0, z: 800 });
+
+        // Reset forces for state view
+        Graph.d3Force('charge').strength(-30);
+        Graph.d3Force('link').distance(30);
+      }
+
+      Graph.graphData(graphData);
+    }
+
+    // ── Info panel ────────────────────────────────────────────
+    function updateInfoPanel() {
+      const panel = document.getElementById('info-panel');
+
+      if (currentView === 'national' && nationalData) {
+        const m = nationalData.metadata || {};
+        panel.innerHTML = `
+          <h2>340B National Network</h2>
+          <div class="panel-stats">
+            <strong>${fmt(m.totalCEs)}</strong> covered entities<br>
+            <strong>${fmt(m.totalPharmacies)}</strong> contract pharmacies<br>
+            <strong>${fmt(m.totalContracts)}</strong> active contracts<br>
+            <strong>${nationalData.nodes.length}</strong> states &amp; territories
+          </div>
+          <div class="panel-hint">Click a state to explore its network</div>
+        `;
+      } else {
+        // Find the state node from nationalData for label
+        let label = currentState;
+        if (nationalData) {
+          const sn = nationalData.nodes.find(n => n.id === currentState);
+          if (sn) label = `${sn.label} (${sn.id})`;
+        }
+        panel.innerHTML = `
+          <h2>${label}</h2>
+          <button class="nav-button" onclick="returnToNational()">&larr; National Overview</button>
+        `;
+      }
+    }
+
+    // ── Legend ─────────────────────────────────────────────────
+    function updateLegend() {
+      const legend = document.getElementById('legend');
+
+      if (currentView === 'national') {
+        legend.innerHTML = `
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${groupColors.hospital}"></div>
+            <span>Hospital-heavy</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${groupColors.grantee}"></div>
+            <span>Grantee-heavy</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: linear-gradient(to right, ${groupColors.grantee}, ${groupColors.hospital}); width: 40px;"></div>
+            <span>Blend = CE mix</span>
+          </div>
+          <div class="legend-item" style="margin-top: 0.5rem; color: #999;">
+            <span>Node size = contract volume<br>Edge = cross-state contracts</span>
+          </div>
+        `;
+      } else {
+        legend.innerHTML = `
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${groupColors.hospital}"></div>
+            <span>Hospitals</span>
+            <span class="legend-detail">(DSH, CAH, RRC, PED, SCH, CAN)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${groupColors.grantee}"></div>
+            <span>Grantees</span>
+            <span class="legend-detail">(CH, STD, TB, etc.)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${groupColors.pharmacy}"></div>
+            <span>Contract Pharmacies</span>
+          </div>
+        `;
+      }
+    }
+
+    // ── Search ────────────────────────────────────────────────
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) {
+        clickedNode = null;
+        neighbors.clear();
+        updateDetailPanel(null);
+        refreshGraphAppearance();
         return;
       }
 
-      // Filter nodes by query
       const matchingNodes = Graph.graphData().nodes.filter(node => {
         return (node.entityName && node.entityName.toLowerCase().includes(query)) ||
                (node.pharmacyName && node.pharmacyName.toLowerCase().includes(query)) ||
+               (node.label && node.label.toLowerCase().includes(query)) ||
                (node.id && node.id.toLowerCase().includes(query));
       });
 
       if (matchingNodes.length === 0) return;
 
-      // Gather neighbors
-      const matchingNodeIds = new Set(matchingNodes.map(node => node.id));
+      const matchingNodeIds = new Set(matchingNodes.map(n => n.id));
       neighbors.clear();
       matchingNodes.forEach(node => {
-        adjacency[node.id].forEach(neighborId => neighbors.add(neighborId));
+        (adjacency[node.id] || new Set()).forEach(nid => neighbors.add(nid));
       });
 
-      // Clear any clicked node from before
       clickedNode = null;
       updateDetailPanel(null);
 
-      // Update the node & link coloring
       Graph
         .nodeColor(node =>
           matchingNodeIds.has(node.id) || neighbors.has(node.id)
-            ? getNodeColor(node)
+            ? computeBaseColor(node)
             : "rgba(224, 224, 224, 0.2)"
         )
         .linkColor(link => {
           const srcId = typeof link.source === 'object' ? link.source.id : link.source;
           const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
           const visible =
-            (matchingNodeIds.has(srcId) && matchingNodeIds.has(tgtId)) ||
-            (matchingNodeIds.has(srcId) && neighbors.has(tgtId)) ||
+            (matchingNodeIds.has(srcId) && (matchingNodeIds.has(tgtId) || neighbors.has(tgtId))) ||
             (matchingNodeIds.has(tgtId) && neighbors.has(srcId));
-          return visible ? "rgba(44, 62, 80, 0.2)" : "rgba(224, 224, 224, 0.05)";
+          return visible ? "rgba(44, 62, 80, 0.25)" : "rgba(224, 224, 224, 0.03)";
         })
         .linkWidth(link => {
           const srcId = typeof link.source === 'object' ? link.source.id : link.source;
           const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
           const visible =
-            (matchingNodeIds.has(srcId) && matchingNodeIds.has(tgtId)) ||
-            (matchingNodeIds.has(srcId) && neighbors.has(tgtId)) ||
+            (matchingNodeIds.has(srcId) && (matchingNodeIds.has(tgtId) || neighbors.has(tgtId))) ||
             (matchingNodeIds.has(tgtId) && neighbors.has(srcId));
-          return visible ? 2 : 0.5;
+          return visible ? 2 : 0.3;
         });
     });
 
-    // Bind the state buttons
-    document.querySelectorAll('.state-button').forEach(button => {
-      button.addEventListener('click', () => {
-        const state = button.dataset.state;
-        loadState(state);
-      });
+    // ── Navigation ────────────────────────────────────────────
+    async function loadNationalView() {
+      loading.style.display = 'block';
+      try {
+        if (!nationalData) {
+          const resp = await fetch('opais_network_national.json');
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          nationalData = await resp.json();
+        }
+        currentView = 'national';
+        currentState = null;
+        searchInput.value = '';
+        searchInput.placeholder = 'Search states...';
+        updateInfoPanel();
+        updateLegend();
+        initGraph(nationalData);
+      } catch (err) {
+        console.error('Error loading national data:', err);
+        alert('Error loading national network data.');
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
+    async function loadState(stateId) {
+      loading.style.display = 'block';
+      try {
+        const resp = await fetch(`opais_network_${stateId}.json`);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+        currentView = 'state';
+        currentState = stateId;
+        searchInput.value = '';
+        searchInput.placeholder = 'Search entities or pharmacies...';
+        updateInfoPanel();
+        updateLegend();
+        initGraph(data);
+      } catch (err) {
+        console.error('Error loading state data:', err);
+        alert(`Data for ${stateId} is not available yet.`);
+        // Stay on current view
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
+    async function drillIntoState(stateId) {
+      history.pushState({ view: 'state', state: stateId }, '', `?state=${stateId}`);
+      await loadState(stateId);
+    }
+
+    function returnToNational() {
+      history.pushState({ view: 'national' }, '', window.location.pathname);
+      loadNationalView();
+    }
+
+    // Browser back/forward
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.view === 'state' && e.state.state) {
+        loadState(e.state.state);
+      } else {
+        loadNationalView();
+      }
     });
 
-    // Load initial state
+    // ── Startup ───────────────────────────────────────────────
     const urlParams = new URLSearchParams(window.location.search);
-    const initialState = urlParams.get('state') || 'NE';
-    loadState(initialState);
+    const initialState = urlParams.get('state');
+
+    if (initialState) {
+      // Direct link to a state — load national first (for metadata), then drill
+      (async () => {
+        try {
+          const resp = await fetch('opais_network_national.json');
+          if (resp.ok) nationalData = await resp.json();
+        } catch (e) { /* proceed without national metadata */ }
+        await loadState(initialState);
+      })();
+    } else {
+      loadNationalView();
+    }
   </script>
 </body>
 </html>
