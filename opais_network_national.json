@@ -17,7 +17,8 @@
       "hospitalCount": 6,
       "granteeCount": 16,
       "inStateContracts": 69,
-      "outOfStateContracts": 129
+      "outOfStateContracts": 129,
+      "participatingCeCount": 120
     },
     {
       "id": "AL",
@@ -29,7 +30,8 @@
       "hospitalCount": 25,
       "granteeCount": 176,
       "inStateContracts": 2456,
-      "outOfStateContracts": 1911
+      "outOfStateContracts": 1911,
+      "participatingCeCount": 788
     },
     {
       "id": "AR",
@@ -41,7 +43,8 @@
       "hospitalCount": 52,
       "granteeCount": 122,
       "inStateContracts": 1574,
-      "outOfStateContracts": 1135
+      "outOfStateContracts": 1135,
+      "participatingCeCount": 707
     },
     {
       "id": "AZ",
@@ -53,7 +56,8 @@
       "hospitalCount": 31,
       "granteeCount": 192,
       "inStateContracts": 3855,
-      "outOfStateContracts": 2328
+      "outOfStateContracts": 2328,
+      "participatingCeCount": 891
     },
     {
       "id": "CA",
@@ -65,7 +69,8 @@
       "hospitalCount": 130,
       "granteeCount": 1176,
       "inStateContracts": 20421,
-      "outOfStateContracts": 7761
+      "outOfStateContracts": 7761,
+      "participatingCeCount": 5081
     },
     {
       "id": "CO",
@@ -77,7 +82,8 @@
       "hospitalCount": 49,
       "granteeCount": 135,
       "inStateContracts": 1190,
-      "outOfStateContracts": 995
+      "outOfStateContracts": 995,
+      "participatingCeCount": 934
     },
     {
       "id": "CT",
@@ -89,7 +95,8 @@
       "hospitalCount": 17,
       "granteeCount": 205,
       "inStateContracts": 2522,
-      "outOfStateContracts": 1565
+      "outOfStateContracts": 1565,
+      "participatingCeCount": 1158
     },
     {
       "id": "DC",
@@ -101,7 +108,8 @@
       "hospitalCount": 3,
       "granteeCount": 46,
       "inStateContracts": 321,
-      "outOfStateContracts": 955
+      "outOfStateContracts": 955,
+      "participatingCeCount": 103
     },
     {
       "id": "DE",
@@ -113,7 +121,8 @@
       "hospitalCount": 4,
       "granteeCount": 32,
       "inStateContracts": 294,
-      "outOfStateContracts": 180
+      "outOfStateContracts": 180,
+      "participatingCeCount": 177
     },
     {
       "id": "FL",
@@ -125,7 +134,8 @@
       "hospitalCount": 107,
       "granteeCount": 827,
       "inStateContracts": 19204,
-      "outOfStateContracts": 9794
+      "outOfStateContracts": 9794,
+      "participatingCeCount": 3074
     },
     {
       "id": "GA",
@@ -137,7 +147,8 @@
       "hospitalCount": 36,
       "granteeCount": 307,
       "inStateContracts": 1646,
-      "outOfStateContracts": 1883
+      "outOfStateContracts": 1883,
+      "participatingCeCount": 1419
     },
     {
       "id": "HI",
@@ -149,7 +160,8 @@
       "hospitalCount": 12,
       "granteeCount": 72,
       "inStateContracts": 339,
-      "outOfStateContracts": 219
+      "outOfStateContracts": 219,
+      "participatingCeCount": 267
     },
     {
       "id": "IA",
@@ -161,7 +173,8 @@
       "hospitalCount": 128,
       "granteeCount": 87,
       "inStateContracts": 1253,
-      "outOfStateContracts": 1662
+      "outOfStateContracts": 1662,
+      "participatingCeCount": 912
     },
     {
       "id": "ID",
@@ -173,7 +186,8 @@
       "hospitalCount": 33,
       "granteeCount": 39,
       "inStateContracts": 474,
-      "outOfStateContracts": 849
+      "outOfStateContracts": 849,
+      "participatingCeCount": 710
     },
     {
       "id": "IL",
@@ -185,7 +199,8 @@
       "hospitalCount": 135,
       "granteeCount": 390,
       "inStateContracts": 7639,
-      "outOfStateContracts": 3007
+      "outOfStateContracts": 3007,
+      "participatingCeCount": 2158
     },
     {
       "id": "IN",
@@ -197,7 +212,8 @@
       "hospitalCount": 50,
       "granteeCount": 262,
       "inStateContracts": 3025,
-      "outOfStateContracts": 1772
+      "outOfStateContracts": 1772,
+      "participatingCeCount": 1269
     },
     {
       "id": "KS",
@@ -209,7 +225,8 @@
       "hospitalCount": 95,
       "granteeCount": 69,
       "inStateContracts": 847,
-      "outOfStateContracts": 952
+      "outOfStateContracts": 952,
+      "participatingCeCount": 985
     },
     {
       "id": "KY",
@@ -221,7 +238,8 @@
       "hospitalCount": 67,
       "granteeCount": 234,
       "inStateContracts": 2518,
-      "outOfStateContracts": 2840
+      "outOfStateContracts": 2840,
+      "participatingCeCount": 1927
     },
     {
       "id": "LA",
@@ -233,7 +251,8 @@
       "hospitalCount": 103,
       "granteeCount": 260,
       "inStateContracts": 4986,
-      "outOfStateContracts": 4414
+      "outOfStateContracts": 4414,
+      "participatingCeCount": 2343
     },
     {
       "id": "MA",
@@ -245,7 +264,8 @@
       "hospitalCount": 48,
       "granteeCount": 107,
       "inStateContracts": 3688,
-      "outOfStateContracts": 1747
+      "outOfStateContracts": 1747,
+      "participatingCeCount": 1345
     },
     {
       "id": "MD",
@@ -257,7 +277,8 @@
       "hospitalCount": 21,
       "granteeCount": 83,
       "inStateContracts": 1228,
-      "outOfStateContracts": 1369
+      "outOfStateContracts": 1369,
+      "participatingCeCount": 463
     },
     {
       "id": "ME",
@@ -269,7 +290,8 @@
       "hospitalCount": 26,
       "granteeCount": 85,
       "inStateContracts": 997,
-      "outOfStateContracts": 1252
+      "outOfStateContracts": 1252,
+      "participatingCeCount": 755
     },
     {
       "id": "MI",
@@ -281,7 +303,8 @@
       "hospitalCount": 82,
       "granteeCount": 289,
       "inStateContracts": 4600,
-      "outOfStateContracts": 2894
+      "outOfStateContracts": 2894,
+      "participatingCeCount": 2686
     },
     {
       "id": "MN",
@@ -293,7 +316,8 @@
       "hospitalCount": 263,
       "granteeCount": 73,
       "inStateContracts": 3610,
-      "outOfStateContracts": 1306
+      "outOfStateContracts": 1306,
+      "participatingCeCount": 1351
     },
     {
       "id": "MO",
@@ -305,7 +329,8 @@
       "hospitalCount": 91,
       "granteeCount": 157,
       "inStateContracts": 2457,
-      "outOfStateContracts": 2031
+      "outOfStateContracts": 2031,
+      "participatingCeCount": 1958
     },
     {
       "id": "MP",
@@ -317,7 +342,8 @@
       "hospitalCount": 0,
       "granteeCount": 4,
       "inStateContracts": 7,
-      "outOfStateContracts": 0
+      "outOfStateContracts": 0,
+      "participatingCeCount": 7
     },
     {
       "id": "MS",
@@ -329,7 +355,8 @@
       "hospitalCount": 59,
       "granteeCount": 105,
       "inStateContracts": 1214,
-      "outOfStateContracts": 1470
+      "outOfStateContracts": 1470,
+      "participatingCeCount": 1040
     },
     {
       "id": "MT",
@@ -341,7 +368,8 @@
       "hospitalCount": 47,
       "granteeCount": 39,
       "inStateContracts": 228,
-      "outOfStateContracts": 352
+      "outOfStateContracts": 352,
+      "participatingCeCount": 401
     },
     {
       "id": "NC",
@@ -353,7 +381,8 @@
       "hospitalCount": 44,
       "granteeCount": 363,
       "inStateContracts": 4674,
-      "outOfStateContracts": 3181
+      "outOfStateContracts": 3181,
+      "participatingCeCount": 1900
     },
     {
       "id": "ND",
@@ -365,7 +394,8 @@
       "hospitalCount": 41,
       "granteeCount": 29,
       "inStateContracts": 278,
-      "outOfStateContracts": 282
+      "outOfStateContracts": 282,
+      "participatingCeCount": 741
     },
     {
       "id": "NE",
@@ -377,7 +407,8 @@
       "hospitalCount": 57,
       "granteeCount": 23,
       "inStateContracts": 434,
-      "outOfStateContracts": 357
+      "outOfStateContracts": 357,
+      "participatingCeCount": 425
     },
     {
       "id": "NH",
@@ -389,7 +420,8 @@
       "hospitalCount": 20,
       "granteeCount": 31,
       "inStateContracts": 564,
-      "outOfStateContracts": 783
+      "outOfStateContracts": 783,
+      "participatingCeCount": 353
     },
     {
       "id": "NJ",
@@ -401,7 +433,8 @@
       "hospitalCount": 22,
       "granteeCount": 100,
       "inStateContracts": 1200,
-      "outOfStateContracts": 595
+      "outOfStateContracts": 595,
+      "participatingCeCount": 658
     },
     {
       "id": "NM",
@@ -413,7 +446,8 @@
       "hospitalCount": 20,
       "granteeCount": 66,
       "inStateContracts": 664,
-      "outOfStateContracts": 844
+      "outOfStateContracts": 844,
+      "participatingCeCount": 745
     },
     {
       "id": "NV",
@@ -425,7 +459,8 @@
       "hospitalCount": 9,
       "granteeCount": 65,
       "inStateContracts": 1154,
-      "outOfStateContracts": 986
+      "outOfStateContracts": 986,
+      "participatingCeCount": 207
     },
     {
       "id": "NY",
@@ -437,7 +472,8 @@
       "hospitalCount": 438,
       "granteeCount": 522,
       "inStateContracts": 9010,
-      "outOfStateContracts": 4290
+      "outOfStateContracts": 4290,
+      "participatingCeCount": 3500
     },
     {
       "id": "OH",
@@ -449,7 +485,8 @@
       "hospitalCount": 101,
       "granteeCount": 312,
       "inStateContracts": 3688,
-      "outOfStateContracts": 2906
+      "outOfStateContracts": 2906,
+      "participatingCeCount": 3288
     },
     {
       "id": "OK",
@@ -461,7 +498,8 @@
       "hospitalCount": 51,
       "granteeCount": 80,
       "inStateContracts": 1102,
-      "outOfStateContracts": 1155
+      "outOfStateContracts": 1155,
+      "participatingCeCount": 950
     },
     {
       "id": "OR",
@@ -473,7 +511,8 @@
       "hospitalCount": 45,
       "granteeCount": 132,
       "inStateContracts": 1550,
-      "outOfStateContracts": 1367
+      "outOfStateContracts": 1367,
+      "participatingCeCount": 1023
     },
     {
       "id": "PA",
@@ -485,7 +524,8 @@
       "hospitalCount": 61,
       "granteeCount": 492,
       "inStateContracts": 4473,
-      "outOfStateContracts": 2812
+      "outOfStateContracts": 2812,
+      "participatingCeCount": 2746
     },
     {
       "id": "PR",
@@ -497,7 +537,8 @@
       "hospitalCount": 0,
       "granteeCount": 40,
       "inStateContracts": 114,
-      "outOfStateContracts": 28
+      "outOfStateContracts": 28,
+      "participatingCeCount": 155
     },
     {
       "id": "RI",
@@ -509,7 +550,8 @@
       "hospitalCount": 6,
       "granteeCount": 38,
       "inStateContracts": 793,
-      "outOfStateContracts": 435
+      "outOfStateContracts": 435,
+      "participatingCeCount": 159
     },
     {
       "id": "SC",
@@ -521,7 +563,8 @@
       "hospitalCount": 19,
       "granteeCount": 93,
       "inStateContracts": 1079,
-      "outOfStateContracts": 1211
+      "outOfStateContracts": 1211,
+      "participatingCeCount": 893
     },
     {
       "id": "SD",
@@ -533,7 +576,8 @@
       "hospitalCount": 43,
       "granteeCount": 36,
       "inStateContracts": 318,
-      "outOfStateContracts": 283
+      "outOfStateContracts": 283,
+      "participatingCeCount": 374
     },
     {
       "id": "TN",
@@ -545,7 +589,8 @@
       "hospitalCount": 29,
       "granteeCount": 182,
       "inStateContracts": 1964,
-      "outOfStateContracts": 1378
+      "outOfStateContracts": 1378,
+      "participatingCeCount": 1313
     },
     {
       "id": "TX",
@@ -557,7 +602,8 @@
       "hospitalCount": 169,
       "granteeCount": 422,
       "inStateContracts": 9590,
-      "outOfStateContracts": 4656
+      "outOfStateContracts": 4656,
+      "participatingCeCount": 3567
     },
     {
       "id": "UT",
@@ -569,7 +615,8 @@
       "hospitalCount": 18,
       "granteeCount": 35,
       "inStateContracts": 388,
-      "outOfStateContracts": 347
+      "outOfStateContracts": 347,
+      "participatingCeCount": 624
     },
     {
       "id": "VA",
@@ -581,7 +628,8 @@
       "hospitalCount": 33,
       "granteeCount": 115,
       "inStateContracts": 1437,
-      "outOfStateContracts": 1782
+      "outOfStateContracts": 1782,
+      "participatingCeCount": 1316
     },
     {
       "id": "VI",
@@ -593,7 +641,8 @@
       "hospitalCount": 0,
       "granteeCount": 3,
       "inStateContracts": 9,
-      "outOfStateContracts": 3
+      "outOfStateContracts": 3,
+      "participatingCeCount": 9
     },
     {
       "id": "VT",
@@ -605,7 +654,8 @@
       "hospitalCount": 11,
       "granteeCount": 50,
       "inStateContracts": 548,
-      "outOfStateContracts": 752
+      "outOfStateContracts": 752,
+      "participatingCeCount": 266
     },
     {
       "id": "WA",
@@ -617,7 +667,8 @@
       "hospitalCount": 65,
       "granteeCount": 139,
       "inStateContracts": 1333,
-      "outOfStateContracts": 1349
+      "outOfStateContracts": 1349,
+      "participatingCeCount": 1331
     },
     {
       "id": "WI",
@@ -629,7 +680,8 @@
       "hospitalCount": 92,
       "granteeCount": 79,
       "inStateContracts": 1469,
-      "outOfStateContracts": 1447
+      "outOfStateContracts": 1447,
+      "participatingCeCount": 1408
     },
     {
       "id": "WV",
@@ -641,7 +693,8 @@
       "hospitalCount": 36,
       "granteeCount": 90,
       "inStateContracts": 990,
-      "outOfStateContracts": 1280
+      "outOfStateContracts": 1280,
+      "participatingCeCount": 1309
     },
     {
       "id": "WY",
@@ -653,7 +706,8 @@
       "hospitalCount": 15,
       "granteeCount": 10,
       "inStateContracts": 61,
-      "outOfStateContracts": 67
+      "outOfStateContracts": 67,
+      "participatingCeCount": 156
     }
   ],
   "links": [
