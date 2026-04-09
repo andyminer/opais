@@ -709,15 +709,28 @@
           .nodeOpacity(0.9)
           .d3AlphaDecay(0.02)
           .d3VelocityDecay(0.3)
-          .cameraPosition({ x: 0, y: 0, z: 700 });
+          .cameraPosition({ x: 0, y: 0, z: 900 });
 
         // Spread state nodes apart
-        Graph.d3Force('charge').strength(-120);
-        Graph.d3Force('link').distance(80);
+        Graph.d3Force('charge').strength(-200);
+        Graph.d3Force('link').distance(120);
       } else {
+        // Size CEs by their connection count (pharmacies stay uniform)
+        const connectionCounts = {};
+        graphData.links.forEach(link => {
+          const src = typeof link.source === 'object' ? link.source.id : link.source;
+          const tgt = typeof link.target === 'object' ? link.target.id : link.target;
+          connectionCounts[src] = (connectionCounts[src] || 0) + 1;
+          connectionCounts[tgt] = (connectionCounts[tgt] || 0) + 1;
+        });
+
         Graph
-          .nodeRelSize(4)
-          .nodeVal(1)
+          .nodeRelSize(3)
+          .nodeVal(node => {
+            if (node.type === 'Pharmacy') return 1;
+            const count = connectionCounts[node.id] || 1;
+            return Math.pow(count, 0.6);
+          })
           .nodeOpacity(1.0)
           .d3AlphaDecay(0.0228)
           .d3VelocityDecay(0.4)
