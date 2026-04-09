@@ -253,6 +253,16 @@
       border-top: 1px solid #eee;
       margin: 0.5rem 0;
     }
+    .type-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #fff;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
@@ -298,9 +308,9 @@
     };
 
     const groupColors = {
-      'hospital': '#D95F02',
-      'grantee':  '#1B3147',
-      'pharmacy': '#DEDEDE',
+      'hospital': '#D95F02',   // Burnt orange
+      'grantee':  '#1B3147',   // Deep navy
+      'pharmacy': '#8BA4B8',   // Muted steel blue — visible against light backgrounds
       'unknown':  '#8B5CF6'    // Distinct purple for unrecognized entity types
     };
 
@@ -605,7 +615,11 @@
 
       } else if (node.type === 'Pharmacy') {
         detailTitle.textContent = 'Contract Pharmacy';
-        connectionsHeader.textContent = 'Connected Entities';
+        connectionsHeader.textContent = 'Covered Entities Served';
+
+        // Compute pharmacy summary stats
+        const pharmStats = computeConnectionStats(node);
+
         nodeDetails.innerHTML = `
           <p><strong>${node.pharmacyName || ''}</strong></p>
           <p style="font-size:0.85rem; color:#666;">
@@ -613,23 +627,101 @@
             ${node.cpAddress2 ? node.cpAddress2 + '<br>' : ''}
             ${node.cpCity || ''}, ${node.cpState || ''} ${node.cpZip || ''}
           </p>
+          <hr class="stat-divider">
+          <div class="stat-row"><span class="stat-label">CEs Served</span><span class="stat-value">${pharmStats.connectionCount}</span></div>
+          ${pharmStats.connectionCount >= 10 ? '<div style="font-size:0.75rem; color:#999; margin-top:2px;">Likely a chain / high-volume pharmacy</div>' : ''}
+          <div class="stat-row"><span class="stat-label">Contracts</span><span class="stat-value">${pharmStats.dateRange}</span></div>
         `;
         renderStateConnections(node, connectionDetails);
       } else {
-        detailTitle.textContent = 'Covered Entity';
+        // Covered Entity
+        const group = entityTypeGroups[node.entityType] || 'unknown';
+        const badgeColor = groupColors[group] || groupColors.unknown;
+        const groupLabel = group === 'hospital' ? 'Hospital' : (group === 'grantee' ? 'Grantee' : node.entityType);
+
+        // Compute CE summary stats
+        const ceStats = computeConnectionStats(node);
+
+        detailTitle.innerHTML = `Covered Entity`;
         connectionsHeader.textContent = 'Contract Pharmacies';
         nodeDetails.innerHTML = `
-          <p><strong>${node.entityName || ''}</strong></p>
+          <p>
+            <strong>${node.entityName || ''}</strong>
+            <span class="type-badge" style="background:${badgeColor}">${node.entityType || '?'}</span>
+          </p>
+          ${node.entitySubName ? `<p style="font-size:0.82rem; color:#888;">${node.entitySubName}</p>` : ''}
           <p style="font-size:0.85rem; color:#666;">
-            Type: ${node.entityType || ''}<br>
-            ID: ${node.id || ''}<br>
             ${node.address1 || ''}<br>
             ${node.address2 ? node.address2 + '<br>' : ''}
             ${node.city || ''}, ${node.state || ''} ${node.zip || ''}
           </p>
+          <hr class="stat-divider">
+          <div class="stat-row"><span class="stat-label">Type</span><span class="stat-value">${groupLabel}</span></div>
+          <div class="stat-row"><span class="stat-label">340B ID</span><span class="stat-value" style="font-family:monospace;font-size:0.8rem;">${node.id || ''}</span></div>
+          <div class="stat-row"><span class="stat-label">Contract Pharmacies</span><span class="stat-value">${ceStats.connectionCount}</span></div>
+          ${ceStats.inStateCount !== null ? `
+          <div class="stat-row"><span class="stat-label">In-State</span><span class="stat-value">${ceStats.inStateCount} (${ceStats.inStatePct}%)</span></div>
+          <div class="stat-row"><span class="stat-label">Out-of-State</span><span class="stat-value">${ceStats.outOfStateCount} (${ceStats.outOfStatePct}%)</span></div>
+          ` : ''}
+          <div class="stat-row"><span class="stat-label">Contracts</span><span class="stat-value">${ceStats.dateRange}</span></div>
         `;
         renderStateConnections(node, connectionDetails);
       }
+    }
+
+    function computeConnectionStats(node) {
+      const graphData = Graph.graphData();
+      const links = graphData.links.filter(link =>
+        (typeof link.source === 'object' ? link.source.id : link.source) === node.id ||
+        (typeof link.target === 'object' ? link.target.id : link.target) === node.id
+      );
+
+      // Dedupe connections by the other node's ID
+      const seen = new Set();
+      let inState = 0, outOfState = 0;
+      let earliestBegin = null, latestBegin = null;
+
+      links.forEach(link => {
+        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+        const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+        const otherId = srcId === node.id ? tgtId : srcId;
+        const otherNode = srcId === node.id ? link.target : link.source;
+        const other = typeof otherNode === 'object' ? otherNode : graphData.nodes.find(n => n.id === otherNode);
+
+        if (!seen.has(otherId)) {
+          seen.add(otherId);
+          // In-state vs out-of-state
+          if (other && node.type === 'CE') {
+            const ceState = node.state || '';
+            const pharmState = other.cpState || '';
+            if (ceState && pharmState) {
+              if (ceState === pharmState) inState++;
+              else outOfState++;
+            }
+          }
+        }
+
+        // Date range across all links
+        const begin = link.beginDate || '';
+        if (begin && begin !== 'Unknown') {
+          if (!earliestBegin || begin < earliestBegin) earliestBegin = begin;
+          if (!latestBegin || begin > latestBegin) latestBegin = begin;
+        }
+      });
+
+      const total = seen.size;
+      const hasGeo = node.type === 'CE' && (inState + outOfState) > 0;
+
+      return {
+        connectionCount: total,
+        inStateCount: hasGeo ? inState : null,
+        outOfStateCount: hasGeo ? outOfState : null,
+        inStatePct: hasGeo ? Math.round(100 * inState / (inState + outOfState)) : null,
+        outOfStatePct: hasGeo ? Math.round(100 * outOfState / (inState + outOfState)) : null,
+        dateRange: earliestBegin
+          ? (earliestBegin === latestBegin ? earliestBegin : `${earliestBegin} – ${latestBegin}`)
+          : 'Unknown'
+      };
     }
 
     function renderStateConnections(node, container) {
