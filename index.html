@@ -338,7 +338,7 @@
         const coords = stateCentroids[node.id];
         if (coords) {
           node.fx = (coords[1] - centerLon) * SCALE;       // lon → x (east is positive)
-          node.fy = -(coords[0] - centerLat) * SCALE;      // lat → y (up is negative in screen coords)
+          node.fy = (coords[0] - centerLat) * SCALE;       // lat → y (north is up)
           node.fz = 0;
         }
       });
