@@ -300,7 +300,8 @@
     const groupColors = {
       'hospital': '#D95F02',
       'grantee':  '#1B3147',
-      'pharmacy': '#DEDEDE'
+      'pharmacy': '#DEDEDE',
+      'unknown':  '#8B5CF6'    // Distinct purple for unrecognized entity types
     };
 
     // ── State ─────────────────────────────────────────────────
@@ -336,7 +337,7 @@
     function stateNodeColor(node) {
       const total = (node.hospitalCount || 0) + (node.granteeCount || 0);
       if (total === 0) return groupColors.grantee;
-      const ratio = node.hospitalCount / total; // 1 = all hospital, 0 = all grantee
+      const ratio = (node.hospitalCount || 0) / total; // 1 = all hospital, 0 = all grantee
       return lerpColor(groupColors.grantee, groupColors.hospital, ratio);
     }
 
@@ -369,7 +370,7 @@
     function computeBaseColor(node) {
       if (node.type === 'State') return stateNodeColor(node);
       if (node.type === 'Pharmacy') return groupColors.pharmacy;
-      return groupColors[entityTypeGroups[node.entityType] || 'grantee'];
+      return groupColors[entityTypeGroups[node.entityType]] || groupColors.unknown;
     }
 
     // ── Node label ────────────────────────────────────────────
@@ -588,14 +589,30 @@
         (typeof link.target === 'object' ? link.target.id : link.target) === node.id
       );
 
-      const items = links.map(link => {
+      // Dedupe by connected node ID, keeping the most recent contract
+      const byNodeId = {};
+      links.forEach(link => {
         const srcId = typeof link.source === 'object' ? link.source.id : link.source;
         const connectedNode = (srcId === node.id) ? link.target : link.source;
         const cNode = typeof connectedNode === 'object'
           ? connectedNode
           : graphData.nodes.find(n => n.id === connectedNode);
-        if (!cNode) return '';
+        if (!cNode) return;
 
+        const existing = byNodeId[cNode.id];
+        if (!existing || (link.beginDate || '') > (existing.link.beginDate || '')) {
+          byNodeId[cNode.id] = { cNode, link };
+        }
+      });
+
+      // Sort by name
+      const sorted = Object.values(byNodeId).sort((a, b) => {
+        const nameA = (a.cNode.type === 'Pharmacy' ? a.cNode.pharmacyName : a.cNode.entityName) || '';
+        const nameB = (b.cNode.type === 'Pharmacy' ? b.cNode.pharmacyName : b.cNode.entityName) || '';
+        return nameA.localeCompare(nameB);
+      });
+
+      container.innerHTML = sorted.map(({ cNode, link }) => {
         const name = cNode.type === 'Pharmacy'
           ? (cNode.pharmacyName || cNode.id)
           : (cNode.entityName || cNode.id);
@@ -611,8 +628,7 @@
             <small>${begin} – ${term}</small>
           </div>
         `;
-      });
-      container.innerHTML = items.join('');
+      }).join('');
     }
 
     // ── Hover / click handlers ────────────────────────────────
@@ -641,6 +657,17 @@
       updateDetailPanel(null);
       refreshGraphAppearance();
     }
+
+    // Escape key clears selection and search
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        clickedNode = null;
+        neighbors.clear();
+        updateDetailPanel(null);
+        searchInput.value = '';
+        refreshGraphAppearance();
+      }
+    });
 
     function refreshGraphAppearance() {
       Graph
@@ -680,7 +707,6 @@
           .nodeRelSize(2)
           .nodeVal(node => Math.pow(node.contractCount || 1, 0.55))
           .nodeOpacity(0.9)
-          .linkDirectionalParticles(0)
           .d3AlphaDecay(0.02)
           .d3VelocityDecay(0.3)
           .cameraPosition({ x: 0, y: 0, z: 700 });
@@ -693,7 +719,6 @@
           .nodeRelSize(4)
           .nodeVal(1)
           .nodeOpacity(1.0)
-          .linkDirectionalParticles(0)
           .d3AlphaDecay(0.0228)
           .d3VelocityDecay(0.4)
           .cameraPosition({ x: 0, y: 0, z: 800 });
@@ -796,7 +821,13 @@
                (node.id && node.id.toLowerCase().includes(query));
       });
 
-      if (matchingNodes.length === 0) return;
+      if (matchingNodes.length === 0) {
+        clickedNode = null;
+        neighbors.clear();
+        updateDetailPanel(null);
+        refreshGraphAppearance();
+        return;
+      }
 
       const matchingNodeIds = new Set(matchingNodes.map(n => n.id));
       neighbors.clear();
