@@ -503,7 +503,8 @@
           : 0;
 
         nodeDetails.innerHTML = `
-          <div class="stat-row"><span class="stat-label">Covered Entities</span><span class="stat-value">${fmt(node.ceCount)}</span></div>
+          <div class="stat-row"><span class="stat-label">Participating CEs</span><span class="stat-value">${fmt(node.participatingCeCount)}</span></div>
+          <div class="stat-row"><span class="stat-label">CEs with Active Contracts</span><span class="stat-value">${fmt(node.ceCount)}</span></div>
           <div class="stat-row"><span class="stat-label">Hospitals</span><span class="stat-value">${fmt(node.hospitalCount)}</span></div>
           <div class="stat-row"><span class="stat-label">Grantees</span><span class="stat-value">${fmt(node.granteeCount)}</span></div>
           <hr class="stat-divider">
