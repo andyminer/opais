@@ -304,6 +304,55 @@
       'unknown':  '#8B5CF6'    // Distinct purple for unrecognized entity types
     };
 
+    // State centroids [lat, lon] — continental US + inset positions for AK/HI/territories
+    const stateCentroids = {
+      'AL': [32.8, -86.8], 'AK': [28.0, -127.0], 'AZ': [34.2, -111.7],
+      'AR': [34.8, -92.2], 'CA': [37.2, -119.5], 'CO': [39.0, -105.5],
+      'CT': [41.6, -72.7], 'DE': [39.0, -75.5],  'DC': [38.9, -77.0],
+      'FL': [28.6, -82.5], 'GA': [32.7, -83.5],  'HI': [24.5, -120.0],
+      'ID': [44.4, -114.6],'IL': [40.0, -89.2],  'IN': [39.9, -86.3],
+      'IA': [42.0, -93.5], 'KS': [38.5, -98.3],  'KY': [37.8, -85.7],
+      'LA': [31.0, -92.0], 'ME': [45.4, -69.2],  'MD': [39.0, -76.7],
+      'MA': [42.3, -71.8], 'MI': [44.3, -85.4],  'MN': [46.3, -94.3],
+      'MS': [32.7, -89.7], 'MO': [38.4, -92.5],  'MT': [47.0, -109.6],
+      'NE': [41.5, -99.8], 'NV': [39.3, -116.6], 'NH': [43.7, -71.6],
+      'NJ': [40.1, -74.7], 'NM': [34.4, -106.1], 'NY': [42.9, -75.5],
+      'NC': [35.6, -79.4], 'ND': [47.4, -100.5], 'OH': [40.4, -82.8],
+      'OK': [35.6, -97.5], 'OR': [44.0, -120.5], 'PA': [40.9, -77.8],
+      'RI': [41.7, -71.5], 'SC': [34.0, -81.0],  'SD': [44.4, -100.2],
+      'TN': [35.9, -86.4], 'TX': [31.5, -99.3],  'UT': [39.3, -111.7],
+      'VT': [44.1, -72.6], 'VA': [37.5, -78.9],  'WA': [47.4, -120.5],
+      'WV': [38.6, -80.6], 'WI': [44.6, -89.8],  'WY': [43.0, -107.5],
+      // Territories — inset below the continental US
+      'PR': [24.5, -80.0], 'VI': [24.5, -76.0],  'MP': [24.5, -72.0]
+    };
+
+    // Project lat/lon to x/y for 3D graph (simple equirectangular, z=0 for flat map)
+    function projectStateNodes(nodes) {
+      const SCALE = 8;  // pixels per degree — tune to fill viewport
+      // Center on the continental US (~39N, -98W)
+      const centerLat = 39.5;
+      const centerLon = -98.0;
+
+      nodes.forEach(node => {
+        const coords = stateCentroids[node.id];
+        if (coords) {
+          node.fx = (coords[1] - centerLon) * SCALE;       // lon → x (east is positive)
+          node.fy = -(coords[0] - centerLat) * SCALE;      // lat → y (up is negative in screen coords)
+          node.fz = 0;
+        }
+      });
+    }
+
+    // Remove fixed positions so force simulation works normally
+    function unpinNodes(nodes) {
+      nodes.forEach(node => {
+        delete node.fx;
+        delete node.fy;
+        delete node.fz;
+      });
+    }
+
     // ── State ─────────────────────────────────────────────────
     let Graph = null;
     let currentView = 'national';   // 'national' | 'state'
@@ -704,18 +753,24 @@
 
       // View-specific configuration
       if (currentView === 'national') {
+        // Pin state nodes to geographic positions
+        projectStateNodes(graphData.nodes);
+
         Graph
           .nodeRelSize(2)
           .nodeVal(node => Math.pow(node.contractCount || 1, 0.55))
           .nodeOpacity(0.9)
-          .d3AlphaDecay(0.02)
-          .d3VelocityDecay(0.3)
-          .cameraPosition({ x: 0, y: 0, z: 900 });
+          .d3AlphaDecay(1)         // Settle immediately (positions are fixed)
+          .d3VelocityDecay(0.9)
+          .cameraPosition({ x: 0, y: 20, z: 350 });
 
-        // Spread state nodes apart
-        Graph.d3Force('charge').strength(-200);
-        Graph.d3Force('link').distance(120);
+        // Disable forces — geographic positions are authoritative
+        Graph.d3Force('charge').strength(0);
+        Graph.d3Force('link').distance(0).strength(0);
       } else {
+        // Unpin any fixed positions from national view
+        unpinNodes(graphData.nodes);
+
         // Size CEs by their connection count (pharmacies stay uniform)
         const connectionCounts = {};
         graphData.links.forEach(link => {
@@ -737,9 +792,9 @@
           .d3VelocityDecay(0.4)
           .cameraPosition({ x: 0, y: 0, z: 800 });
 
-        // Reset forces for state view
+        // Restore forces for state view
         Graph.d3Force('charge').strength(-30);
-        Graph.d3Force('link').distance(30);
+        Graph.d3Force('link').distance(30).strength(1);
       }
 
       Graph.graphData(graphData);
