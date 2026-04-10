@@ -239,6 +239,11 @@
       background: rgba(255, 255, 255, 0.5);
       border-radius: 2px;
       font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .connection-item:hover {
+      background: rgba(44, 62, 80, 0.08);
     }
     .stat-row {
       display: flex;
@@ -371,6 +376,7 @@
     let hoveredNode = null;
     let clickedNode = null;
     let neighbors = new Set();
+    let highlightedConnectionId = null;  // Node ID hovered in detail panel
     const adjacency = {};
 
     // DOM elements
@@ -400,6 +406,15 @@
       return lerpColor(groupColors.grantee, groupColors.hospital, ratio);
     }
 
+    // ── Date helpers ───────────────────────────────────────────
+    // Parse MM/DD/YYYY to a sortable YYYY-MM-DD string (or '' if invalid)
+    function dateToSortable(mmddyyyy) {
+      if (!mmddyyyy || mmddyyyy === 'Unknown' || mmddyyyy === 'Open') return '';
+      const parts = mmddyyyy.split('/');
+      if (parts.length !== 3) return '';
+      return `${parts[2]}-${parts[0].padStart(2,'0')}-${parts[1].padStart(2,'0')}`;
+    }
+
     // ── Number formatting ─────────────────────────────────────
     function fmt(n) {
       return (n || 0).toLocaleString();
@@ -422,6 +437,13 @@
       const baseColor = computeBaseColor(node);
 
       if (!clickedNode) return baseColor;
+
+      // When hovering a connection in the detail panel, emphasize that pair
+      if (highlightedConnectionId) {
+        if (node.id === clickedNode.id || node.id === highlightedConnectionId) return baseColor;
+        return "rgba(224, 224, 224, 0.1)";
+      }
+
       if (node.id === clickedNode.id || neighbors.has(node.id)) return baseColor;
       return "rgba(224, 224, 224, 0.2)";
     }
@@ -463,6 +485,16 @@
       }
       const srcId = typeof link.source === 'object' ? link.source.id : link.source;
       const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+
+      // Detail panel hover: only the specific edge is emphasized
+      if (highlightedConnectionId && clickedNode) {
+        const isHighlightedEdge =
+          (srcId === clickedNode.id && tgtId === highlightedConnectionId) ||
+          (tgtId === clickedNode.id && srcId === highlightedConnectionId);
+        if (isHighlightedEdge) return sameState ? "rgba(44, 62, 80, 0.5)" : "rgba(185, 117, 47, 0.6)";
+        return "rgba(221, 221, 221, 0.03)";
+      }
+
       if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
           (tgtId === clickedNode.id && neighbors.has(srcId))) {
         return sameState ? "rgba(44, 62, 80, 0.15)" : "rgba(185, 117, 47, 0.3)";
@@ -489,6 +521,15 @@
       if (!clickedNode) return baseWidth;
       const srcId = typeof link.source === 'object' ? link.source.id : link.source;
       const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+
+      // Detail panel hover: emphasize the specific edge
+      if (highlightedConnectionId && clickedNode) {
+        const isHighlightedEdge =
+          (srcId === clickedNode.id && tgtId === highlightedConnectionId) ||
+          (tgtId === clickedNode.id && srcId === highlightedConnectionId);
+        return isHighlightedEdge ? 3 : 0.1;
+      }
+
       if ((srcId === clickedNode.id && neighbors.has(tgtId)) ||
           (tgtId === clickedNode.id && neighbors.has(srcId))) {
         return baseWidth;
@@ -680,6 +721,7 @@
       const seen = new Set();
       let inState = 0, outOfState = 0;
       let earliestBegin = null, latestBegin = null;
+      let earliestBeginSort = null, latestBeginSort = null;
 
       links.forEach(link => {
         const srcId = typeof link.source === 'object' ? link.source.id : link.source;
@@ -701,11 +743,12 @@
           }
         }
 
-        // Date range across all links
+        // Date range across all links (compare as sortable YYYY-MM-DD)
         const begin = link.beginDate || '';
-        if (begin && begin !== 'Unknown') {
-          if (!earliestBegin || begin < earliestBegin) earliestBegin = begin;
-          if (!latestBegin || begin > latestBegin) latestBegin = begin;
+        const beginSort = dateToSortable(begin);
+        if (beginSort) {
+          if (!earliestBegin || beginSort < earliestBeginSort) { earliestBegin = begin; earliestBeginSort = beginSort; }
+          if (!latestBegin || beginSort > latestBeginSort) { latestBegin = begin; latestBeginSort = beginSort; }
         }
       });
 
@@ -742,7 +785,7 @@
         if (!cNode) return;
 
         const existing = byNodeId[cNode.id];
-        if (!existing || (link.beginDate || '') > (existing.link.beginDate || '')) {
+        if (!existing || dateToSortable(link.beginDate || '') > dateToSortable(existing.link.beginDate || '')) {
           byNodeId[cNode.id] = { cNode, link };
         }
       });
@@ -755,22 +798,51 @@
       });
 
       container.innerHTML = sorted.map(({ cNode, link }) => {
-        const name = cNode.type === 'Pharmacy'
-          ? (cNode.pharmacyName || cNode.id)
-          : (cNode.entityName || cNode.id);
-        const city = cNode.type === 'Pharmacy' ? (cNode.cpCity || '') : (cNode.city || '');
-        const state = cNode.type === 'Pharmacy' ? (cNode.cpState || '') : (cNode.state || '');
         const begin = link.beginDate || 'Unknown';
         const term = link.termDate === '' ? 'Open' : (link.termDate || 'Open');
 
-        return `
-          <div class="connection-item">
-            <strong>${name}</strong><br>
-            <small>${city}, ${state}</small><br>
-            <small>${begin} – ${term}</small>
-          </div>
-        `;
+        if (cNode.type === 'CE' || cNode.type !== 'Pharmacy') {
+          // CE connection: name, sub-name, 340B ID, city/state, dates
+          const name = cNode.entityName || cNode.id;
+          const subName = cNode.entitySubName || '';
+          const ceId = cNode.id || '';
+          const city = cNode.city || '';
+          const state = cNode.state || '';
+          return `
+            <div class="connection-item" data-node-id="${cNode.id}">
+              <strong>${name}</strong><br>
+              ${subName ? `<small style="color:#888;">${subName}</small><br>` : ''}
+              <small style="font-family:monospace;color:#999;">${ceId}</small><br>
+              <small>${city}, ${state}</small><br>
+              <small>${begin} – ${term}</small>
+            </div>
+          `;
+        } else {
+          // Pharmacy connection
+          const name = cNode.pharmacyName || cNode.id;
+          const city = cNode.cpCity || '';
+          const state = cNode.cpState || '';
+          return `
+            <div class="connection-item" data-node-id="${cNode.id}">
+              <strong>${name}</strong><br>
+              <small>${city}, ${state}</small><br>
+              <small>${begin} – ${term}</small>
+            </div>
+          `;
+        }
       }).join('');
+
+      // Wire up hover highlighting
+      container.querySelectorAll('.connection-item[data-node-id]').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          highlightedConnectionId = el.dataset.nodeId;
+          refreshGraphAppearance();
+        });
+        el.addEventListener('mouseleave', () => {
+          highlightedConnectionId = null;
+          refreshGraphAppearance();
+        });
+      });
     }
 
     // ── Hover / click handlers ────────────────────────────────
@@ -781,6 +853,7 @@
     }
 
     function handleNodeClick(node) {
+      highlightedConnectionId = null;
       if (!node || (clickedNode && node.id === clickedNode.id)) {
         clickedNode = null;
         neighbors.clear();
@@ -794,6 +867,7 @@
     }
 
     function handleBackgroundClick() {
+      highlightedConnectionId = null;
       clickedNode = null;
       neighbors.clear();
       updateDetailPanel(null);
@@ -803,6 +877,7 @@
     // Escape key clears selection and search
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        highlightedConnectionId = null;
         clickedNode = null;
         neighbors.clear();
         updateDetailPanel(null);
