@@ -319,6 +319,41 @@
       margin-left: 2px;
     }
 
+    /* Dimension Toggle */
+    #dimension-toggle {
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      z-index: 20;
+      background: rgba(250, 249, 247, 0.95);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(8px);
+      display: none;
+      padding: 4px;
+    }
+    .dim-btn {
+      padding: 5px 12px;
+      margin: 0;
+      border: none;
+      background: transparent;
+      color: #666;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-family: inherit;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .dim-btn:hover {
+      color: #2c3e50;
+      background: rgba(44, 62, 80, 0.05);
+    }
+    .dim-btn.active {
+      background: #2c3e50;
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
     /* State node labels (HTML overlay) */
     #state-labels {
       position: fixed;
@@ -373,6 +408,12 @@
 
   <!-- Legend -->
   <div id="legend"></div>
+
+  <!-- Dimension Toggle -->
+  <div id="dimension-toggle">
+    <button class="dim-btn" data-dim="2">2D</button>
+    <button class="dim-btn active" data-dim="3">3D</button>
+  </div>
 
   <!-- Filter Bar — Segmented Control -->
   <div id="filter-bar">
@@ -461,6 +502,7 @@
     let currentState = null;
     let nationalData = null;
     let activeFilter = 'all';       // 'all' | 'hospitals' | 'grantees' | 'instate' | 'outofstate'
+    let activeDimensions = 3;        // 2 or 3
     let fullStateData = null;       // Cached unfiltered state data (deep copy)
     let hoveredNode = null;
     let clickedNode = null;
@@ -1338,6 +1380,21 @@
       btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
     });
 
+    // ── Dimension toggle ──────────────────────────────────────
+    function setDimensions(dim) {
+      activeDimensions = dim;
+      document.querySelectorAll('.dim-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.dim === String(dim));
+      });
+      if (Graph) {
+        Graph.numDimensions(dim);
+      }
+    }
+
+    document.querySelectorAll('.dim-btn').forEach(btn => {
+      btn.addEventListener('click', () => setDimensions(Number(btn.dataset.dim)));
+    });
+
     // ── Navigation ────────────────────────────────────────────
     async function loadNationalView() {
       loading.style.display = 'block';
@@ -1351,6 +1408,7 @@
         currentState = null;
         fullStateData = null;
         document.getElementById('filter-bar').style.display = 'none';
+        document.getElementById('dimension-toggle').style.display = 'none';
         searchInput.value = '';
         searchInput.placeholder = 'Search states...';
         updateInfoPanel();
@@ -1375,14 +1433,19 @@
         currentView = 'state';
         currentState = stateId;
         activeFilter = 'all';
+        activeDimensions = 3;
         searchInput.value = '';
         searchInput.placeholder = 'Search entities or pharmacies...';
-        // Reset filter buttons and show counts
+        // Reset filter and dimension buttons
         document.querySelectorAll('.filter-btn').forEach(btn => {
           btn.classList.toggle('active', btn.dataset.filter === 'all');
         });
+        document.querySelectorAll('.dim-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.dim === '3');
+        });
         updateFilterCounts();
         document.getElementById('filter-bar').style.display = 'flex';
+        document.getElementById('dimension-toggle').style.display = 'flex';
         updateInfoPanel();
         updateLegend();
         initGraph(data);
@@ -1402,6 +1465,7 @@
     function returnToNational() {
       fullStateData = null;
       document.getElementById('filter-bar').style.display = 'none';
+        document.getElementById('dimension-toggle').style.display = 'none';
       history.pushState({ view: 'national' }, '', window.location.pathname);
       loadNationalView();
     }
