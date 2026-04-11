@@ -320,15 +320,10 @@
     };
 
     const portfolioColors = {
-      'Hospitals':                '#D95F02',
-      'Community Health Centers': '#2D6A4F',
-      'STD Clinics':              '#4A90D9',
-      'FQHCs':                    '#7B2D8E',
-      'Ryan White Clinics':       '#C94040',
-      'Other Grantees':           '#1B3147',
-      'InStateMarket':            '#8BA4B8',
-      'OutOfStateMarket':         '#B8956A',
-      'OtherMarket':              '#999999',
+      'Hospitals':    '#D95F02',   // Same burnt orange
+      'Grantees':     '#1B3147',   // Same deep navy
+      'InStateMarket':    '#8BA4B8',   // Same steel blue as pharmacy nodes
+      'OutOfStateMarket': '#B8956A',   // Warm tan
     };
 
     // State centroids [lat, lon] — continental US + inset positions for AK/HI/territories
@@ -467,9 +462,7 @@
       if (node.type === 'State') return stateNodeColor(node);
       if (node.type === 'EntityGroup') return portfolioColors[node.label] || '#666';
       if (node.type === 'PharmacyMarket') {
-        if (node.isInState) return portfolioColors.InStateMarket;
-        if (node.marketState) return portfolioColors.OutOfStateMarket;
-        return portfolioColors.OtherMarket;
+        return node.isInState ? portfolioColors.InStateMarket : portfolioColors.OutOfStateMarket;
       }
       if (node.type === 'Pharmacy') return groupColors.pharmacy;
       return groupColors[entityTypeGroups[node.entityType]] || groupColors.unknown;
@@ -1227,42 +1220,24 @@
           <div class="legend-item">
             <div class="legend-color" style="background: ${portfolioColors['Hospitals']}"></div>
             <span>Hospitals</span>
+            <span class="legend-detail">(DSH, CAH, RRC, PED, SCH, CAN)</span>
           </div>
           <div class="legend-item">
-            <div class="legend-color" style="background: ${portfolioColors['Community Health Centers']}"></div>
-            <span>Community Health Centers</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background: ${portfolioColors['STD Clinics']}"></div>
-            <span>STD Clinics</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background: ${portfolioColors['FQHCs']}"></div>
-            <span>FQHCs</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background: ${portfolioColors['Ryan White Clinics']}"></div>
-            <span>Ryan White Clinics</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background: ${portfolioColors['Other Grantees']}"></div>
-            <span>Other Grantees</span>
+            <div class="legend-color" style="background: ${portfolioColors['Grantees']}"></div>
+            <span>Grantees</span>
+            <span class="legend-detail">(CH, STD, FQHC, RW, etc.)</span>
           </div>
           <hr class="stat-divider">
           <div class="legend-item">
             <div class="legend-color" style="background: ${portfolioColors.InStateMarket}"></div>
-            <span>In-State Market</span>
+            <span>In-State Pharmacies</span>
           </div>
           <div class="legend-item">
             <div class="legend-color" style="background: ${portfolioColors.OutOfStateMarket}"></div>
-            <span>Out-of-State Market</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color" style="background: ${portfolioColors.OtherMarket}"></div>
-            <span>Other Markets</span>
+            <span>Out-of-State Pharmacies</span>
           </div>
           <div class="legend-item" style="margin-top: 0.5rem; color: #999;">
-            <span>Node size = contract volume</span>
+            <span>Node size = contract volume<br>Edge width = contract flow</span>
           </div>
         `;
       } else {

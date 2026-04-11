@@ -10,30 +10,30 @@
   },
   "nodes": [
     {
-      "id": "group:Community Health Centers",
+      "id": "group:Grantees",
       "type": "EntityGroup",
-      "label": "Community Health Centers",
+      "label": "Grantees",
       "entityTypes": [
-        "CH"
-      ],
-      "ceCount": 3,
-      "contractCount": 6,
-      "side": "left"
-    },
-    {
-      "id": "group:Ryan White Clinics",
-      "type": "EntityGroup",
-      "label": "Ryan White Clinics",
-      "entityTypes": [
+        "BL",
+        "CH",
+        "FP",
+        "FQHC638",
+        "FQHCLA",
+        "HM",
+        "HV",
+        "NH",
+        "RW4",
         "RWI",
         "RWII",
         "RWIID",
         "RWIIR",
-        "RW4",
-        "SPNS"
+        "SPNS",
+        "STD",
+        "TB",
+        "UI"
       ],
-      "ceCount": 1,
-      "contractCount": 1,
+      "ceCount": 4,
+      "contractCount": 7,
       "side": "left"
     },
     {
@@ -49,16 +49,10 @@
   ],
   "links": [
     {
-      "source": "group:Community Health Centers",
+      "source": "group:Grantees",
       "target": "market:instate",
-      "weight": 6,
-      "ceCount": 3
-    },
-    {
-      "source": "group:Ryan White Clinics",
-      "target": "market:instate",
-      "weight": 1,
-      "ceCount": 1
+      "weight": 7,
+      "ceCount": 4
     }
   ]
 }

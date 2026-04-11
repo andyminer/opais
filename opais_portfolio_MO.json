@@ -14,82 +14,42 @@
       "type": "EntityGroup",
       "label": "Hospitals",
       "entityTypes": [
-        "DSH",
         "CAH",
-        "RRC",
+        "CAN",
+        "DSH",
         "PED",
-        "SCH",
-        "CAN"
+        "RRC",
+        "SCH"
       ],
       "ceCount": 91,
       "contractCount": 2932,
       "side": "left"
     },
     {
-      "id": "group:Community Health Centers",
+      "id": "group:Grantees",
       "type": "EntityGroup",
-      "label": "Community Health Centers",
+      "label": "Grantees",
       "entityTypes": [
-        "CH"
-      ],
-      "ceCount": 130,
-      "contractCount": 1284,
-      "side": "left"
-    },
-    {
-      "id": "group:STD Clinics",
-      "type": "EntityGroup",
-      "label": "STD Clinics",
-      "entityTypes": [
-        "STD"
-      ],
-      "ceCount": 12,
-      "contractCount": 157,
-      "side": "left"
-    },
-    {
-      "id": "group:FQHCs",
-      "type": "EntityGroup",
-      "label": "FQHCs",
-      "entityTypes": [
+        "BL",
+        "CH",
+        "FP",
+        "FQHC638",
         "FQHCLA",
-        "FQHC638"
-      ],
-      "ceCount": 1,
-      "contractCount": 10,
-      "side": "left"
-    },
-    {
-      "id": "group:Ryan White Clinics",
-      "type": "EntityGroup",
-      "label": "Ryan White Clinics",
-      "entityTypes": [
+        "HM",
+        "HV",
+        "NH",
+        "RW4",
         "RWI",
         "RWII",
         "RWIID",
         "RWIIR",
-        "RW4",
-        "SPNS"
-      ],
-      "ceCount": 8,
-      "contractCount": 32,
-      "side": "left"
-    },
-    {
-      "id": "group:Other Grantees",
-      "type": "EntityGroup",
-      "label": "Other Grantees",
-      "entityTypes": [
-        "HV",
-        "FP",
-        "HM",
+        "SPNS",
+        "STD",
         "TB",
-        "UI",
-        "NH",
-        "BL"
+        "UI"
       ],
-      "ceCount": 6,
-      "contractCount": 73,
+      "ceCount": 157,
+      "contractCount": 1556,
       "side": "left"
     },
     {
@@ -127,64 +87,16 @@
       "ceCount": 747
     },
     {
-      "source": "group:Community Health Centers",
+      "source": "group:Grantees",
       "target": "market:instate",
-      "weight": 875,
-      "ceCount": 130
+      "weight": 988,
+      "ceCount": 154
     },
     {
-      "source": "group:Community Health Centers",
+      "source": "group:Grantees",
       "target": "market:outofstate",
-      "weight": 409,
-      "ceCount": 238
-    },
-    {
-      "source": "group:STD Clinics",
-      "target": "market:outofstate",
-      "weight": 81,
-      "ceCount": 55
-    },
-    {
-      "source": "group:STD Clinics",
-      "target": "market:instate",
-      "weight": 76,
-      "ceCount": 11
-    },
-    {
-      "source": "group:Other Grantees",
-      "target": "market:outofstate",
-      "weight": 55,
-      "ceCount": 39
-    },
-    {
-      "source": "group:Ryan White Clinics",
-      "target": "market:outofstate",
-      "weight": 19,
-      "ceCount": 15
-    },
-    {
-      "source": "group:Other Grantees",
-      "target": "market:instate",
-      "weight": 18,
-      "ceCount": 4
-    },
-    {
-      "source": "group:Ryan White Clinics",
-      "target": "market:instate",
-      "weight": 13,
-      "ceCount": 8
-    },
-    {
-      "source": "group:FQHCs",
-      "target": "market:instate",
-      "weight": 6,
-      "ceCount": 1
-    },
-    {
-      "source": "group:FQHCs",
-      "target": "market:outofstate",
-      "weight": 4,
-      "ceCount": 4
+      "weight": 568,
+      "ceCount": 351
     }
   ]
 }
