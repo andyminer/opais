@@ -1,0 +1,194 @@
+{
+  "state": "PR",
+  "stateLabel": "Puerto Rico",
+  "metadata": {
+    "totalCEs": 40,
+    "totalPharmacies": 99,
+    "totalContracts": 142,
+    "inStateContracts": 114,
+    "outOfStateContracts": 28
+  },
+  "nodes": [
+    {
+      "id": "group:Community Health Centers",
+      "type": "EntityGroup",
+      "label": "Community Health Centers",
+      "entityTypes": [
+        "CH"
+      ],
+      "ceCount": 33,
+      "contractCount": 58,
+      "side": "left"
+    },
+    {
+      "id": "group:Ryan White Clinics",
+      "type": "EntityGroup",
+      "label": "Ryan White Clinics",
+      "entityTypes": [
+        "RWI",
+        "RWII",
+        "RWIID",
+        "RWIIR",
+        "RW4",
+        "SPNS"
+      ],
+      "ceCount": 4,
+      "contractCount": 76,
+      "side": "left"
+    },
+    {
+      "id": "group:Other Grantees",
+      "type": "EntityGroup",
+      "label": "Other Grantees",
+      "entityTypes": [
+        "HV",
+        "FP",
+        "HM",
+        "TB",
+        "UI",
+        "NH",
+        "BL"
+      ],
+      "ceCount": 3,
+      "contractCount": 8,
+      "side": "left"
+    },
+    {
+      "id": "market:PR",
+      "type": "PharmacyMarket",
+      "label": "Puerto Rico (In-State)",
+      "marketState": "PR",
+      "isInState": true,
+      "pharmacyCount": 71,
+      "contractCount": 114,
+      "side": "right"
+    },
+    {
+      "id": "market:FL",
+      "type": "PharmacyMarket",
+      "label": "Florida",
+      "marketState": "FL",
+      "isInState": false,
+      "pharmacyCount": 5,
+      "contractCount": 5,
+      "side": "right"
+    },
+    {
+      "id": "market:CA",
+      "type": "PharmacyMarket",
+      "label": "California",
+      "marketState": "CA",
+      "isInState": false,
+      "pharmacyCount": 5,
+      "contractCount": 5,
+      "side": "right"
+    },
+    {
+      "id": "market:NY",
+      "type": "PharmacyMarket",
+      "label": "New York",
+      "marketState": "NY",
+      "isInState": false,
+      "pharmacyCount": 4,
+      "contractCount": 4,
+      "side": "right"
+    },
+    {
+      "id": "market:AZ",
+      "type": "PharmacyMarket",
+      "label": "Arizona",
+      "marketState": "AZ",
+      "isInState": false,
+      "pharmacyCount": 2,
+      "contractCount": 2,
+      "side": "right"
+    },
+    {
+      "id": "market:IN",
+      "type": "PharmacyMarket",
+      "label": "Indiana",
+      "marketState": "IN",
+      "isInState": false,
+      "pharmacyCount": 2,
+      "contractCount": 2,
+      "side": "right"
+    },
+    {
+      "id": "market:OTHER",
+      "type": "PharmacyMarket",
+      "label": "Other States",
+      "marketState": null,
+      "isInState": false,
+      "pharmacyCount": 10,
+      "contractCount": 10,
+      "marketBreakdown": {
+        "TX": 2,
+        "PA": 1,
+        "TN": 1,
+        "DE": 1,
+        "MO": 1,
+        "NJ": 1,
+        "GA": 1,
+        "OH": 1,
+        "WA": 1
+      },
+      "side": "right"
+    }
+  ],
+  "links": [
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:PR",
+      "weight": 58,
+      "ceCount": 33
+    },
+    {
+      "source": "group:Ryan White Clinics",
+      "target": "market:PR",
+      "weight": 48,
+      "ceCount": 3
+    },
+    {
+      "source": "group:Ryan White Clinics",
+      "target": "market:OTHER",
+      "weight": 10,
+      "ceCount": 9
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:PR",
+      "weight": 8,
+      "ceCount": 3
+    },
+    {
+      "source": "group:Ryan White Clinics",
+      "target": "market:FL",
+      "weight": 5,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Ryan White Clinics",
+      "target": "market:CA",
+      "weight": 5,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Ryan White Clinics",
+      "target": "market:NY",
+      "weight": 4,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Ryan White Clinics",
+      "target": "market:AZ",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Ryan White Clinics",
+      "target": "market:IN",
+      "weight": 2,
+      "ceCount": 1
+    }
+  ]
+}
