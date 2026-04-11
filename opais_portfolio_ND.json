@@ -1,0 +1,271 @@
+{
+  "state": "ND",
+  "stateLabel": "North Dakota",
+  "metadata": {
+    "totalCEs": 70,
+    "totalPharmacies": 278,
+    "totalContracts": 560,
+    "inStateContracts": 278,
+    "outOfStateContracts": 282
+  },
+  "nodes": [
+    {
+      "id": "group:Hospitals",
+      "type": "EntityGroup",
+      "label": "Hospitals",
+      "entityTypes": [
+        "DSH",
+        "CAH",
+        "RRC",
+        "PED",
+        "SCH",
+        "CAN"
+      ],
+      "ceCount": 41,
+      "contractCount": 472,
+      "side": "left"
+    },
+    {
+      "id": "group:Community Health Centers",
+      "type": "EntityGroup",
+      "label": "Community Health Centers",
+      "entityTypes": [
+        "CH"
+      ],
+      "ceCount": 23,
+      "contractCount": 70,
+      "side": "left"
+    },
+    {
+      "id": "group:STD Clinics",
+      "type": "EntityGroup",
+      "label": "STD Clinics",
+      "entityTypes": [
+        "STD"
+      ],
+      "ceCount": 2,
+      "contractCount": 5,
+      "side": "left"
+    },
+    {
+      "id": "group:Ryan White Clinics",
+      "type": "EntityGroup",
+      "label": "Ryan White Clinics",
+      "entityTypes": [
+        "RWI",
+        "RWII",
+        "RWIID",
+        "RWIIR",
+        "RW4",
+        "SPNS"
+      ],
+      "ceCount": 1,
+      "contractCount": 2,
+      "side": "left"
+    },
+    {
+      "id": "group:Other Grantees",
+      "type": "EntityGroup",
+      "label": "Other Grantees",
+      "entityTypes": [
+        "HV",
+        "FP",
+        "HM",
+        "TB",
+        "UI",
+        "NH",
+        "BL"
+      ],
+      "ceCount": 3,
+      "contractCount": 11,
+      "side": "left"
+    },
+    {
+      "id": "market:ND",
+      "type": "PharmacyMarket",
+      "label": "North Dakota (In-State)",
+      "marketState": "ND",
+      "isInState": true,
+      "pharmacyCount": 138,
+      "contractCount": 278,
+      "side": "right"
+    },
+    {
+      "id": "market:MN",
+      "type": "PharmacyMarket",
+      "label": "Minnesota",
+      "marketState": "MN",
+      "isInState": false,
+      "pharmacyCount": 62,
+      "contractCount": 76,
+      "side": "right"
+    },
+    {
+      "id": "market:IN",
+      "type": "PharmacyMarket",
+      "label": "Indiana",
+      "marketState": "IN",
+      "isInState": false,
+      "pharmacyCount": 6,
+      "contractCount": 22,
+      "side": "right"
+    },
+    {
+      "id": "market:AZ",
+      "type": "PharmacyMarket",
+      "label": "Arizona",
+      "marketState": "AZ",
+      "isInState": false,
+      "pharmacyCount": 7,
+      "contractCount": 19,
+      "side": "right"
+    },
+    {
+      "id": "market:PA",
+      "type": "PharmacyMarket",
+      "label": "Pennsylvania",
+      "marketState": "PA",
+      "isInState": false,
+      "pharmacyCount": 5,
+      "contractCount": 18,
+      "side": "right"
+    },
+    {
+      "id": "market:TX",
+      "type": "PharmacyMarket",
+      "label": "Texas",
+      "marketState": "TX",
+      "isInState": false,
+      "pharmacyCount": 7,
+      "contractCount": 17,
+      "side": "right"
+    },
+    {
+      "id": "market:OTHER",
+      "type": "PharmacyMarket",
+      "label": "Other States",
+      "marketState": null,
+      "isInState": false,
+      "pharmacyCount": 53,
+      "contractCount": 130,
+      "marketBreakdown": {
+        "FL": 16,
+        "TN": 13,
+        "KS": 11,
+        "MI": 10,
+        "NJ": 9,
+        "SC": 8,
+        "IL": 7,
+        "CA": 7,
+        "AL": 6,
+        "NC": 6,
+        "MO": 4,
+        "NV": 4,
+        "LA": 4,
+        "DE": 3,
+        "MA": 3,
+        "OH": 3,
+        "AR": 3,
+        "NY": 3,
+        "WI": 3,
+        "SD": 2,
+        "WA": 2,
+        "KY": 2,
+        "MS": 1
+      },
+      "side": "right"
+    }
+  ],
+  "links": [
+    {
+      "source": "group:Hospitals",
+      "target": "market:ND",
+      "weight": 204,
+      "ceCount": 41
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:OTHER",
+      "weight": 120,
+      "ceCount": 75
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:MN",
+      "weight": 75,
+      "ceCount": 4
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:ND",
+      "weight": 70,
+      "ceCount": 23
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:IN",
+      "weight": 22,
+      "ceCount": 6
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:AZ",
+      "weight": 19,
+      "ceCount": 6
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:TX",
+      "weight": 17,
+      "ceCount": 5
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:PA",
+      "weight": 15,
+      "ceCount": 5
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:OTHER",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "group:STD Clinics",
+      "target": "market:OTHER",
+      "weight": 4,
+      "ceCount": 4
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:ND",
+      "weight": 4,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:PA",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "group:Ryan White Clinics",
+      "target": "market:OTHER",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:MN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "group:STD Clinics",
+      "target": "market:PA",
+      "weight": 1,
+      "ceCount": 1
+    }
+  ]
+}

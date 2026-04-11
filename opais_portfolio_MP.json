@@ -1,0 +1,64 @@
+{
+  "state": "MP",
+  "stateLabel": "Northern Mariana Islands",
+  "metadata": {
+    "totalCEs": 4,
+    "totalPharmacies": 3,
+    "totalContracts": 7,
+    "inStateContracts": 7,
+    "outOfStateContracts": 0
+  },
+  "nodes": [
+    {
+      "id": "group:Community Health Centers",
+      "type": "EntityGroup",
+      "label": "Community Health Centers",
+      "entityTypes": [
+        "CH"
+      ],
+      "ceCount": 3,
+      "contractCount": 6,
+      "side": "left"
+    },
+    {
+      "id": "group:Ryan White Clinics",
+      "type": "EntityGroup",
+      "label": "Ryan White Clinics",
+      "entityTypes": [
+        "RWI",
+        "RWII",
+        "RWIID",
+        "RWIIR",
+        "RW4",
+        "SPNS"
+      ],
+      "ceCount": 1,
+      "contractCount": 1,
+      "side": "left"
+    },
+    {
+      "id": "market:MP",
+      "type": "PharmacyMarket",
+      "label": "Northern Mariana Islands (In-State)",
+      "marketState": "MP",
+      "isInState": true,
+      "pharmacyCount": 3,
+      "contractCount": 7,
+      "side": "right"
+    }
+  ],
+  "links": [
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:MP",
+      "weight": 6,
+      "ceCount": 3
+    },
+    {
+      "source": "group:Ryan White Clinics",
+      "target": "market:MP",
+      "weight": 1,
+      "ceCount": 1
+    }
+  ]
+}

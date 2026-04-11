@@ -319,6 +319,18 @@
       'unknown':  '#8B5CF6'    // Distinct purple for unrecognized entity types
     };
 
+    const portfolioColors = {
+      'Hospitals':                '#D95F02',
+      'Community Health Centers': '#2D6A4F',
+      'STD Clinics':              '#4A90D9',
+      'FQHCs':                    '#7B2D8E',
+      'Ryan White Clinics':       '#C94040',
+      'Other Grantees':           '#1B3147',
+      'InStateMarket':            '#8BA4B8',
+      'OutOfStateMarket':         '#B8956A',
+      'OtherMarket':              '#999999',
+    };
+
     // State centroids [lat, lon] — continental US + inset positions for AK/HI/territories
     const stateCentroids = {
       'AL': [32.8, -86.8], 'AK': [28.0, -127.0], 'AZ': [34.2, -111.7],
@@ -370,9 +382,12 @@
 
     // ── State ─────────────────────────────────────────────────
     let Graph = null;
-    let currentView = 'national';   // 'national' | 'state'
+    let currentView = 'national';   // 'national' | 'portfolio' | 'state'
     let currentState = null;
     let nationalData = null;
+    let portfolioData = null;
+    let stateFilter = null;         // { entityTypes, groupLabel } | { marketState, marketLabel } | { isOtherMarkets, topMarketStates } | null
+    let stateDataCache = {};
     let hoveredNode = null;
     let clickedNode = null;
     let neighbors = new Set();
@@ -450,6 +465,12 @@
 
     function computeBaseColor(node) {
       if (node.type === 'State') return stateNodeColor(node);
+      if (node.type === 'EntityGroup') return portfolioColors[node.label] || '#666';
+      if (node.type === 'PharmacyMarket') {
+        if (node.isInState) return portfolioColors.InStateMarket;
+        if (node.marketState) return portfolioColors.OutOfStateMarket;
+        return portfolioColors.OtherMarket;
+      }
       if (node.type === 'Pharmacy') return groupColors.pharmacy;
       return groupColors[entityTypeGroups[node.entityType]] || groupColors.unknown;
     }
@@ -459,6 +480,12 @@
       if (node.type === 'State') {
         return `${node.label} (${node.id}) — ${fmt(node.contractCount)} contracts`;
       }
+      if (node.type === 'EntityGroup') {
+        return `${node.label} — ${fmt(node.contractCount)} contracts from ${fmt(node.ceCount)} CEs`;
+      }
+      if (node.type === 'PharmacyMarket') {
+        return `${node.label} — ${fmt(node.contractCount)} contracts, ${fmt(node.pharmacyCount)} pharmacies`;
+      }
       if (node.type === 'Pharmacy') {
         return node.pharmacyName || `Pharmacy: ${node.id}`;
       }
@@ -467,6 +494,18 @@
 
     // ── Link color ────────────────────────────────────────────
     function getLinkColor(link) {
+      if (currentView === 'portfolio') {
+        const tgt = typeof link.target === 'object' ? link.target : null;
+        const isInState = tgt?.isInState;
+        const base = isInState ? "rgba(44, 62, 80, 0.25)" : "rgba(185, 117, 47, 0.3)";
+        const faded = "rgba(221, 221, 221, 0.03)";
+        if (!clickedNode) return base;
+        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+        const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+        if (srcId === clickedNode.id || tgtId === clickedNode.id) return base;
+        return faded;
+      }
+
       if (currentView === 'national') {
         const base = "rgba(44, 62, 80, 0.12)";
         const faded = "rgba(221, 221, 221, 0.03)";
@@ -504,6 +543,16 @@
 
     // ── Link width ────────────────────────────────────────────
     function getLinkWidth(link) {
+      if (currentView === 'portfolio') {
+        const w = link.weight || 1;
+        const base = Math.max(0.5, Math.sqrt(w) * 0.15);
+        if (!clickedNode) return base;
+        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+        const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+        if (srcId === clickedNode.id || tgtId === clickedNode.id) return base * 1.5;
+        return 0.15;
+      }
+
       if (currentView === 'national') {
         const w = link.weight || 1;
         const base = Math.max(0.4, Math.sqrt(w) * 0.25);
@@ -551,7 +600,28 @@
           <strong>Contracts:</strong> ${fmt(node.contractCount)}<br>
           <strong>Cross-state:</strong> ${fmt(node.outOfStateContracts)} (${pctOut}%)
         `;
-      } else if (node.type === 'Pharmacy') {
+        tooltip.style.visibility = "visible";
+        return;
+      }
+      if (node.type === 'EntityGroup') {
+        tooltip.innerHTML = `
+          <strong>${node.label}</strong><br>
+          <strong>CEs:</strong> ${fmt(node.ceCount)}<br>
+          <strong>Contracts:</strong> ${fmt(node.contractCount)}
+        `;
+        tooltip.style.visibility = "visible";
+        return;
+      }
+      if (node.type === 'PharmacyMarket') {
+        tooltip.innerHTML = `
+          <strong>${node.label}</strong><br>
+          <strong>Pharmacies:</strong> ${fmt(node.pharmacyCount)}<br>
+          <strong>Contracts:</strong> ${fmt(node.contractCount)}
+        `;
+        tooltip.style.visibility = "visible";
+        return;
+      }
+      if (node.type === 'Pharmacy') {
         tooltip.innerHTML = `
           <strong>Pharmacy:</strong> ${node.pharmacyName || ""}<br>
           <strong>ID:</strong> ${node.id}<br>
@@ -578,6 +648,20 @@
         tooltip.style.left = `${coords.x + 8}px`;
         tooltip.style.top = `${coords.y + 8}px`;
       }
+    }
+
+    // ── Connection hover helper ───────────────────────────────
+    function wireConnectionHover(container) {
+      container.querySelectorAll('.connection-item[data-node-id]').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          highlightedConnectionId = el.dataset.nodeId;
+          refreshGraphAppearance();
+        });
+        el.addEventListener('mouseleave', () => {
+          highlightedConnectionId = null;
+          refreshGraphAppearance();
+        });
+      });
     }
 
     // ── Detail panel ──────────────────────────────────────────
@@ -653,6 +737,85 @@
             </div>
           `;
         }).join('');
+
+      } else if (node.type === 'EntityGroup') {
+        detailTitle.textContent = node.label;
+        connectionsHeader.textContent = 'Pharmacy Markets';
+
+        nodeDetails.innerHTML = `
+          <div class="stat-row"><span class="stat-label">Entity Types</span><span class="stat-value">${(node.entityTypes || []).join(', ')}</span></div>
+          <div class="stat-row"><span class="stat-label">Covered Entities</span><span class="stat-value">${fmt(node.ceCount)}</span></div>
+          <div class="stat-row"><span class="stat-label">Total Contracts</span><span class="stat-value">${fmt(node.contractCount)}</span></div>
+          <button class="drill-button" onclick="drillFromPortfolio('group', '${node.id}')">
+            Explore ${node.label} &rarr;
+          </button>
+        `;
+
+        // Show connected markets
+        const graphData = Graph.graphData();
+        const links = graphData.links.filter(l => {
+          const srcId = typeof l.source === 'object' ? l.source.id : l.source;
+          return srcId === node.id;
+        });
+        const nodeMap = {};
+        graphData.nodes.forEach(n => { nodeMap[n.id] = n; });
+
+        connectionDetails.innerHTML = links
+          .sort((a, b) => (b.weight || 0) - (a.weight || 0))
+          .map(l => {
+            const tgtId = typeof l.target === 'object' ? l.target.id : l.target;
+            const tgt = nodeMap[tgtId];
+            return `<div class="connection-item" data-node-id="${tgtId}">
+              <strong>${tgt?.label || tgtId}</strong><br>
+              <small>${fmt(l.weight)} contracts from ${fmt(l.ceCount)} CEs</small>
+            </div>`;
+          }).join('');
+
+        wireConnectionHover(connectionDetails);
+        return;
+
+      } else if (node.type === 'PharmacyMarket') {
+        detailTitle.textContent = node.label;
+        connectionsHeader.textContent = 'Entity Types';
+
+        let breakdownHtml = '';
+        if (node.marketBreakdown) {
+          const entries = Object.entries(node.marketBreakdown).slice(0, 10);
+          breakdownHtml = '<hr class="stat-divider"><div style="font-size:0.8rem;color:#888;margin-bottom:4px;">Includes:</div>' +
+            entries.map(([st, ct]) => `<div class="stat-row"><span class="stat-label">${st}</span><span class="stat-value">${fmt(ct)}</span></div>`).join('');
+        }
+
+        nodeDetails.innerHTML = `
+          <div class="stat-row"><span class="stat-label">Pharmacies</span><span class="stat-value">${fmt(node.pharmacyCount)}</span></div>
+          <div class="stat-row"><span class="stat-label">Total Contracts</span><span class="stat-value">${fmt(node.contractCount)}</span></div>
+          ${breakdownHtml}
+          <button class="drill-button" onclick="drillFromPortfolio('market', '${node.id}')">
+            Explore ${node.label} &rarr;
+          </button>
+        `;
+
+        // Show connected entity groups
+        const graphData = Graph.graphData();
+        const links = graphData.links.filter(l => {
+          const tgtId = typeof l.target === 'object' ? l.target.id : l.target;
+          return tgtId === node.id;
+        });
+        const nodeMap = {};
+        graphData.nodes.forEach(n => { nodeMap[n.id] = n; });
+
+        connectionDetails.innerHTML = links
+          .sort((a, b) => (b.weight || 0) - (a.weight || 0))
+          .map(l => {
+            const srcId = typeof l.source === 'object' ? l.source.id : l.source;
+            const src = nodeMap[srcId];
+            return `<div class="connection-item" data-node-id="${srcId}">
+              <strong>${src?.label || srcId}</strong><br>
+              <small>${fmt(l.weight)} contracts from ${fmt(l.ceCount)} CEs</small>
+            </div>`;
+          }).join('');
+
+        wireConnectionHover(connectionDetails);
+        return;
 
       } else if (node.type === 'Pharmacy') {
         detailTitle.textContent = 'Contract Pharmacy';
@@ -833,16 +996,7 @@
       }).join('');
 
       // Wire up hover highlighting
-      container.querySelectorAll('.connection-item[data-node-id]').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          highlightedConnectionId = el.dataset.nodeId;
-          refreshGraphAppearance();
-        });
-        el.addEventListener('mouseleave', () => {
-          highlightedConnectionId = null;
-          refreshGraphAppearance();
-        });
-      });
+      wireConnectionHover(container);
     }
 
     // ── Hover / click handlers ────────────────────────────────
@@ -934,6 +1088,34 @@
         // Disable forces — geographic positions are authoritative
         Graph.d3Force('charge').strength(0);
         Graph.d3Force('link').distance(0).strength(0);
+      } else if (currentView === 'portfolio') {
+        // Fixed bipartite layout
+        const leftNodes = graphData.nodes.filter(n => n.side === 'left');
+        const rightNodes = graphData.nodes.filter(n => n.side === 'right');
+        const COLUMN_SPREAD = 120;
+        const VERTICAL_GAP = 45;
+
+        leftNodes.forEach((node, i) => {
+          node.fx = -COLUMN_SPREAD;
+          node.fy = (i - (leftNodes.length - 1) / 2) * VERTICAL_GAP;
+          node.fz = 0;
+        });
+        rightNodes.forEach((node, i) => {
+          node.fx = COLUMN_SPREAD;
+          node.fy = (i - (rightNodes.length - 1) / 2) * VERTICAL_GAP;
+          node.fz = 0;
+        });
+
+        Graph
+          .nodeRelSize(4)
+          .nodeVal(node => Math.pow(node.contractCount || 1, 0.5))
+          .nodeOpacity(0.95)
+          .d3AlphaDecay(1)
+          .d3VelocityDecay(0.9)
+          .cameraPosition({ x: 0, y: 0, z: 400 });
+
+        Graph.d3Force('charge').strength(0);
+        Graph.d3Force('link').distance(0).strength(0);
       } else {
         // Unpin any fixed positions from national view
         unpinNodes(graphData.nodes);
@@ -984,15 +1166,35 @@
           </div>
           <div class="panel-hint">Click a state to explore its network</div>
         `;
+      } else if (currentView === 'portfolio' && portfolioData) {
+        const m = portfolioData.metadata || {};
+        const pctIn = m.totalContracts ? Math.round(100 * m.inStateContracts / m.totalContracts) : 0;
+        let label = portfolioData.stateLabel;
+        panel.innerHTML = `
+          <h2>${label} — Portfolio</h2>
+          <div class="panel-stats">
+            <strong>${fmt(m.totalCEs)}</strong> covered entities<br>
+            <strong>${fmt(m.totalPharmacies)}</strong> contract pharmacies<br>
+            <strong>${fmt(m.totalContracts)}</strong> active contracts<br>
+            <strong>${pctIn}%</strong> in-state · <strong>${100 - pctIn}%</strong> cross-state
+          </div>
+          <button class="nav-button" onclick="returnToNational()">&larr; National Overview</button>
+          <button class="drill-button" style="margin-top:0.5rem" onclick="loadFullStateGraph('${portfolioData.state}')">View Full Network &rarr;</button>
+        `;
       } else {
-        // Find the state node from nationalData for label
+        // State view — find the state node from nationalData for label
         let label = currentState;
+        let filterLabel = '';
         if (nationalData) {
           const sn = nationalData.nodes.find(n => n.id === currentState);
           if (sn) label = `${sn.label} (${sn.id})`;
         }
+        if (stateFilter) {
+          filterLabel = stateFilter.groupLabel || stateFilter.marketLabel || 'Filtered';
+        }
         panel.innerHTML = `
-          <h2>${label}</h2>
+          <h2>${label}${filterLabel ? ' — ' + filterLabel : ''}</h2>
+          ${stateFilter ? `<button class="nav-button" onclick="returnToPortfolio()">&larr; Portfolio</button>` : ''}
           <button class="nav-button" onclick="returnToNational()">&larr; National Overview</button>
         `;
       }
@@ -1018,6 +1220,49 @@
           </div>
           <div class="legend-item" style="margin-top: 0.5rem; color: #999;">
             <span>Node size = contract volume<br>Edge = cross-state contracts</span>
+          </div>
+        `;
+      } else if (currentView === 'portfolio') {
+        legend.innerHTML = `
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${portfolioColors['Hospitals']}"></div>
+            <span>Hospitals</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${portfolioColors['Community Health Centers']}"></div>
+            <span>Community Health Centers</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${portfolioColors['STD Clinics']}"></div>
+            <span>STD Clinics</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${portfolioColors['FQHCs']}"></div>
+            <span>FQHCs</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${portfolioColors['Ryan White Clinics']}"></div>
+            <span>Ryan White Clinics</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${portfolioColors['Other Grantees']}"></div>
+            <span>Other Grantees</span>
+          </div>
+          <hr class="stat-divider">
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${portfolioColors.InStateMarket}"></div>
+            <span>In-State Market</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${portfolioColors.OutOfStateMarket}"></div>
+            <span>Out-of-State Market</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${portfolioColors.OtherMarket}"></div>
+            <span>Other Markets</span>
+          </div>
+          <div class="legend-item" style="margin-top: 0.5rem; color: #999;">
+            <span>Node size = contract volume</span>
           </div>
         `;
       } else {
@@ -1110,6 +1355,7 @@
         }
         currentView = 'national';
         currentState = null;
+        stateFilter = null;
         searchInput.value = '';
         searchInput.placeholder = 'Search states...';
         updateInfoPanel();
@@ -1126,9 +1372,15 @@
     async function loadState(stateId) {
       loading.style.display = 'block';
       try {
-        const resp = await fetch(`opais_network_${stateId}.json`);
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        const data = await resp.json();
+        let data;
+        if (stateDataCache[stateId]) {
+          data = stateDataCache[stateId];
+        } else {
+          const resp = await fetch(`opais_network_${stateId}.json`);
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          data = await resp.json();
+          stateDataCache[stateId] = data;
+        }
         currentView = 'state';
         currentState = stateId;
         searchInput.value = '';
@@ -1145,20 +1397,158 @@
       }
     }
 
+    async function loadPortfolio(stateId) {
+      loading.style.display = 'block';
+      try {
+        const resp = await fetch(`opais_portfolio_${stateId}.json`);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        portfolioData = await resp.json();
+        currentView = 'portfolio';
+        currentState = stateId;
+        stateFilter = null;
+        searchInput.value = '';
+        searchInput.placeholder = 'Search groups or markets...';
+        updateInfoPanel();
+        updateLegend();
+        initGraph(portfolioData);
+      } catch (err) {
+        console.error('Error loading portfolio:', err);
+        // Fallback to state graph
+        await loadState(stateId);
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
     async function drillIntoState(stateId) {
-      history.pushState({ view: 'state', state: stateId }, '', `?state=${stateId}`);
+      history.pushState({ view: 'portfolio', state: stateId }, '', `?state=${stateId}`);
+      await loadPortfolio(stateId);
+    }
+
+    async function drillFromPortfolio(type, nodeId) {
+      const node = Graph.graphData().nodes.find(n => n.id === nodeId);
+      if (!node) return;
+
+      let filter;
+      if (node.type === 'EntityGroup') {
+        filter = { entityTypes: node.entityTypes, groupLabel: node.label };
+        history.pushState({ view: 'state', state: currentState, filter }, '', `?state=${currentState}&group=${encodeURIComponent(node.label)}`);
+      } else if (node.type === 'PharmacyMarket') {
+        if (node.marketState) {
+          filter = { marketState: node.marketState, marketLabel: node.label };
+          history.pushState({ view: 'state', state: currentState, filter }, '', `?state=${currentState}&market=${node.marketState}`);
+        } else {
+          // "Other States" — need to exclude in-state + top markets
+          const topStates = portfolioData.nodes
+            .filter(n => n.type === 'PharmacyMarket' && n.marketState && n.marketState !== currentState)
+            .map(n => n.marketState);
+          filter = { isOtherMarkets: true, topMarketStates: topStates, marketLabel: 'Other States' };
+          history.pushState({ view: 'state', state: currentState, filter }, '', `?state=${currentState}&market=OTHER`);
+        }
+      }
+
+      stateFilter = filter;
+      await loadFilteredState(currentState, filter);
+    }
+
+    async function loadFilteredState(stateId, filter) {
+      loading.style.display = 'block';
+      try {
+        // Use cache or fetch
+        if (!stateDataCache[stateId]) {
+          const resp = await fetch(`opais_network_${stateId}.json`);
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          stateDataCache[stateId] = await resp.json();
+        }
+        const fullData = stateDataCache[stateId];
+        const filtered = filterStateData(fullData, stateId, filter);
+
+        currentView = 'state';
+        currentState = stateId;
+        searchInput.value = '';
+        searchInput.placeholder = 'Search entities or pharmacies...';
+        updateInfoPanel();
+        updateLegend();
+        initGraph(filtered);
+      } catch (err) {
+        console.error('Error loading filtered state:', err);
+        alert(`Data for ${stateId} is not available yet.`);
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
+    function filterStateData(stateData, stateId, filter) {
+      let filteredNodes, filteredLinks;
+
+      if (filter.entityTypes) {
+        const matchingCEIds = new Set(
+          stateData.nodes.filter(n => n.type === 'CE' && filter.entityTypes.includes(n.entityType)).map(n => n.id)
+        );
+        filteredLinks = stateData.links.filter(l => matchingCEIds.has(l.source));
+        const pharmacyIds = new Set(filteredLinks.map(l => l.target));
+        filteredNodes = stateData.nodes.filter(n => matchingCEIds.has(n.id) || pharmacyIds.has(n.id));
+      } else if (filter.marketState) {
+        const matchingPharmIds = new Set(
+          stateData.nodes.filter(n => n.type === 'Pharmacy' && n.cpState === filter.marketState).map(n => n.id)
+        );
+        filteredLinks = stateData.links.filter(l => matchingPharmIds.has(l.target));
+        const ceIds = new Set(filteredLinks.map(l => l.source));
+        filteredNodes = stateData.nodes.filter(n => matchingPharmIds.has(n.id) || ceIds.has(n.id));
+      } else if (filter.isOtherMarkets) {
+        const excludeStates = new Set([stateId, ...(filter.topMarketStates || [])]);
+        const matchingPharmIds = new Set(
+          stateData.nodes.filter(n => n.type === 'Pharmacy' && !excludeStates.has(n.cpState)).map(n => n.id)
+        );
+        filteredLinks = stateData.links.filter(l => matchingPharmIds.has(l.target));
+        const ceIds = new Set(filteredLinks.map(l => l.source));
+        filteredNodes = stateData.nodes.filter(n => matchingPharmIds.has(n.id) || ceIds.has(n.id));
+      } else {
+        return stateData;
+      }
+
+      return { nodes: filteredNodes, links: filteredLinks };
+    }
+
+    async function loadFullStateGraph(stateId) {
+      stateFilter = null;
+      history.pushState({ view: 'state', state: stateId }, '', `?state=${stateId}&view=graph`);
       await loadState(stateId);
     }
 
     function returnToNational() {
+      stateFilter = null;
       history.pushState({ view: 'national' }, '', window.location.pathname);
       loadNationalView();
     }
 
+    function returnToPortfolio() {
+      stateFilter = null;
+      if (portfolioData && currentState) {
+        history.pushState({ view: 'portfolio', state: currentState }, '', `?state=${currentState}`);
+        currentView = 'portfolio';
+        searchInput.value = '';
+        searchInput.placeholder = 'Search groups or markets...';
+        updateInfoPanel();
+        updateLegend();
+        initGraph(portfolioData);
+      } else {
+        returnToNational();
+      }
+    }
+
     // Browser back/forward
     window.addEventListener('popstate', (e) => {
-      if (e.state && e.state.view === 'state' && e.state.state) {
-        loadState(e.state.state);
+      if (e.state?.view === 'portfolio' && e.state.state) {
+        loadPortfolio(e.state.state);
+      } else if (e.state?.view === 'state' && e.state.state) {
+        if (e.state.filter) {
+          stateFilter = e.state.filter;
+          loadFilteredState(e.state.state, e.state.filter);
+        } else {
+          stateFilter = null;
+          loadState(e.state.state);
+        }
       } else {
         loadNationalView();
       }
@@ -1167,15 +1557,58 @@
     // ── Startup ───────────────────────────────────────────────
     const urlParams = new URLSearchParams(window.location.search);
     const initialState = urlParams.get('state');
+    const initialView = urlParams.get('view');
+    const initialGroup = urlParams.get('group');
+    const initialMarket = urlParams.get('market');
 
     if (initialState) {
-      // Direct link to a state — load national first (for metadata), then drill
       (async () => {
         try {
           const resp = await fetch('opais_network_national.json');
           if (resp.ok) nationalData = await resp.json();
         } catch (e) { /* proceed without national metadata */ }
-        await loadState(initialState);
+
+        if (initialView === 'graph') {
+          await loadState(initialState);
+        } else if (initialGroup) {
+          // Need portfolio data to resolve entity types
+          try {
+            const resp = await fetch(`opais_portfolio_${initialState}.json`);
+            if (resp.ok) {
+              portfolioData = await resp.json();
+              const groupNode = portfolioData.nodes.find(n => n.label === initialGroup);
+              if (groupNode) {
+                stateFilter = { entityTypes: groupNode.entityTypes, groupLabel: groupNode.label };
+                await loadFilteredState(initialState, stateFilter);
+              } else {
+                await loadPortfolio(initialState);
+              }
+            } else {
+              await loadPortfolio(initialState);
+            }
+          } catch (e) { await loadPortfolio(initialState); }
+        } else if (initialMarket) {
+          try {
+            const resp = await fetch(`opais_portfolio_${initialState}.json`);
+            if (resp.ok) {
+              portfolioData = await resp.json();
+              if (initialMarket === 'OTHER') {
+                const topStates = portfolioData.nodes
+                  .filter(n => n.type === 'PharmacyMarket' && n.marketState && n.marketState !== initialState)
+                  .map(n => n.marketState);
+                stateFilter = { isOtherMarkets: true, topMarketStates: topStates, marketLabel: 'Other States' };
+              } else {
+                const marketNode = portfolioData.nodes.find(n => n.marketState === initialMarket);
+                stateFilter = { marketState: initialMarket, marketLabel: marketNode?.label || initialMarket };
+              }
+              await loadFilteredState(initialState, stateFilter);
+            } else {
+              await loadPortfolio(initialState);
+            }
+          } catch (e) { await loadPortfolio(initialState); }
+        } else {
+          await loadPortfolio(initialState);
+        }
       })();
     } else {
       loadNationalView();

@@ -1,0 +1,376 @@
+{
+  "state": "ME",
+  "stateLabel": "Maine",
+  "metadata": {
+    "totalCEs": 111,
+    "totalPharmacies": 374,
+    "totalContracts": 2249,
+    "inStateContracts": 997,
+    "outOfStateContracts": 1252
+  },
+  "nodes": [
+    {
+      "id": "group:Hospitals",
+      "type": "EntityGroup",
+      "label": "Hospitals",
+      "entityTypes": [
+        "DSH",
+        "CAH",
+        "RRC",
+        "PED",
+        "SCH",
+        "CAN"
+      ],
+      "ceCount": 26,
+      "contractCount": 1379,
+      "side": "left"
+    },
+    {
+      "id": "group:Community Health Centers",
+      "type": "EntityGroup",
+      "label": "Community Health Centers",
+      "entityTypes": [
+        "CH"
+      ],
+      "ceCount": 58,
+      "contractCount": 651,
+      "side": "left"
+    },
+    {
+      "id": "group:STD Clinics",
+      "type": "EntityGroup",
+      "label": "STD Clinics",
+      "entityTypes": [
+        "STD"
+      ],
+      "ceCount": 22,
+      "contractCount": 78,
+      "side": "left"
+    },
+    {
+      "id": "group:FQHCs",
+      "type": "EntityGroup",
+      "label": "FQHCs",
+      "entityTypes": [
+        "FQHCLA",
+        "FQHC638"
+      ],
+      "ceCount": 2,
+      "contractCount": 61,
+      "side": "left"
+    },
+    {
+      "id": "group:Other Grantees",
+      "type": "EntityGroup",
+      "label": "Other Grantees",
+      "entityTypes": [
+        "HV",
+        "FP",
+        "HM",
+        "TB",
+        "UI",
+        "NH",
+        "BL"
+      ],
+      "ceCount": 3,
+      "contractCount": 80,
+      "side": "left"
+    },
+    {
+      "id": "market:ME",
+      "type": "PharmacyMarket",
+      "label": "Maine (In-State)",
+      "marketState": "ME",
+      "isInState": true,
+      "pharmacyCount": 251,
+      "contractCount": 997,
+      "side": "right"
+    },
+    {
+      "id": "market:FL",
+      "type": "PharmacyMarket",
+      "label": "Florida",
+      "marketState": "FL",
+      "isInState": false,
+      "pharmacyCount": 13,
+      "contractCount": 135,
+      "side": "right"
+    },
+    {
+      "id": "market:MA",
+      "type": "PharmacyMarket",
+      "label": "Massachusetts",
+      "marketState": "MA",
+      "isInState": false,
+      "pharmacyCount": 12,
+      "contractCount": 113,
+      "side": "right"
+    },
+    {
+      "id": "market:TX",
+      "type": "PharmacyMarket",
+      "label": "Texas",
+      "marketState": "TX",
+      "isInState": false,
+      "pharmacyCount": 7,
+      "contractCount": 113,
+      "side": "right"
+    },
+    {
+      "id": "market:IN",
+      "type": "PharmacyMarket",
+      "label": "Indiana",
+      "marketState": "IN",
+      "isInState": false,
+      "pharmacyCount": 7,
+      "contractCount": 95,
+      "side": "right"
+    },
+    {
+      "id": "market:PA",
+      "type": "PharmacyMarket",
+      "label": "Pennsylvania",
+      "marketState": "PA",
+      "isInState": false,
+      "pharmacyCount": 5,
+      "contractCount": 82,
+      "side": "right"
+    },
+    {
+      "id": "market:OTHER",
+      "type": "PharmacyMarket",
+      "label": "Other States",
+      "marketState": null,
+      "isInState": false,
+      "pharmacyCount": 79,
+      "contractCount": 714,
+      "marketBreakdown": {
+        "AZ": 76,
+        "MI": 62,
+        "CA": 56,
+        "NJ": 52,
+        "SC": 50,
+        "NC": 46,
+        "NY": 43,
+        "IL": 41,
+        "KS": 40,
+        "TN": 39,
+        "AR": 33,
+        "AL": 32,
+        "LA": 31,
+        "NV": 25,
+        "DE": 17,
+        "MO": 16,
+        "OH": 12,
+        "HI": 12,
+        "NH": 12,
+        "CT": 7,
+        "KY": 6,
+        "GA": 4,
+        "PR": 1,
+        "MN": 1
+      },
+      "side": "right"
+    }
+  ],
+  "links": [
+    {
+      "source": "group:Hospitals",
+      "target": "market:ME",
+      "weight": 551,
+      "ceCount": 26
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:OTHER",
+      "weight": 488,
+      "ceCount": 267
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:ME",
+      "weight": 365,
+      "ceCount": 55
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:OTHER",
+      "weight": 140,
+      "ceCount": 103
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:FL",
+      "weight": 87,
+      "ceCount": 22
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:TX",
+      "weight": 74,
+      "ceCount": 22
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:MA",
+      "weight": 63,
+      "ceCount": 25
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:PA",
+      "weight": 58,
+      "ceCount": 19
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:IN",
+      "weight": 58,
+      "ceCount": 20
+    },
+    {
+      "source": "group:STD Clinics",
+      "target": "market:OTHER",
+      "weight": 48,
+      "ceCount": 48
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:ME",
+      "weight": 43,
+      "ceCount": 3
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:FL",
+      "weight": 36,
+      "ceCount": 18
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:IN",
+      "weight": 35,
+      "ceCount": 20
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:TX",
+      "weight": 34,
+      "ceCount": 18
+    },
+    {
+      "source": "group:FQHCs",
+      "target": "market:ME",
+      "weight": 31,
+      "ceCount": 2
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:MA",
+      "weight": 24,
+      "ceCount": 18
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:OTHER",
+      "weight": 24,
+      "ceCount": 21
+    },
+    {
+      "source": "group:STD Clinics",
+      "target": "market:MA",
+      "weight": 20,
+      "ceCount": 20
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:PA",
+      "weight": 17,
+      "ceCount": 8
+    },
+    {
+      "source": "group:FQHCs",
+      "target": "market:OTHER",
+      "weight": 14,
+      "ceCount": 11
+    },
+    {
+      "source": "group:STD Clinics",
+      "target": "market:ME",
+      "weight": 7,
+      "ceCount": 2
+    },
+    {
+      "source": "group:FQHCs",
+      "target": "market:FL",
+      "weight": 6,
+      "ceCount": 1
+    },
+    {
+      "source": "group:FQHCs",
+      "target": "market:TX",
+      "weight": 4,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:FL",
+      "weight": 4,
+      "ceCount": 2
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:MA",
+      "weight": 4,
+      "ceCount": 2
+    },
+    {
+      "source": "group:FQHCs",
+      "target": "market:PA",
+      "weight": 3,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:PA",
+      "weight": 3,
+      "ceCount": 2
+    },
+    {
+      "source": "group:FQHCs",
+      "target": "market:MA",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "group:STD Clinics",
+      "target": "market:FL",
+      "weight": 2,
+      "ceCount": 1
+    },
+    {
+      "source": "group:FQHCs",
+      "target": "market:IN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:IN",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:TX",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "group:STD Clinics",
+      "target": "market:PA",
+      "weight": 1,
+      "ceCount": 1
+    }
+  ]
+}

@@ -1,0 +1,279 @@
+{
+  "state": "SD",
+  "stateLabel": "South Dakota",
+  "metadata": {
+    "totalCEs": 79,
+    "totalPharmacies": 261,
+    "totalContracts": 601,
+    "inStateContracts": 318,
+    "outOfStateContracts": 283
+  },
+  "nodes": [
+    {
+      "id": "group:Hospitals",
+      "type": "EntityGroup",
+      "label": "Hospitals",
+      "entityTypes": [
+        "DSH",
+        "CAH",
+        "RRC",
+        "PED",
+        "SCH",
+        "CAN"
+      ],
+      "ceCount": 43,
+      "contractCount": 494,
+      "side": "left"
+    },
+    {
+      "id": "group:Community Health Centers",
+      "type": "EntityGroup",
+      "label": "Community Health Centers",
+      "entityTypes": [
+        "CH"
+      ],
+      "ceCount": 32,
+      "contractCount": 96,
+      "side": "left"
+    },
+    {
+      "id": "group:STD Clinics",
+      "type": "EntityGroup",
+      "label": "STD Clinics",
+      "entityTypes": [
+        "STD"
+      ],
+      "ceCount": 2,
+      "contractCount": 2,
+      "side": "left"
+    },
+    {
+      "id": "group:Other Grantees",
+      "type": "EntityGroup",
+      "label": "Other Grantees",
+      "entityTypes": [
+        "HV",
+        "FP",
+        "HM",
+        "TB",
+        "UI",
+        "NH",
+        "BL"
+      ],
+      "ceCount": 2,
+      "contractCount": 9,
+      "side": "left"
+    },
+    {
+      "id": "market:SD",
+      "type": "PharmacyMarket",
+      "label": "South Dakota (In-State)",
+      "marketState": "SD",
+      "isInState": true,
+      "pharmacyCount": 148,
+      "contractCount": 318,
+      "side": "right"
+    },
+    {
+      "id": "market:MN",
+      "type": "PharmacyMarket",
+      "label": "Minnesota",
+      "marketState": "MN",
+      "isInState": false,
+      "pharmacyCount": 16,
+      "contractCount": 30,
+      "side": "right"
+    },
+    {
+      "id": "market:IN",
+      "type": "PharmacyMarket",
+      "label": "Indiana",
+      "marketState": "IN",
+      "isInState": false,
+      "pharmacyCount": 6,
+      "contractCount": 25,
+      "side": "right"
+    },
+    {
+      "id": "market:FL",
+      "type": "PharmacyMarket",
+      "label": "Florida",
+      "marketState": "FL",
+      "isInState": false,
+      "pharmacyCount": 7,
+      "contractCount": 23,
+      "side": "right"
+    },
+    {
+      "id": "market:TX",
+      "type": "PharmacyMarket",
+      "label": "Texas",
+      "marketState": "TX",
+      "isInState": false,
+      "pharmacyCount": 5,
+      "contractCount": 21,
+      "side": "right"
+    },
+    {
+      "id": "market:IA",
+      "type": "PharmacyMarket",
+      "label": "Iowa",
+      "marketState": "IA",
+      "isInState": false,
+      "pharmacyCount": 16,
+      "contractCount": 21,
+      "side": "right"
+    },
+    {
+      "id": "market:OTHER",
+      "type": "PharmacyMarket",
+      "label": "Other States",
+      "marketState": null,
+      "isInState": false,
+      "pharmacyCount": 63,
+      "contractCount": 163,
+      "marketBreakdown": {
+        "PA": 19,
+        "AZ": 16,
+        "KS": 12,
+        "TN": 11,
+        "AR": 11,
+        "MI": 11,
+        "IL": 10,
+        "NJ": 8,
+        "NE": 8,
+        "CO": 7,
+        "AL": 7,
+        "ND": 6,
+        "NC": 6,
+        "CA": 6,
+        "NV": 5,
+        "MA": 4,
+        "SC": 4,
+        "MO": 3,
+        "WA": 3,
+        "NY": 2,
+        "KY": 2,
+        "DE": 1,
+        "OH": 1
+      },
+      "side": "right"
+    }
+  ],
+  "links": [
+    {
+      "source": "group:Hospitals",
+      "target": "market:SD",
+      "weight": 243,
+      "ceCount": 43
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:OTHER",
+      "weight": 152,
+      "ceCount": 102
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:SD",
+      "weight": 73,
+      "ceCount": 31
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:IN",
+      "weight": 23,
+      "ceCount": 10
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:FL",
+      "weight": 22,
+      "ceCount": 10
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:TX",
+      "weight": 19,
+      "ceCount": 10
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:MN",
+      "weight": 18,
+      "ceCount": 4
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:IA",
+      "weight": 17,
+      "ceCount": 3
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:MN",
+      "weight": 12,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:OTHER",
+      "weight": 7,
+      "ceCount": 6
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:IA",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:OTHER",
+      "weight": 3,
+      "ceCount": 3
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:TX",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:IN",
+      "weight": 2,
+      "ceCount": 2
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:FL",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:IA",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "group:STD Clinics",
+      "target": "market:OTHER",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "group:STD Clinics",
+      "target": "market:SD",
+      "weight": 1,
+      "ceCount": 1
+    },
+    {
+      "source": "group:Other Grantees",
+      "target": "market:SD",
+      "weight": 1,
+      "ceCount": 1
+    }
+  ]
+}
