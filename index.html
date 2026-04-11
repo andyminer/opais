@@ -1067,7 +1067,7 @@
       if (currentView !== 'national') return;
       const cam = Graph.cameraPosition();
       // Shift left when selecting to clear the detail panel, back to center when deselecting
-      const targetX = selecting ? -90 : 0;
+      const targetX = selecting ? 90 : 0;
       Graph.cameraPosition(
         { x: targetX, y: cam.y, z: cam.z },
         { x: targetX, y: 0, z: 0 },
