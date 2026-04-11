@@ -93,7 +93,7 @@
       "side": "left"
     },
     {
-      "id": "market:WV",
+      "id": "market:instate",
       "type": "PharmacyMarket",
       "label": "West Virginia (In-State)",
       "marketState": "WV",
@@ -103,249 +103,74 @@
       "side": "right"
     },
     {
-      "id": "market:OH",
+      "id": "market:outofstate",
       "type": "PharmacyMarket",
-      "label": "Ohio",
-      "marketState": "OH",
-      "isInState": false,
-      "pharmacyCount": 41,
-      "contractCount": 142,
-      "side": "right"
-    },
-    {
-      "id": "market:PA",
-      "type": "PharmacyMarket",
-      "label": "Pennsylvania",
-      "marketState": "PA",
-      "isInState": false,
-      "pharmacyCount": 23,
-      "contractCount": 136,
-      "side": "right"
-    },
-    {
-      "id": "market:FL",
-      "type": "PharmacyMarket",
-      "label": "Florida",
-      "marketState": "FL",
-      "isInState": false,
-      "pharmacyCount": 13,
-      "contractCount": 128,
-      "side": "right"
-    },
-    {
-      "id": "market:TX",
-      "type": "PharmacyMarket",
-      "label": "Texas",
-      "marketState": "TX",
-      "isInState": false,
-      "pharmacyCount": 9,
-      "contractCount": 127,
-      "side": "right"
-    },
-    {
-      "id": "market:IN",
-      "type": "PharmacyMarket",
-      "label": "Indiana",
-      "marketState": "IN",
-      "isInState": false,
-      "pharmacyCount": 8,
-      "contractCount": 101,
-      "side": "right"
-    },
-    {
-      "id": "market:OTHER",
-      "type": "PharmacyMarket",
-      "label": "Other States",
+      "label": "Out-of-State",
       "marketState": null,
       "isInState": false,
-      "pharmacyCount": 124,
-      "contractCount": 646,
-      "marketBreakdown": {
-        "KY": 63,
-        "VA": 62,
-        "IL": 59,
-        "MI": 49,
-        "AR": 49,
-        "AZ": 48,
-        "NJ": 42,
-        "NC": 38,
-        "TN": 36,
-        "KS": 29,
-        "CA": 23,
-        "DE": 20,
-        "SC": 19,
-        "MD": 19,
-        "AL": 17,
-        "MA": 15,
-        "NY": 14,
-        "NV": 14,
-        "MO": 13,
-        "LA": 4,
-        "DC": 3,
-        "MT": 2,
-        "CO": 2,
-        "MS": 2,
-        "HI": 2,
-        "NM": 1,
-        "GA": 1
-      },
+      "pharmacyCount": 218,
+      "contractCount": 1280,
       "side": "right"
     }
   ],
   "links": [
     {
       "source": "group:Hospitals",
-      "target": "market:WV",
+      "target": "market:outofstate",
+      "weight": 734,
+      "ceCount": 377
+    },
+    {
+      "source": "group:Hospitals",
+      "target": "market:instate",
       "weight": 543,
       "ceCount": 36
     },
     {
       "source": "group:Community Health Centers",
-      "target": "market:WV",
+      "target": "market:outofstate",
+      "weight": 531,
+      "ceCount": 304
+    },
+    {
+      "source": "group:Community Health Centers",
+      "target": "market:instate",
       "weight": 429,
       "ceCount": 71
     },
     {
-      "source": "group:Hospitals",
-      "target": "market:OTHER",
-      "weight": 358,
-      "ceCount": 230
-    },
-    {
-      "source": "group:Community Health Centers",
-      "target": "market:OTHER",
-      "weight": 283,
-      "ceCount": 185
-    },
-    {
-      "source": "group:Hospitals",
-      "target": "market:PA",
-      "weight": 86,
-      "ceCount": 28
-    },
-    {
-      "source": "group:Hospitals",
-      "target": "market:OH",
-      "weight": 84,
-      "ceCount": 27
-    },
-    {
-      "source": "group:Hospitals",
-      "target": "market:FL",
-      "weight": 77,
-      "ceCount": 31
-    },
-    {
-      "source": "group:Hospitals",
-      "target": "market:TX",
-      "weight": 67,
-      "ceCount": 32
-    },
-    {
-      "source": "group:Hospitals",
-      "target": "market:IN",
-      "weight": 62,
-      "ceCount": 29
-    },
-    {
-      "source": "group:Community Health Centers",
-      "target": "market:TX",
-      "weight": 57,
-      "ceCount": 23
-    },
-    {
-      "source": "group:Community Health Centers",
-      "target": "market:OH",
-      "weight": 57,
-      "ceCount": 27
-    },
-    {
-      "source": "group:Community Health Centers",
-      "target": "market:FL",
-      "weight": 50,
-      "ceCount": 24
-    },
-    {
-      "source": "group:Community Health Centers",
-      "target": "market:PA",
-      "weight": 46,
-      "ceCount": 23
-    },
-    {
-      "source": "group:Community Health Centers",
-      "target": "market:IN",
-      "weight": 38,
-      "ceCount": 22
-    },
-    {
       "source": "group:FQHCs",
-      "target": "market:WV",
+      "target": "market:instate",
       "weight": 17,
       "ceCount": 3
     },
     {
       "source": "group:FQHCs",
-      "target": "market:TX",
-      "weight": 3,
-      "ceCount": 1
+      "target": "market:outofstate",
+      "weight": 10,
+      "ceCount": 8
     },
     {
-      "source": "group:FQHCs",
-      "target": "market:OTHER",
+      "source": "group:STD Clinics",
+      "target": "market:outofstate",
       "weight": 3,
       "ceCount": 3
     },
     {
-      "source": "group:STD Clinics",
-      "target": "market:OTHER",
-      "weight": 2,
-      "ceCount": 2
-    },
-    {
       "source": "group:Other Grantees",
-      "target": "market:WV",
-      "weight": 1,
-      "ceCount": 1
-    },
-    {
-      "source": "group:FQHCs",
-      "target": "market:OH",
-      "weight": 1,
-      "ceCount": 1
-    },
-    {
-      "source": "group:FQHCs",
-      "target": "market:FL",
-      "weight": 1,
-      "ceCount": 1
-    },
-    {
-      "source": "group:FQHCs",
-      "target": "market:PA",
-      "weight": 1,
-      "ceCount": 1
-    },
-    {
-      "source": "group:FQHCs",
-      "target": "market:IN",
+      "target": "market:instate",
       "weight": 1,
       "ceCount": 1
     },
     {
       "source": "group:Other Grantees",
-      "target": "market:PA",
+      "target": "market:outofstate",
       "weight": 1,
       "ceCount": 1
     },
     {
       "source": "group:Ryan White Clinics",
-      "target": "market:PA",
-      "weight": 1,
-      "ceCount": 1
-    },
-    {
-      "source": "group:STD Clinics",
-      "target": "market:PA",
+      "target": "market:outofstate",
       "weight": 1,
       "ceCount": 1
     }

@@ -1434,16 +1434,12 @@
         filter = { entityTypes: node.entityTypes, groupLabel: node.label };
         history.pushState({ view: 'state', state: currentState, filter }, '', `?state=${currentState}&group=${encodeURIComponent(node.label)}`);
       } else if (node.type === 'PharmacyMarket') {
-        if (node.marketState) {
-          filter = { marketState: node.marketState, marketLabel: node.label };
-          history.pushState({ view: 'state', state: currentState, filter }, '', `?state=${currentState}&market=${node.marketState}`);
+        if (node.isInState) {
+          filter = { inState: true, marketLabel: 'In-State Pharmacies' };
+          history.pushState({ view: 'state', state: currentState, filter }, '', `?state=${currentState}&market=instate`);
         } else {
-          // "Other States" — need to exclude in-state + top markets
-          const topStates = portfolioData.nodes
-            .filter(n => n.type === 'PharmacyMarket' && n.marketState && n.marketState !== currentState)
-            .map(n => n.marketState);
-          filter = { isOtherMarkets: true, topMarketStates: topStates, marketLabel: 'Other States' };
-          history.pushState({ view: 'state', state: currentState, filter }, '', `?state=${currentState}&market=OTHER`);
+          filter = { outOfState: true, marketLabel: 'Out-of-State Pharmacies' };
+          history.pushState({ view: 'state', state: currentState, filter }, '', `?state=${currentState}&market=outofstate`);
         }
       }
 
@@ -1478,6 +1474,10 @@
       }
     }
 
+    // Normalize link source/target to string ID (handles both raw JSON and graph-mutated objects)
+    function linkSrc(l) { return typeof l.source === 'object' ? l.source.id : l.source; }
+    function linkTgt(l) { return typeof l.target === 'object' ? l.target.id : l.target; }
+
     function filterStateData(stateData, stateId, filter) {
       let filteredNodes, filteredLinks;
 
@@ -1485,23 +1485,24 @@
         const matchingCEIds = new Set(
           stateData.nodes.filter(n => n.type === 'CE' && filter.entityTypes.includes(n.entityType)).map(n => n.id)
         );
-        filteredLinks = stateData.links.filter(l => matchingCEIds.has(l.source));
-        const pharmacyIds = new Set(filteredLinks.map(l => l.target));
+        filteredLinks = stateData.links.filter(l => matchingCEIds.has(linkSrc(l)));
+        const pharmacyIds = new Set(filteredLinks.map(l => linkTgt(l)));
         filteredNodes = stateData.nodes.filter(n => matchingCEIds.has(n.id) || pharmacyIds.has(n.id));
-      } else if (filter.marketState) {
+      } else if (filter.outOfState) {
+        // Out-of-state: all pharmacies NOT in the home state
         const matchingPharmIds = new Set(
-          stateData.nodes.filter(n => n.type === 'Pharmacy' && n.cpState === filter.marketState).map(n => n.id)
+          stateData.nodes.filter(n => n.type === 'Pharmacy' && n.cpState !== stateId).map(n => n.id)
         );
-        filteredLinks = stateData.links.filter(l => matchingPharmIds.has(l.target));
-        const ceIds = new Set(filteredLinks.map(l => l.source));
+        filteredLinks = stateData.links.filter(l => matchingPharmIds.has(linkTgt(l)));
+        const ceIds = new Set(filteredLinks.map(l => linkSrc(l)));
         filteredNodes = stateData.nodes.filter(n => matchingPharmIds.has(n.id) || ceIds.has(n.id));
-      } else if (filter.isOtherMarkets) {
-        const excludeStates = new Set([stateId, ...(filter.topMarketStates || [])]);
+      } else if (filter.inState) {
+        // In-state: all pharmacies in the home state
         const matchingPharmIds = new Set(
-          stateData.nodes.filter(n => n.type === 'Pharmacy' && !excludeStates.has(n.cpState)).map(n => n.id)
+          stateData.nodes.filter(n => n.type === 'Pharmacy' && n.cpState === stateId).map(n => n.id)
         );
-        filteredLinks = stateData.links.filter(l => matchingPharmIds.has(l.target));
-        const ceIds = new Set(filteredLinks.map(l => l.source));
+        filteredLinks = stateData.links.filter(l => matchingPharmIds.has(linkTgt(l)));
+        const ceIds = new Set(filteredLinks.map(l => linkSrc(l)));
         filteredNodes = stateData.nodes.filter(n => matchingPharmIds.has(n.id) || ceIds.has(n.id));
       } else {
         return stateData;
@@ -1588,24 +1589,12 @@
             }
           } catch (e) { await loadPortfolio(initialState); }
         } else if (initialMarket) {
-          try {
-            const resp = await fetch(`opais_portfolio_${initialState}.json`);
-            if (resp.ok) {
-              portfolioData = await resp.json();
-              if (initialMarket === 'OTHER') {
-                const topStates = portfolioData.nodes
-                  .filter(n => n.type === 'PharmacyMarket' && n.marketState && n.marketState !== initialState)
-                  .map(n => n.marketState);
-                stateFilter = { isOtherMarkets: true, topMarketStates: topStates, marketLabel: 'Other States' };
-              } else {
-                const marketNode = portfolioData.nodes.find(n => n.marketState === initialMarket);
-                stateFilter = { marketState: initialMarket, marketLabel: marketNode?.label || initialMarket };
-              }
-              await loadFilteredState(initialState, stateFilter);
-            } else {
-              await loadPortfolio(initialState);
-            }
-          } catch (e) { await loadPortfolio(initialState); }
+          if (initialMarket === 'instate') {
+            stateFilter = { inState: true, marketLabel: 'In-State Pharmacies' };
+          } else {
+            stateFilter = { outOfState: true, marketLabel: 'Out-of-State Pharmacies' };
+          }
+          await loadFilteredState(initialState, stateFilter);
         } else {
           await loadPortfolio(initialState);
         }

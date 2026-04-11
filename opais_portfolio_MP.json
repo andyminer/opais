@@ -37,7 +37,7 @@
       "side": "left"
     },
     {
-      "id": "market:MP",
+      "id": "market:instate",
       "type": "PharmacyMarket",
       "label": "Northern Mariana Islands (In-State)",
       "marketState": "MP",
@@ -50,13 +50,13 @@
   "links": [
     {
       "source": "group:Community Health Centers",
-      "target": "market:MP",
+      "target": "market:instate",
       "weight": 6,
       "ceCount": 3
     },
     {
       "source": "group:Ryan White Clinics",
-      "target": "market:MP",
+      "target": "market:instate",
       "weight": 1,
       "ceCount": 1
     }
