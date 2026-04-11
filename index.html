@@ -313,17 +313,18 @@
     };
 
     const groupColors = {
-      'hospital': '#D95F02',   // Burnt orange
-      'grantee':  '#1B3147',   // Deep navy
-      'pharmacy': '#8BA4B8',   // Muted steel blue — visible against light backgrounds
-      'unknown':  '#8B5CF6'    // Distinct purple for unrecognized entity types
+      'hospital':     '#D95F02',   // Burnt orange
+      'grantee':      '#1B3147',   // Deep navy
+      'pharmacyIn':   '#8BA4B8',   // Muted steel blue — in-state pharmacies
+      'pharmacyOut':  '#B8956A',   // Warm tan — out-of-state pharmacies
+      'unknown':      '#8B5CF6'    // Distinct purple for unrecognized entity types
     };
 
     const portfolioColors = {
-      'Hospitals':    '#D95F02',   // Same burnt orange
-      'Grantees':     '#1B3147',   // Same deep navy
-      'InStateMarket':    '#8BA4B8',   // Same steel blue as pharmacy nodes
-      'OutOfStateMarket': '#B8956A',   // Warm tan
+      'Hospitals':        groupColors.hospital,
+      'Grantees':         groupColors.grantee,
+      'InStateMarket':    groupColors.pharmacyIn,
+      'OutOfStateMarket': groupColors.pharmacyOut,
     };
 
     // State centroids [lat, lon] — continental US + inset positions for AK/HI/territories
@@ -464,7 +465,10 @@
       if (node.type === 'PharmacyMarket') {
         return node.isInState ? portfolioColors.InStateMarket : portfolioColors.OutOfStateMarket;
       }
-      if (node.type === 'Pharmacy') return groupColors.pharmacy;
+      if (node.type === 'Pharmacy') {
+        const isInState = currentState && node.cpState === currentState;
+        return isInState ? groupColors.pharmacyIn : groupColors.pharmacyOut;
+      }
       return groupColors[entityTypeGroups[node.entityType]] || groupColors.unknown;
     }
 
@@ -1253,8 +1257,12 @@
             <span class="legend-detail">(CH, STD, TB, etc.)</span>
           </div>
           <div class="legend-item">
-            <div class="legend-color" style="background: ${groupColors.pharmacy}"></div>
-            <span>Contract Pharmacies</span>
+            <div class="legend-color" style="background: ${groupColors.pharmacyIn}"></div>
+            <span>In-State Pharmacies</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${groupColors.pharmacyOut}"></div>
+            <span>Out-of-State Pharmacies</span>
           </div>
         `;
       }
