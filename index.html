@@ -681,7 +681,7 @@
         tooltip.innerHTML = `
           <strong>${node.label}</strong> (${node.id})<br>
           <strong>CEs:</strong> ${fmt(node.ceCount)}<br>
-          <strong>Pharmacies:</strong> ${fmt(node.pharmacyCount)}<br>
+          <strong>Contracted Pharmacies:</strong> ${fmt(node.pharmacyCount)}<br>
           <strong>Contracts:</strong> ${fmt(node.contractCount)}<br>
           <strong>Cross-state:</strong> ${fmt(node.outOfStateContracts)} (${pctOut}%)
         `;
@@ -795,7 +795,7 @@
           <div class="stat-row"><span class="stat-label">Hospitals</span><span class="stat-value">${fmt(node.hospitalCount)}</span></div>
           <div class="stat-row"><span class="stat-label">Grantees</span><span class="stat-value">${fmt(node.granteeCount)}</span></div>
           <hr class="stat-divider">
-          <div class="stat-row"><span class="stat-label">Contract Pharmacies</span><span class="stat-value">${fmt(node.pharmacyCount)}</span></div>
+          <div class="stat-row"><span class="stat-label">Contracted Pharmacies</span><span class="stat-value">${fmt(node.pharmacyCount)}</span></div>
           <div class="stat-row"><span class="stat-label">Total Contracts</span><span class="stat-value">${fmt(node.contractCount)}</span></div>
           <hr class="stat-divider">
           <div class="stat-row"><span class="stat-label">In-State Contracts</span><span class="stat-value">${fmt(node.inStateContracts)}</span></div>
@@ -1165,8 +1165,8 @@
           <h2>340B National Network</h2>
           <div class="panel-stats">
             <strong>${fmt(m.totalParticipatingCEs)}</strong> participating covered entities<br>
-            <strong>${fmt(m.totalCEsWithContracts)}</strong> with active contract pharmacies<br>
-            <strong>${fmt(m.totalPharmacies)}</strong> contract pharmacies<br>
+            <strong>${fmt(m.totalCEsWithContracts)}</strong> with active pharmacy contracts<br>
+            <strong>${fmt(m.totalPharmacies)}</strong> contracted pharmacies<br>
             <strong>${fmt(m.totalContracts)}</strong> active contracts<br>
             <strong>${nationalData.nodes.length}</strong> states &amp; territories
           </div>
