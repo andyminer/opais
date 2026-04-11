@@ -1064,6 +1064,13 @@
 
     function handleNodeClick(node) {
       highlightedConnectionId = null;
+
+      // National view: second click on same state drills in
+      if (currentView === 'national' && node && clickedNode && node.id === clickedNode.id && node.type === 'State') {
+        drillIntoState(node.id);
+        return;
+      }
+
       if (!node || (clickedNode && node.id === clickedNode.id)) {
         clickedNode = null;
         neighbors.clear();
