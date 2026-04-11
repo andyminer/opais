@@ -1173,6 +1173,15 @@
           .d3VelocityDecay(0.9)
           .cameraPosition({ x: 0, y: 20, z: 350 }, { x: 0, y: 0, z: 0 }, 1200);
 
+        // Reset camera orientation so the map isn't tilted from a previous state view
+        if (Graph.camera) {
+          Graph.camera().up.set(0, 1, 0);
+          const controls = Graph.controls && Graph.controls();
+          if (controls && controls.target) {
+            controls.target.set(0, 0, 0);
+          }
+        }
+
         // Disable forces — geographic positions are authoritative
         Graph.d3Force('charge').strength(0);
         Graph.d3Force('link').distance(0).strength(0);
