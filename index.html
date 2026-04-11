@@ -1062,6 +1062,19 @@
       showTooltip(hoveredNode);
     }
 
+    // Camera nudge to keep selected node visible alongside detail panel
+    function nudgeCamera(selecting) {
+      if (currentView !== 'national') return;
+      const cam = Graph.cameraPosition();
+      // Shift ~50 world units left when selecting, back to center when deselecting
+      const targetX = selecting ? -50 : 0;
+      Graph.cameraPosition(
+        { x: targetX, y: cam.y, z: cam.z },
+        { x: targetX, y: 0, z: 0 },
+        600
+      );
+    }
+
     function handleNodeClick(node) {
       highlightedConnectionId = null;
 
@@ -1075,10 +1088,12 @@
         clickedNode = null;
         neighbors.clear();
         updateDetailPanel(null);
+        nudgeCamera(false);
       } else {
         clickedNode = node;
         neighbors = new Set(adjacency[node.id] || []);
         updateDetailPanel(node);
+        nudgeCamera(true);
       }
       refreshGraphAppearance();
     }
@@ -1088,6 +1103,7 @@
       clickedNode = null;
       neighbors.clear();
       updateDetailPanel(null);
+      nudgeCamera(false);
       refreshGraphAppearance();
     }
 
