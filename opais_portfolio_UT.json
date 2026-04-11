@@ -14,66 +14,42 @@
       "type": "EntityGroup",
       "label": "Hospitals",
       "entityTypes": [
-        "DSH",
         "CAH",
-        "RRC",
+        "CAN",
+        "DSH",
         "PED",
-        "SCH",
-        "CAN"
+        "RRC",
+        "SCH"
       ],
       "ceCount": 18,
       "contractCount": 536,
       "side": "left"
     },
     {
-      "id": "group:Community Health Centers",
+      "id": "group:Grantees",
       "type": "EntityGroup",
-      "label": "Community Health Centers",
+      "label": "Grantees",
       "entityTypes": [
-        "CH"
-      ],
-      "ceCount": 10,
-      "contractCount": 84,
-      "side": "left"
-    },
-    {
-      "id": "group:STD Clinics",
-      "type": "EntityGroup",
-      "label": "STD Clinics",
-      "entityTypes": [
-        "STD"
-      ],
-      "ceCount": 12,
-      "contractCount": 67,
-      "side": "left"
-    },
-    {
-      "id": "group:FQHCs",
-      "type": "EntityGroup",
-      "label": "FQHCs",
-      "entityTypes": [
-        "FQHCLA",
-        "FQHC638"
-      ],
-      "ceCount": 4,
-      "contractCount": 8,
-      "side": "left"
-    },
-    {
-      "id": "group:Other Grantees",
-      "type": "EntityGroup",
-      "label": "Other Grantees",
-      "entityTypes": [
-        "HV",
+        "BL",
+        "CH",
         "FP",
+        "FQHC638",
+        "FQHCLA",
         "HM",
-        "TB",
-        "UI",
+        "HV",
         "NH",
-        "BL"
+        "RW4",
+        "RWI",
+        "RWII",
+        "RWIID",
+        "RWIIR",
+        "SPNS",
+        "STD",
+        "TB",
+        "UI"
       ],
-      "ceCount": 9,
-      "contractCount": 40,
+      "ceCount": 35,
+      "contractCount": 199,
       "side": "left"
     },
     {
@@ -111,46 +87,16 @@
       "ceCount": 18
     },
     {
-      "source": "group:Community Health Centers",
+      "source": "group:Grantees",
       "target": "market:instate",
-      "weight": 62,
-      "ceCount": 10
+      "weight": 129,
+      "ceCount": 35
     },
     {
-      "source": "group:STD Clinics",
-      "target": "market:instate",
-      "weight": 43,
-      "ceCount": 12
-    },
-    {
-      "source": "group:Other Grantees",
+      "source": "group:Grantees",
       "target": "market:outofstate",
-      "weight": 24,
-      "ceCount": 16
-    },
-    {
-      "source": "group:STD Clinics",
-      "target": "market:outofstate",
-      "weight": 24,
-      "ceCount": 19
-    },
-    {
-      "source": "group:Community Health Centers",
-      "target": "market:outofstate",
-      "weight": 22,
-      "ceCount": 22
-    },
-    {
-      "source": "group:Other Grantees",
-      "target": "market:instate",
-      "weight": 16,
-      "ceCount": 9
-    },
-    {
-      "source": "group:FQHCs",
-      "target": "market:instate",
-      "weight": 8,
-      "ceCount": 4
+      "weight": 70,
+      "ceCount": 57
     }
   ]
 }

@@ -14,23 +14,39 @@
       "type": "EntityGroup",
       "label": "Hospitals",
       "entityTypes": [
-        "DSH",
         "CAH",
-        "RRC",
+        "CAN",
+        "DSH",
         "PED",
-        "SCH",
-        "CAN"
+        "RRC",
+        "SCH"
       ],
       "ceCount": 15,
       "contractCount": 64,
       "side": "left"
     },
     {
-      "id": "group:Community Health Centers",
+      "id": "group:Grantees",
       "type": "EntityGroup",
-      "label": "Community Health Centers",
+      "label": "Grantees",
       "entityTypes": [
-        "CH"
+        "BL",
+        "CH",
+        "FP",
+        "FQHC638",
+        "FQHCLA",
+        "HM",
+        "HV",
+        "NH",
+        "RW4",
+        "RWI",
+        "RWII",
+        "RWIID",
+        "RWIIR",
+        "SPNS",
+        "STD",
+        "TB",
+        "UI"
       ],
       "ceCount": 10,
       "contractCount": 64,
@@ -65,13 +81,13 @@
       "ceCount": 25
     },
     {
-      "source": "group:Community Health Centers",
+      "source": "group:Grantees",
       "target": "market:instate",
       "weight": 34,
       "ceCount": 9
     },
     {
-      "source": "group:Community Health Centers",
+      "source": "group:Grantees",
       "target": "market:outofstate",
       "weight": 30,
       "ceCount": 24
