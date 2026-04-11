@@ -498,12 +498,15 @@
 
     // ── State ─────────────────────────────────────────────────
     let Graph = null;
-    let currentView = 'national';   // 'national' | 'state'
+    let currentView = 'national';   // 'national' | 'state' | 'pharmacy'
     let currentState = null;
     let nationalData = null;
     let activeFilter = 'all';       // 'all' | 'hospitals' | 'grantees' | 'instate' | 'outofstate'
     let activeDimensions = 3;        // 2 or 3
     let fullStateData = null;       // Cached unfiltered state data (deep copy)
+    let pharmacyIndexData = null;   // Cached pharmacy index
+    let previousState = null;       // State to return to from pharmacy view
+    let stateDataCache = {};        // Cache fetched state files
     let hoveredNode = null;
     let clickedNode = null;
     let neighbors = new Set();
@@ -601,6 +604,13 @@
 
     // ── Link color ────────────────────────────────────────────
     function getLinkColor(link) {
+      if (currentView === 'pharmacy') {
+        if (!clickedNode) return "rgba(44, 62, 80, 0.15)";
+        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+        const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+        if (srcId === clickedNode.id || tgtId === clickedNode.id) return "rgba(44, 62, 80, 0.3)";
+        return "rgba(221, 221, 221, 0.03)";
+      }
       if (currentView === 'national') {
         const base = "rgba(44, 62, 80, 0.12)";
         const faded = "rgba(221, 221, 221, 0.03)";
@@ -638,6 +648,13 @@
 
     // ── Link width ────────────────────────────────────────────
     function getLinkWidth(link) {
+      if (currentView === 'pharmacy') {
+        if (!clickedNode) return 1;
+        const srcId = typeof link.source === 'object' ? link.source.id : link.source;
+        const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
+        if (srcId === clickedNode.id || tgtId === clickedNode.id) return 2;
+        return 0.15;
+      }
       if (currentView === 'national') {
         const w = link.weight || 1;
         const base = Math.max(0.4, Math.sqrt(w) * 0.25);
@@ -871,6 +888,7 @@
           <div class="stat-row"><span class="stat-label">CEs Served</span><span class="stat-value">${pharmStats.connectionCount}</span></div>
           ${pharmStats.connectionCount >= 10 ? '<div style="font-size:0.75rem; color:#999; margin-top:2px;">Likely a chain / high-volume pharmacy</div>' : ''}
           <div class="stat-row"><span class="stat-label">Contracts</span><span class="stat-value">${pharmStats.dateRange}</span></div>
+          <button class="nav-button" style="margin-top:0.5rem; font-size:11px;" onclick="drillIntoPharmacy('${node.id}')">All Contracts &rarr;</button>
         `;
         renderStateConnections(node, connectionDetails);
       } else {
@@ -1133,6 +1151,49 @@
         // Disable forces — geographic positions are authoritative
         Graph.d3Force('charge').strength(0);
         Graph.d3Force('link').distance(0).strength(0);
+      } else if (currentView === 'pharmacy') {
+        // Pharmacy-centric: pharmacy at center, CEs positioned by state centroid
+        const SCALE = 6;
+        const centerLat = 39.5;
+        const centerLon = -98.0;
+
+        graphData.nodes.forEach(node => {
+          if (node.type === 'Pharmacy') {
+            node.fx = 0;
+            node.fy = 0;
+            node.fz = 0;
+          } else if (node.state) {
+            const coords = stateCentroids[node.state];
+            if (coords) {
+              // Position by state centroid with small jitter to spread CEs within a state
+              const jitter = () => (Math.random() - 0.5) * 15;
+              node.fx = (coords[1] - centerLon) * SCALE + jitter();
+              node.fy = (coords[0] - centerLat) * SCALE + jitter();
+              node.fz = jitter() * 0.5;
+            }
+          }
+        });
+
+        // Create state labels for CE clusters
+        const ceStates = new Set(graphData.nodes.filter(n => n.type === 'CE').map(n => n.state));
+        const pseudoStateNodes = [...ceStates].filter(s => stateCentroids[s]).map(s => ({
+          id: s, type: 'State',
+          x: (stateCentroids[s][1] - centerLon) * SCALE,
+          y: (stateCentroids[s][0] - centerLat) * SCALE,
+          z: 0,
+        }));
+        createStateLabels(pseudoStateNodes);
+
+        Graph
+          .nodeRelSize(3)
+          .nodeVal(node => node.type === 'Pharmacy' ? 8 : 1)
+          .nodeOpacity(0.9)
+          .d3AlphaDecay(1)
+          .d3VelocityDecay(0.9)
+          .cameraPosition({ x: 0, y: 0, z: 500 }, { x: 0, y: 0, z: 0 }, 1200);
+
+        Graph.d3Force('charge').strength(0);
+        Graph.d3Force('link').distance(0).strength(0);
       } else {
         // Unpin any fixed positions from national view
         unpinNodes(graphData.nodes);
@@ -1184,6 +1245,22 @@
           </div>
           <div class="panel-hint">Click a state to explore its network</div>
         `;
+      } else if (currentView === 'pharmacy') {
+        const gd = Graph ? Graph.graphData() : { nodes: [], links: [] };
+        const pharmNode = gd.nodes.find(n => n.type === 'Pharmacy');
+        const ceCount = gd.nodes.filter(n => n.type === 'CE').length;
+        const ceStates = new Set(gd.nodes.filter(n => n.type === 'CE').map(n => n.state));
+        const name = pharmNode ? (pharmNode.pharmacyName || pharmNode.id) : '';
+        panel.innerHTML = `
+          <h2>${name}</h2>
+          <div class="panel-stats">
+            <strong>${fmt(ceCount)}</strong> covered entities<br>
+            <strong>${ceStates.size}</strong> states<br>
+            <strong>${fmt(gd.links.length)}</strong> contracts
+          </div>
+          <button class="nav-button" onclick="returnToState()">&larr; ${previousState ? (nationalData?.nodes?.find(n => n.id === previousState)?.label || previousState) : 'Back'}</button>
+          <button class="nav-button" onclick="returnToNational()">&larr; National Overview</button>
+        `;
       } else {
         // State view
         let label = currentState;
@@ -1218,6 +1295,24 @@
           </div>
           <div class="legend-item" style="margin-top: 0.5rem; color: #999;">
             <span>Node size = contract volume<br>Edge = cross-state contracts</span>
+          </div>
+        `;
+      } else if (currentView === 'pharmacy') {
+        legend.innerHTML = `
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${groupColors.hospital}"></div>
+            <span>Hospitals</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${groupColors.grantee}"></div>
+            <span>Grantees</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${groupColors.pharmacyIn}"></div>
+            <span>Contract Pharmacy</span>
+          </div>
+          <div class="legend-item" style="margin-top: 0.5rem; color: #999;">
+            <span>CEs positioned by state</span>
           </div>
         `;
       } else {
@@ -1437,9 +1532,15 @@
     async function loadState(stateId) {
       loading.style.display = 'block';
       try {
-        const resp = await fetch(`opais_network_${stateId}.json`);
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        const data = await resp.json();
+        let data;
+        if (stateDataCache[stateId]) {
+          data = JSON.parse(JSON.stringify(stateDataCache[stateId]));
+        } else {
+          const resp = await fetch(`opais_network_${stateId}.json`);
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          data = await resp.json();
+          stateDataCache[stateId] = data;
+        }
         // Store deep copy for filtering (before graph mutates it)
         fullStateData = JSON.parse(JSON.stringify(data));
         currentView = 'state';
@@ -1482,9 +1583,126 @@
       loadNationalView();
     }
 
+    async function loadPharmacyView(pharmacyId) {
+      loading.style.display = 'block';
+      try {
+        // Fetch pharmacy index if not cached
+        if (!pharmacyIndexData) {
+          const resp = await fetch('opais_pharmacy_index.json');
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          pharmacyIndexData = await resp.json();
+        }
+
+        const pharmInfo = pharmacyIndexData[pharmacyId];
+        if (!pharmInfo) {
+          alert('Pharmacy not found in index.');
+          loading.style.display = 'none';
+          return;
+        }
+
+        // Fetch all state files where this pharmacy appears (parallel, with cache)
+        const states = pharmInfo.states;
+        const fetchPromises = states.map(async (st) => {
+          if (stateDataCache[st]) return stateDataCache[st];
+          const resp = await fetch(`opais_network_${st}.json`);
+          if (!resp.ok) return null;
+          const data = await resp.json();
+          stateDataCache[st] = data;
+          return data;
+        });
+        const stateFiles = await Promise.all(fetchPromises);
+
+        // Merge: find the pharmacy node and all connected CEs across all states
+        let pharmacyNode = null;
+        const ceNodes = {};
+        const links = [];
+
+        stateFiles.forEach((stateData, i) => {
+          if (!stateData) return;
+          const st = states[i];
+
+          // Find the pharmacy node
+          if (!pharmacyNode) {
+            const found = stateData.nodes.find(n => n.id === pharmacyId && n.type === 'Pharmacy');
+            if (found) pharmacyNode = { ...found };
+          }
+
+          // Find links targeting this pharmacy
+          stateData.links.forEach(l => {
+            const src = linkSrc(l);
+            const tgt = linkTgt(l);
+            if (tgt === pharmacyId) {
+              // Find the CE node
+              const ceNode = stateData.nodes.find(n => n.id === src);
+              if (ceNode && !ceNodes[ceNode.id]) {
+                ceNodes[ceNode.id] = { ...ceNode };
+              }
+              links.push({
+                source: src,
+                target: pharmacyId,
+                beginDate: l.beginDate || '',
+                termDate: l.termDate || '',
+                contractID: l.contractID || '',
+              });
+            }
+          });
+        });
+
+        if (!pharmacyNode) {
+          alert('Could not find pharmacy data.');
+          loading.style.display = 'none';
+          return;
+        }
+
+        const graphData = {
+          nodes: [pharmacyNode, ...Object.values(ceNodes)],
+          links: links
+        };
+
+        currentView = 'pharmacy';
+        currentState = null;
+        activeFilter = 'all';
+        searchInput.value = '';
+        searchInput.placeholder = 'Search entities...';
+        document.getElementById('filter-bar').style.display = 'none';
+        document.getElementById('dimension-toggle').style.display = 'none';
+        updateInfoPanel();
+        updateLegend();
+        initGraph(graphData);
+      } catch (err) {
+        console.error('Error loading pharmacy view:', err);
+        alert('Error loading pharmacy network.');
+      } finally {
+        loading.style.display = 'none';
+      }
+    }
+
+    async function drillIntoPharmacy(pharmacyId) {
+      previousState = currentState;
+      history.pushState(
+        { view: 'pharmacy', pharmacyId, from: currentState },
+        '',
+        `?pharmacy=${pharmacyId}${currentState ? '&from=' + currentState : ''}`
+      );
+      await loadPharmacyView(pharmacyId);
+    }
+
+    function returnToState() {
+      if (previousState) {
+        const st = previousState;
+        previousState = null;
+        drillIntoState(st);
+      } else {
+        returnToNational();
+      }
+    }
+
     // Browser back/forward
     window.addEventListener('popstate', (e) => {
-      if (e.state?.view === 'state' && e.state.state) {
+      if (e.state?.view === 'pharmacy' && e.state.pharmacyId) {
+        previousState = e.state.from || null;
+        loadPharmacyView(e.state.pharmacyId);
+      } else if (e.state?.view === 'state' && e.state.state) {
         loadState(e.state.state);
       } else {
         loadNationalView();
@@ -1494,8 +1712,19 @@
     // ── Startup ───────────────────────────────────────────────
     const urlParams = new URLSearchParams(window.location.search);
     const initialState = urlParams.get('state');
+    const initialPharmacy = urlParams.get('pharmacy');
+    const initialFrom = urlParams.get('from');
 
-    if (initialState) {
+    if (initialPharmacy) {
+      (async () => {
+        try {
+          const resp = await fetch('opais_network_national.json');
+          if (resp.ok) nationalData = await resp.json();
+        } catch (e) {}
+        previousState = initialFrom || null;
+        await loadPharmacyView(initialPharmacy);
+      })();
+    } else if (initialState) {
       (async () => {
         try {
           const resp = await fetch('opais_network_national.json');
