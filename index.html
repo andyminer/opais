@@ -764,6 +764,18 @@
           highlightedConnectionId = null;
           refreshGraphAppearance();
         });
+        el.addEventListener('click', () => {
+          const nodeId = el.dataset.nodeId;
+          const graphData = Graph.graphData();
+          const targetNode = graphData.nodes.find(n => n.id === nodeId);
+          if (targetNode) {
+            highlightedConnectionId = null;
+            clickedNode = targetNode;
+            neighbors = new Set(adjacency[targetNode.id] || []);
+            updateDetailPanel(targetNode);
+            refreshGraphAppearance();
+          }
+        });
       });
     }
 
