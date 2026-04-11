@@ -506,7 +506,8 @@
     let fullStateData = null;       // Cached unfiltered state data (deep copy)
     let pharmacyIndexData = null;   // Cached pharmacy index
     let previousState = null;       // State to return to from pharmacy view
-    let stateDataCache = {};        // Cache fetched state files
+    let stateDataCache = {};        // Cache fetched state files (deep copies)
+    let currentPharmacyNode = null; // Pharmacy node in pharmacy view (for info panel)
     let hoveredNode = null;
     let clickedNode = null;
     let neighbors = new Set();
@@ -1245,18 +1246,16 @@
           </div>
           <div class="panel-hint">Click a state to explore its network</div>
         `;
-      } else if (currentView === 'pharmacy') {
-        const gd = Graph ? Graph.graphData() : { nodes: [], links: [] };
-        const pharmNode = gd.nodes.find(n => n.type === 'Pharmacy');
-        const ceCount = gd.nodes.filter(n => n.type === 'CE').length;
-        const ceStates = new Set(gd.nodes.filter(n => n.type === 'CE').map(n => n.state));
-        const name = pharmNode ? (pharmNode.pharmacyName || pharmNode.id) : '';
+      } else if (currentView === 'pharmacy' && currentPharmacyNode) {
+        const pharmInfo = pharmacyIndexData ? pharmacyIndexData[currentPharmacyNode.id] : null;
+        const ceCount = pharmInfo ? pharmInfo.ceCount : 0;
+        const stateCount = pharmInfo ? pharmInfo.states.length : 0;
+        const name = currentPharmacyNode.pharmacyName || currentPharmacyNode.id;
         panel.innerHTML = `
           <h2>${name}</h2>
           <div class="panel-stats">
             <strong>${fmt(ceCount)}</strong> covered entities<br>
-            <strong>${ceStates.size}</strong> states<br>
-            <strong>${fmt(gd.links.length)}</strong> contracts
+            <strong>${stateCount}</strong> states
           </div>
           <button class="nav-button" onclick="returnToState()">&larr; ${previousState ? (nationalData?.nodes?.find(n => n.id === previousState)?.label || previousState) : 'Back'}</button>
           <button class="nav-button" onclick="returnToNational()">&larr; National Overview</button>
@@ -1539,7 +1538,8 @@
           const resp = await fetch(`opais_network_${stateId}.json`);
           if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
           data = await resp.json();
-          stateDataCache[stateId] = data;
+          // Cache a deep copy so the original isn't mutated by the graph
+          stateDataCache[stateId] = JSON.parse(JSON.stringify(data));
         }
         // Store deep copy for filtering (before graph mutates it)
         fullStateData = JSON.parse(JSON.stringify(data));
@@ -1603,11 +1603,11 @@
         // Fetch all state files where this pharmacy appears (parallel, with cache)
         const states = pharmInfo.states;
         const fetchPromises = states.map(async (st) => {
-          if (stateDataCache[st]) return stateDataCache[st];
+          if (stateDataCache[st]) return JSON.parse(JSON.stringify(stateDataCache[st]));
           const resp = await fetch(`opais_network_${st}.json`);
           if (!resp.ok) return null;
           const data = await resp.json();
-          stateDataCache[st] = data;
+          stateDataCache[st] = JSON.parse(JSON.stringify(data));
           return data;
         });
         const stateFiles = await Promise.all(fetchPromises);
@@ -1659,6 +1659,7 @@
           links: links
         };
 
+        currentPharmacyNode = pharmacyNode;
         currentView = 'pharmacy';
         currentState = null;
         activeFilter = 'all';
