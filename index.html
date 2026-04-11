@@ -9,7 +9,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: #fcfcfc;
+      background: #faf9f7;
       font-family: "Spectral", Georgia, serif;
       color: #1a1a1a;
       line-height: 1.6;
@@ -97,7 +97,7 @@
       position: fixed;
       top: 0;
       left: 0;
-      background: linear-gradient(to bottom right, #fcfcfc, #f5f5f5);
+      background: linear-gradient(to bottom right, #faf9f7, #f4f3f0);
     }
 
     /* Tooltip */
@@ -208,13 +208,21 @@
       width: 300px;
       max-height: 75vh;
       overflow-y: auto;
-      background: rgba(252, 252, 252, 0.95);
+      background: rgba(250, 249, 247, 0.95);
       padding: 1.5rem;
       border-radius: 3px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       backdrop-filter: blur(8px);
-      display: none;
       z-index: 20;
+      transform: translateX(340px);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .detail-panel.visible {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
     }
     .detail-title {
       font-size: 1.1rem;
@@ -269,39 +277,68 @@
       vertical-align: middle;
     }
 
-    /* Filter Bar */
+    /* Filter Bar — Segmented Control */
     #filter-bar {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
       z-index: 20;
-      padding: 0.75rem;
-      background: rgba(252, 252, 252, 0.95);
-      border-radius: 3px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      background: rgba(250, 249, 247, 0.95);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       backdrop-filter: blur(8px);
-      display: none;  /* shown only in state view */
+      display: none;
+      padding: 4px;
+      gap: 0;
     }
     .filter-btn {
-      padding: 5px 12px;
-      margin: 2px;
-      border: 1px solid #d1d5db;
+      padding: 6px 14px;
+      margin: 0;
+      border: none;
       background: transparent;
-      color: #2c3e50;
+      color: #666;
       font-size: 12px;
       cursor: pointer;
-      border-radius: 2px;
+      border-radius: 6px;
       font-family: inherit;
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
     }
     .filter-btn:hover {
-      background: #f8f9fa;
-      border-color: #9ca3af;
+      color: #2c3e50;
+      background: rgba(44, 62, 80, 0.05);
     }
     .filter-btn.active {
       background: #2c3e50;
       color: #fff;
-      border-color: #2c3e50;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+    .filter-count {
+      font-size: 10px;
+      opacity: 0.7;
+      margin-left: 2px;
+    }
+
+    /* State node labels (HTML overlay) */
+    #state-labels {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .state-label {
+      position: absolute;
+      font-size: 10px;
+      font-weight: 600;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #2c3e50;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      opacity: 0.85;
+      text-shadow: 0 0 3px rgba(250, 249, 247, 0.9), 0 0 6px rgba(250, 249, 247, 0.7);
     }
   </style>
 </head>
@@ -322,6 +359,9 @@
   <!-- Graph Container -->
   <div id="graph-container"></div>
 
+  <!-- State labels overlay (national view only) -->
+  <div id="state-labels"></div>
+
   <!-- Tooltip & Loading -->
   <div id="tooltip" class="node-tooltip"></div>
   <div id="loading">Analyzing network data...</div>
@@ -334,14 +374,13 @@
   <!-- Legend -->
   <div id="legend"></div>
 
-  <!-- Filter Bar -->
+  <!-- Filter Bar — Segmented Control -->
   <div id="filter-bar">
-    <div style="font-size: 0.75rem; color: #999; margin-bottom: 0.4rem;">Filter</div>
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="hospitals">Hospitals</button>
     <button class="filter-btn" data-filter="grantees">Grantees</button>
-    <button class="filter-btn" data-filter="instate">In-State CP</button>
-    <button class="filter-btn" data-filter="outofstate">Out-of-State CP</button>
+    <button class="filter-btn" data-filter="instate">In-State</button>
+    <button class="filter-btn" data-filter="outofstate">Out-of-State</button>
   </div>
 
   <script>
@@ -634,6 +673,42 @@
         tooltip.style.left = `${coords.x + 8}px`;
         tooltip.style.top = `${coords.y + 8}px`;
       }
+      // Update state labels in national view
+      updateStateLabels();
+    }
+
+    // ── State labels (HTML overlay) ───────────────────────────
+    const stateLabelsContainer = document.getElementById('state-labels');
+    let stateLabelEls = {};
+
+    function createStateLabels(nodes) {
+      stateLabelsContainer.innerHTML = '';
+      stateLabelEls = {};
+      nodes.forEach(node => {
+        if (node.type !== 'State') return;
+        const el = document.createElement('div');
+        el.className = 'state-label';
+        el.textContent = node.id;
+        stateLabelsContainer.appendChild(el);
+        stateLabelEls[node.id] = el;
+      });
+    }
+
+    function clearStateLabels() {
+      stateLabelsContainer.innerHTML = '';
+      stateLabelEls = {};
+    }
+
+    function updateStateLabels() {
+      if (currentView !== 'national' || !Graph) return;
+      const nodes = Graph.graphData().nodes;
+      for (const node of nodes) {
+        const el = stateLabelEls[node.id];
+        if (!el || node.x === undefined) continue;
+        const coords = Graph.graph2ScreenCoords(node.x, node.y, node.z);
+        el.style.left = `${coords.x}px`;
+        el.style.top = `${coords.y - 8}px`;
+      }
     }
 
     // ── Connection hover helper ───────────────────────────────
@@ -659,10 +734,10 @@
       const connectionsHeader = document.getElementById('connections-header');
 
       if (!node) {
-        panel.style.display = 'none';
+        panel.classList.remove('visible');
         return;
       }
-      panel.style.display = 'block';
+      panel.classList.add('visible');
 
       if (node.type === 'State') {
         detailTitle.textContent = `${node.label} (${node.id})`;
@@ -975,7 +1050,7 @@
       if (!Graph) {
         Graph = ForceGraph3D()
           (document.getElementById("graph-container"))
-          .backgroundColor("#fcfcfc")
+          .backgroundColor("#faf9f7")
           .nodeResolution(16)
           .nodeColor(getNodeColor)
           .nodeLabel(getNodeLabel)
@@ -991,14 +1066,15 @@
       if (currentView === 'national') {
         // Pin state nodes to geographic positions
         projectStateNodes(graphData.nodes);
+        createStateLabels(graphData.nodes);
 
         Graph
           .nodeRelSize(2)
           .nodeVal(node => Math.pow(node.contractCount || 1, 0.55))
           .nodeOpacity(0.9)
-          .d3AlphaDecay(1)         // Settle immediately (positions are fixed)
+          .d3AlphaDecay(1)
           .d3VelocityDecay(0.9)
-          .cameraPosition({ x: 0, y: 20, z: 350 });
+          .cameraPosition({ x: 0, y: 20, z: 350 }, { x: 0, y: 0, z: 0 }, 1200);
 
         // Disable forces — geographic positions are authoritative
         Graph.d3Force('charge').strength(0);
@@ -1006,6 +1082,7 @@
       } else {
         // Unpin any fixed positions from national view
         unpinNodes(graphData.nodes);
+        clearStateLabels();
 
         // Size CEs by their connection count (pharmacies stay uniform)
         const connectionCounts = {};
@@ -1026,7 +1103,7 @@
           .nodeOpacity(1.0)
           .d3AlphaDecay(0.0228)
           .d3VelocityDecay(0.4)
-          .cameraPosition({ x: 0, y: 0, z: 800 });
+          .cameraPosition({ x: 0, y: 0, z: 800 }, { x: 0, y: 0, z: 0 }, 1200);
 
         // Restore forces for state view
         Graph.d3Force('charge').strength(-30);
@@ -1176,6 +1253,30 @@
     function linkTgt(l) { return typeof l.target === 'object' ? l.target.id : l.target; }
 
     // ── Filtering ─────────────────────────────────────────────
+    function updateFilterCounts() {
+      if (!fullStateData) return;
+      const nodes = fullStateData.nodes;
+      const counts = {
+        all: nodes.length,
+        hospitals: nodes.filter(n => n.type === 'CE' && HOSPITAL_TYPES.has(n.entityType)).length,
+        grantees: nodes.filter(n => n.type === 'CE' && !HOSPITAL_TYPES.has(n.entityType)).length,
+        instate: nodes.filter(n => n.type === 'Pharmacy' && n.cpState === currentState).length,
+        outofstate: nodes.filter(n => n.type === 'Pharmacy' && n.cpState !== currentState).length,
+      };
+      const labels = {
+        all: 'All',
+        hospitals: 'Hospitals',
+        grantees: 'Grantees',
+        instate: 'In-State',
+        outofstate: 'Out-of-State',
+      };
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        const f = btn.dataset.filter;
+        const count = counts[f];
+        btn.innerHTML = `${labels[f]}<span class="filter-count">${count !== undefined ? fmt(count) : ''}</span>`;
+      });
+    }
+
     function applyFilter(filterName) {
       activeFilter = filterName;
 
@@ -1276,11 +1377,12 @@
         activeFilter = 'all';
         searchInput.value = '';
         searchInput.placeholder = 'Search entities or pharmacies...';
-        // Reset filter buttons
+        // Reset filter buttons and show counts
         document.querySelectorAll('.filter-btn').forEach(btn => {
           btn.classList.toggle('active', btn.dataset.filter === 'all');
         });
-        document.getElementById('filter-bar').style.display = 'block';
+        updateFilterCounts();
+        document.getElementById('filter-bar').style.display = 'flex';
         updateInfoPanel();
         updateLegend();
         initGraph(data);
