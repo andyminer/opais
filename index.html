@@ -809,6 +809,7 @@
         panel.classList.remove('visible');
         return;
       }
+      panel.scrollTop = 0;
       panel.classList.add('visible');
 
       if (node.type === 'State') {
