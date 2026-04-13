@@ -1710,6 +1710,15 @@
         updateInfoPanel();
         updateLegend();
         initGraph(graphData);
+
+        // Auto-select the pharmacy node so the detail panel is immediately visible
+        const loadedPharm = Graph.graphData().nodes.find(n => n.type === 'Pharmacy');
+        if (loadedPharm) {
+          clickedNode = loadedPharm;
+          neighbors = new Set(adjacency[loadedPharm.id] || []);
+          updateDetailPanel(loadedPharm);
+          refreshGraphAppearance();
+        }
       } catch (err) {
         console.error('Error loading pharmacy view:', err);
         alert('Error loading pharmacy network.');
