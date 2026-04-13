@@ -498,7 +498,7 @@
 
     // ── State ─────────────────────────────────────────────────
     let Graph = null;
-    let currentView = 'national';   // 'national' | 'state' | 'pharmacy'
+    let currentView = 'national';   // 'national' | 'state' | 'pharmacy' | 'ce'
     let currentState = null;
     let nationalData = null;
     let activeFilter = 'all';       // 'all' | 'hospitals' | 'grantees' | 'instate' | 'outofstate'
@@ -508,6 +508,7 @@
     let previousState = null;       // State to return to from pharmacy view
     let stateDataCache = {};        // Cache fetched state files (deep copies)
     let currentPharmacyNode = null; // Pharmacy node in pharmacy view (for info panel)
+    let currentCENode = null;       // CE node in CE view (for info panel)
     let hoveredNode = null;
     let clickedNode = null;
     let neighbors = new Set();
@@ -605,7 +606,7 @@
 
     // ── Link color ────────────────────────────────────────────
     function getLinkColor(link) {
-      if (currentView === 'pharmacy') {
+      if (currentView === 'pharmacy' || currentView === 'ce') {
         if (!clickedNode) return "rgba(44, 62, 80, 0.15)";
         const srcId = typeof link.source === 'object' ? link.source.id : link.source;
         const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
@@ -649,7 +650,7 @@
 
     // ── Link width ────────────────────────────────────────────
     function getLinkWidth(link) {
-      if (currentView === 'pharmacy') {
+      if (currentView === 'pharmacy' || currentView === 'ce') {
         if (!clickedNode) return 1;
         const srcId = typeof link.source === 'object' ? link.source.id : link.source;
         const tgtId = typeof link.target === 'object' ? link.target.id : link.target;
@@ -924,6 +925,7 @@
           <div class="stat-row"><span class="stat-label">Out-of-State</span><span class="stat-value">${ceStats.outOfStateCount} (${ceStats.outOfStatePct}%)</span></div>
           ` : ''}
           <div class="stat-row"><span class="stat-label">Contracts</span><span class="stat-value">${ceStats.dateRange}</span></div>
+          <button class="nav-button" style="margin-top:0.5rem; font-size:11px;" onclick="drillIntoCE('${node.id}')">All Contracts &rarr;</button>
         `;
         renderStateConnections(node, connectionDetails);
       }
@@ -1235,6 +1237,54 @@
 
         Graph.d3Force('charge').strength(0);
         Graph.d3Force('link').distance(0).strength(0);
+      } else if (currentView === 'ce') {
+        // CE-centric: CE at center, pharmacies positioned by state centroid
+        const SCALE = 6;
+        const centerLat = 39.5;
+        const centerLon = -98.0;
+
+        graphData.nodes.forEach(node => {
+          if (node.type === 'CE') {
+            node.fx = 0;
+            node.fy = 0;
+            node.fz = 0;
+          } else if (node.cpState) {
+            const coords = stateCentroids[node.cpState];
+            if (coords) {
+              const jitter = () => (Math.random() - 0.5) * 15;
+              node.fx = (coords[1] - centerLon) * SCALE + jitter();
+              node.fy = (coords[0] - centerLat) * SCALE + jitter();
+              node.fz = jitter() * 0.5;
+            }
+          }
+        });
+
+        // Create state labels for pharmacy clusters
+        const pharmStates = new Set(graphData.nodes.filter(n => n.type === 'Pharmacy').map(n => n.cpState));
+        const pseudoStateNodes = [...pharmStates].filter(s => stateCentroids[s]).map(s => ({
+          id: s, type: 'State',
+          x: (stateCentroids[s][1] - centerLon) * SCALE,
+          y: (stateCentroids[s][0] - centerLat) * SCALE,
+          z: 0,
+        }));
+        createStateLabels(pseudoStateNodes);
+
+        Graph
+          .nodeRelSize(3)
+          .nodeVal(node => node.type === 'CE' ? 8 : 1)
+          .nodeOpacity(0.9)
+          .d3AlphaDecay(1)
+          .d3VelocityDecay(0.9)
+          .cameraPosition({ x: 0, y: 0, z: 500 }, { x: 0, y: 0, z: 0 }, 1200);
+
+        if (Graph.camera) {
+          Graph.camera().up.set(0, 1, 0);
+          const controls = Graph.controls && Graph.controls();
+          if (controls && controls.target) controls.target.set(0, 0, 0);
+        }
+
+        Graph.d3Force('charge').strength(0);
+        Graph.d3Force('link').distance(0).strength(0);
       } else {
         // Unpin any fixed positions from national view
         unpinNodes(graphData.nodes);
@@ -1297,8 +1347,20 @@
             <strong>${fmt(ceCount)}</strong> covered entities<br>
             <strong>${stateCount}</strong> states
           </div>
-          <button class="nav-button" onclick="returnToState()">&larr; ${previousState ? (nationalData?.nodes?.find(n => n.id === previousState)?.label || previousState) : 'Back'}</button>
-          <button class="nav-button" onclick="returnToNational()">&larr; National Overview</button>
+          <button class="nav-button" onclick="history.back()">&larr; Back</button>
+        `;
+      } else if (currentView === 'ce' && currentCENode) {
+        const name = currentCENode.entityName || currentCENode.id;
+        const gd = Graph ? Graph.graphData() : { nodes: [], links: [] };
+        const pharmCount = gd.nodes.filter(n => n.type === 'Pharmacy').length;
+        const pharmStates = new Set(gd.nodes.filter(n => n.type === 'Pharmacy').map(n => n.cpState));
+        panel.innerHTML = `
+          <h2>${name}</h2>
+          <div class="panel-stats">
+            <strong>${fmt(pharmCount)}</strong> contracted pharmacies<br>
+            <strong>${pharmStates.size}</strong> states
+          </div>
+          <button class="nav-button" onclick="history.back()">&larr; Back</button>
         `;
       } else {
         // State view
@@ -1352,6 +1414,20 @@
           </div>
           <div class="legend-item" style="margin-top: 0.5rem; color: #999;">
             <span>CEs positioned by state</span>
+          </div>
+        `;
+      } else if (currentView === 'ce') {
+        legend.innerHTML = `
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${groupColors.pharmacyIn}"></div>
+            <span>In-State Pharmacies</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: ${groupColors.pharmacyOut}"></div>
+            <span>Out-of-State Pharmacies</span>
+          </div>
+          <div class="legend-item" style="margin-top: 0.5rem; color: #999;">
+            <span>Pharmacies positioned by state</span>
           </div>
         `;
       } else {
@@ -1728,30 +1804,118 @@
     }
 
     async function drillIntoPharmacy(pharmacyId) {
-      previousState = currentState;
       history.pushState(
-        { view: 'pharmacy', pharmacyId, from: currentState },
+        { view: 'pharmacy', pharmacyId },
         '',
-        `?pharmacy=${pharmacyId}${currentState ? '&from=' + currentState : ''}`
+        `?pharmacy=${pharmacyId}`
       );
       await loadPharmacyView(pharmacyId);
     }
 
-    function returnToState() {
-      if (previousState) {
-        const st = previousState;
-        previousState = null;
-        drillIntoState(st);
-      } else {
-        returnToNational();
+    async function loadCEView(ceId) {
+      loading.style.display = 'block';
+      try {
+        // A CE belongs to one state — find it from graph data or state files
+        let ceNode = null;
+        let ceState = null;
+
+        // Check current graph data first
+        if (Graph) {
+          ceNode = Graph.graphData().nodes.find(n => n.id === ceId && n.type === 'CE');
+          if (ceNode) ceState = ceNode.state;
+        }
+
+        // If not found, try to find from cached state data
+        if (!ceState) {
+          for (const [st, data] of Object.entries(stateDataCache)) {
+            const found = data.nodes.find(n => n.id === ceId && n.type === 'CE');
+            if (found) { ceNode = { ...found }; ceState = found.state; break; }
+          }
+        }
+
+        if (!ceState) {
+          alert('Could not determine CE state.');
+          loading.style.display = 'none';
+          return;
+        }
+
+        // Fetch the CE's state file
+        let stateData;
+        if (stateDataCache[ceState]) {
+          stateData = JSON.parse(JSON.stringify(stateDataCache[ceState]));
+        } else {
+          const resp = await fetch(`opais_network_${ceState}.json`);
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          stateData = await resp.json();
+          stateDataCache[ceState] = JSON.parse(JSON.stringify(stateData));
+        }
+
+        // Extract this CE and all its pharmacies
+        ceNode = stateData.nodes.find(n => n.id === ceId) || ceNode;
+        if (!ceNode) {
+          alert('CE not found in state data.');
+          loading.style.display = 'none';
+          return;
+        }
+
+        const ceLinks = stateData.links.filter(l => linkSrc(l) === ceId);
+        const pharmIds = new Set(ceLinks.map(l => linkTgt(l)));
+        const pharmNodes = stateData.nodes.filter(n => pharmIds.has(n.id));
+
+        const graphData = {
+          nodes: [{ ...ceNode }, ...pharmNodes.map(n => ({ ...n }))],
+          links: ceLinks.map(l => ({
+            source: linkSrc(l),
+            target: linkTgt(l),
+            beginDate: l.beginDate || '',
+            termDate: l.termDate || '',
+            contractID: l.contractID || '',
+          }))
+        };
+
+        currentCENode = { ...ceNode };
+        currentView = 'ce';
+        currentState = ceState;
+        activeFilter = 'all';
+        searchInput.value = '';
+        searchInput.placeholder = 'Search pharmacies...';
+        document.getElementById('filter-bar').style.display = 'none';
+        document.getElementById('dimension-toggle').style.display = 'none';
+        updateInfoPanel();
+        updateLegend();
+        initGraph(graphData);
+
+        // Auto-select the CE node
+        const loadedCE = Graph.graphData().nodes.find(n => n.type === 'CE');
+        if (loadedCE) {
+          clickedNode = loadedCE;
+          neighbors = new Set(adjacency[loadedCE.id] || []);
+          updateDetailPanel(loadedCE);
+          refreshGraphAppearance();
+        }
+      } catch (err) {
+        console.error('Error loading CE view:', err);
+        alert('Error loading CE network.');
+      } finally {
+        loading.style.display = 'none';
       }
+    }
+
+    async function drillIntoCE(ceId) {
+      history.pushState(
+        { view: 'ce', ceId },
+        '',
+        `?ce=${ceId}`
+      );
+      await loadCEView(ceId);
     }
 
     // Browser back/forward
     window.addEventListener('popstate', (e) => {
       if (e.state?.view === 'pharmacy' && e.state.pharmacyId) {
-        previousState = e.state.from || null;
         loadPharmacyView(e.state.pharmacyId);
+      } else if (e.state?.view === 'ce' && e.state.ceId) {
+        loadCEView(e.state.ceId);
       } else if (e.state?.view === 'state' && e.state.state) {
         loadState(e.state.state);
       } else {
@@ -1763,7 +1927,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const initialState = urlParams.get('state');
     const initialPharmacy = urlParams.get('pharmacy');
-    const initialFrom = urlParams.get('from');
+    const initialCE = urlParams.get('ce');
 
     if (initialPharmacy) {
       (async () => {
@@ -1771,8 +1935,15 @@
           const resp = await fetch('opais_network_national.json');
           if (resp.ok) nationalData = await resp.json();
         } catch (e) {}
-        previousState = initialFrom || null;
         await loadPharmacyView(initialPharmacy);
+      })();
+    } else if (initialCE) {
+      (async () => {
+        try {
+          const resp = await fetch('opais_network_national.json');
+          if (resp.ok) nationalData = await resp.json();
+        } catch (e) {}
+        await loadCEView(initialCE);
       })();
     } else if (initialState) {
       (async () => {
