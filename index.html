@@ -875,10 +875,20 @@
 
       } else if (node.type === 'Pharmacy') {
         detailTitle.textContent = 'Contract Pharmacy';
-        connectionsHeader.textContent = 'Covered Entities Served';
 
-        // Compute pharmacy summary stats
+        // Compute pharmacy summary stats (local to this view)
         const pharmStats = computeConnectionStats(node);
+
+        // Look up total CEs from pharmacy index (if loaded)
+        const indexInfo = pharmacyIndexData ? pharmacyIndexData[node.id] : null;
+        const totalCEs = indexInfo ? indexInfo.ceCount : null;
+        const totalStates = indexInfo ? indexInfo.states.length : null;
+        const localLabel = currentState || '';
+        const showTotal = totalCEs && totalCEs > pharmStats.connectionCount;
+
+        connectionsHeader.textContent = showTotal
+          ? `${localLabel} Covered Entities Served`
+          : 'Covered Entities Served';
 
         nodeDetails.innerHTML = `
           <p><strong>${node.pharmacyName || ''}</strong></p>
@@ -888,12 +898,19 @@
             ${node.cpCity || ''}, ${node.cpState || ''} ${node.cpZip || ''}
           </p>
           <hr class="stat-divider">
-          <div class="stat-row"><span class="stat-label">CEs Served</span><span class="stat-value">${pharmStats.connectionCount}</span></div>
-          ${pharmStats.connectionCount >= 10 ? '<div style="font-size:0.75rem; color:#999; margin-top:2px;">Likely a chain / high-volume pharmacy</div>' : ''}
+          <div class="stat-row"><span class="stat-label">${localLabel ? localLabel + ' ' : ''}CEs Served</span><span class="stat-value">${pharmStats.connectionCount}</span></div>
+          ${showTotal ? `<div class="stat-row"><span class="stat-label">Total CEs (all states)</span><span class="stat-value">${fmt(totalCEs)} across ${totalStates} states</span></div>` : ''}
           <div class="stat-row"><span class="stat-label">Contracts</span><span class="stat-value">${pharmStats.dateRange}</span></div>
           <button class="nav-button" style="margin-top:0.5rem; font-size:11px;" onclick="drillIntoPharmacy('${node.id}')">All Contracts &rarr;</button>
         `;
         renderStateConnections(node, connectionDetails);
+
+        // Lazily load pharmacy index for future selections
+        if (!pharmacyIndexData) {
+          fetch('opais_pharmacy_index.json').then(r => r.ok ? r.json() : null).then(data => {
+            if (data) pharmacyIndexData = data;
+          });
+        }
       } else {
         // Covered Entity
         const group = entityTypeGroups[node.entityType] || 'unknown';
