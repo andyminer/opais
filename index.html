@@ -1351,14 +1351,11 @@
         `;
       } else if (currentView === 'ce' && currentCENode) {
         const name = currentCENode.entityName || currentCENode.id;
-        const gd = Graph ? Graph.graphData() : { nodes: [], links: [] };
-        const pharmCount = gd.nodes.filter(n => n.type === 'Pharmacy').length;
-        const pharmStates = new Set(gd.nodes.filter(n => n.type === 'Pharmacy').map(n => n.cpState));
         panel.innerHTML = `
           <h2>${name}</h2>
           <div class="panel-stats">
-            <strong>${fmt(pharmCount)}</strong> contracted pharmacies<br>
-            <strong>${pharmStates.size}</strong> states
+            <strong>${fmt(currentCENode._pharmCount)}</strong> contracted pharmacies<br>
+            <strong>${currentCENode._pharmStates}</strong> states
           </div>
           <button class="nav-button" onclick="history.back()">&larr; Back</button>
         `;
@@ -1874,6 +1871,8 @@
         };
 
         currentCENode = { ...ceNode };
+        currentCENode._pharmCount = pharmNodes.length;
+        currentCENode._pharmStates = new Set(pharmNodes.map(n => n.cpState)).size;
         currentView = 'ce';
         currentState = ceState;
         activeFilter = 'all';
