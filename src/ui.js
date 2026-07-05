@@ -1,7 +1,7 @@
 import { S } from './state.js';
 import { entityTypeGroups, groupColors } from './config.js';
 import { fmt, dateToSortable } from './utils.js';
-import { refreshGraphAppearance } from './graph.js';
+import { refreshGraphAppearance, selectNodeById } from './graph.js';
 
 // DOM elements
 export const tooltip  = document.getElementById('tooltip');
@@ -109,16 +109,7 @@ export function wireConnectionHover(container) {
       refreshGraphAppearance();
     });
     el.addEventListener('click', () => {
-      const nodeId = el.dataset.nodeId;
-      const graphData = S.graph.graphData();
-      const targetNode = graphData.nodes.find(n => n.id === nodeId);
-      if (targetNode) {
-        S.highlightedConnectionId = null;
-        S.clickedNode = targetNode;
-        S.neighbors = new Set(S.adjacency[targetNode.id] || []);
-        updateDetailPanel(targetNode);
-        refreshGraphAppearance();
-      }
+      selectNodeById(el.dataset.nodeId);
     });
   });
 }

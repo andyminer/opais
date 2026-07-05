@@ -1,4 +1,5 @@
 import { S } from './state.js';
+import { syncUrlState } from './urlstate.js';
 import { searchInput, updateDetailPanel } from './ui.js';
 import {
   computeBaseColor,
@@ -102,6 +103,7 @@ document.addEventListener('keydown', (e) => {
       S.graph.graphData(S.fullStateData);
     }
     refreshGraphAppearance();
+    syncUrlState();
   }
 });
 

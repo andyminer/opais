@@ -8,7 +8,32 @@ import {
   updateLegend,
   updateDetailPanel,
 } from './ui.js';
-import { initGraph, buildAdjacency, refreshGraphAppearance } from './graph.js';
+import { initGraph, buildAdjacency, refreshGraphAppearance, selectNodeById, nudgeCamera } from './graph.js';
+import { syncUrlState, FILTER_NAMES } from './urlstate.js';
+
+// Re-apply URL-carried sub-view state (filter, dimensions, selection) after
+// a view load — this is what makes filtered/selected configurations
+// shareable and refresh-proof.
+function restoreUrlState() {
+  const params = new URLSearchParams(window.location.search);
+  const filter = params.get('filter');
+  const dim = params.get('dim');
+  const sel = params.get('sel');
+
+  if (S.currentView === 'state') {
+    if (filter && FILTER_NAMES.has(filter)) applyFilter(filter);
+    if (dim === '2') setDimensions(2);
+  }
+  if (sel) {
+    const found = selectNodeById(sel);
+    // The view-load camera flight (1200ms) would override the selection
+    // nudge on a cold restore — re-apply it once the flight completes
+    if (found && S.currentView === 'national') {
+      setTimeout(() => { if (S.clickedNode) nudgeCamera(true); }, 1250);
+    }
+  }
+  syncUrlState();
+}
 
 // ── Filtering ─────────────────────────────────────────────
 export function updateFilterCounts() {
@@ -64,6 +89,7 @@ export function applyFilter(filterName) {
   // Swap graph data — force simulation animates the transition
   S.graph.graphData(data);
   refreshGraphAppearance();
+  syncUrlState();
 }
 
 export function filterStateData(stateData, filterName) {
@@ -103,6 +129,7 @@ export function setDimensions(dim) {
   if (S.graph) {
     S.graph.numDimensions(dim);
   }
+  syncUrlState();
 }
 
 // ── Navigation ────────────────────────────────────────────
@@ -124,6 +151,7 @@ export async function loadNationalView() {
     updateInfoPanel();
     updateLegend();
     initGraph(S.nationalData);
+    restoreUrlState();
   } catch (err) {
     console.error('Error loading national data:', err);
     alert('Error loading national network data.');
@@ -166,6 +194,7 @@ export async function loadState(stateId) {
     updateInfoPanel();
     updateLegend();
     initGraph(data);
+    restoreUrlState();
   } catch (err) {
     console.error('Error loading state data:', err);
     alert(`Data for ${stateId} is not available yet.`);
@@ -283,6 +312,7 @@ export async function loadPharmacyView(pharmacyId) {
       updateDetailPanel(loadedPharm);
       refreshGraphAppearance();
     }
+    restoreUrlState();
   } catch (err) {
     console.error('Error loading pharmacy view:', err);
     alert('Error loading pharmacy network.');
@@ -399,6 +429,7 @@ export async function loadCEView(ceId, stateHint) {
       updateDetailPanel(loadedCE);
       refreshGraphAppearance();
     }
+    restoreUrlState();
   } catch (err) {
     console.error('Error loading CE view:', err);
     alert('Error loading CE network.');
