@@ -16,4 +16,10 @@ export const S = {
   neighbors: new Set(),
   highlightedConnectionId: null,
   adjacency: {},
+  // Timeline scrub (growth replay). timeT is a month integer:
+  // year * 12 + (month - 1). Inactive means "show everything".
+  timeActive: false,
+  timeT: 0,
+  timeMin: 0,
+  timeMax: 0,
 }

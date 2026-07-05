@@ -10,6 +10,7 @@ import {
 } from './ui.js';
 import { initGraph, buildAdjacency, refreshGraphAppearance, selectNodeById, nudgeCamera } from './graph.js';
 import { syncUrlState, FILTER_NAMES } from './urlstate.js';
+import { prepareTimeline, setTimeFromParam } from './timeline.js';
 
 // Re-apply URL-carried sub-view state (filter, dimensions, selection) after
 // a view load — this is what makes filtered/selected configurations
@@ -19,11 +20,13 @@ function restoreUrlState() {
   const filter = params.get('filter');
   const dim = params.get('dim');
   const sel = params.get('sel');
+  const t = params.get('t');
 
   if (S.currentView === 'state') {
     if (filter && FILTER_NAMES.has(filter)) applyFilter(filter);
     if (dim === '2') setDimensions(2);
   }
+  if (t) setTimeFromParam(t);
   if (sel) {
     const found = selectNodeById(sel);
     // The view-load camera flight (1200ms) would override the selection
@@ -89,6 +92,8 @@ export function applyFilter(filterName) {
   // Swap graph data — force simulation animates the transition
   S.graph.graphData(data);
   refreshGraphAppearance();
+  // The filtered subset has its own link set — recompute the scrub range
+  prepareTimeline(data);
   syncUrlState();
 }
 

@@ -2,6 +2,7 @@ import { S } from './state.js';
 import { entityTypeGroups, groupColors } from './config.js';
 import { fmt, dateToSortable } from './utils.js';
 import { refreshGraphAppearance, selectNodeById } from './graph.js';
+import { isNodeVisibleAtT } from './timeline.js';
 
 // DOM elements
 export const tooltip  = document.getElementById('tooltip');
@@ -91,6 +92,8 @@ export function updateStateLabels() {
     const y = node.y !== undefined ? node.y : node.fy;
     const z = node.z !== undefined ? node.z : (node.fz || 0);
     if (!el || x === undefined) continue;
+    // Track the timeline scrub — a state with no contracts yet has no label
+    el.style.display = isNodeVisibleAtT(node) ? '' : 'none';
     const coords = S.graph.graph2ScreenCoords(x, y, z);
     el.style.left = `${coords.x}px`;
     el.style.top = `${coords.y - 8}px`;
