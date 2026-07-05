@@ -11,6 +11,7 @@ import {
   clearStateLabels,
 } from './ui.js';
 import { drillIntoState } from './nav.js';
+import { syncUrlState } from './urlstate.js';
 
 // Project lat/lon to x/y for 3D graph (simple equirectangular, z=0 for flat map)
 export function projectStateNodes(nodes) {
@@ -223,6 +224,7 @@ export function handleNodeClick(node) {
     nudgeCamera(true);
   }
   refreshGraphAppearance();
+  syncUrlState();
 }
 
 export function handleBackgroundClick() {
@@ -232,6 +234,23 @@ export function handleBackgroundClick() {
   updateDetailPanel(null);
   nudgeCamera(false);
   refreshGraphAppearance();
+  syncUrlState();
+}
+
+// Select a node by id (URL restore, sidebar navigation). Returns false if
+// the node isn't in the current graph data.
+export function selectNodeById(nodeId) {
+  if (!S.graph) return false;
+  const node = S.graph.graphData().nodes.find(n => n.id === nodeId);
+  if (!node) return false;
+  S.highlightedConnectionId = null;
+  S.clickedNode = node;
+  S.neighbors = new Set(S.adjacency[node.id] || []);
+  updateDetailPanel(node);
+  if (S.currentView === 'national') nudgeCamera(true);
+  refreshGraphAppearance();
+  syncUrlState();
+  return true;
 }
 
 export function refreshGraphAppearance() {
