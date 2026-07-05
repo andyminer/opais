@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>340B Network Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/3d-force-graph"></script>
   <style>
     /* Base Styles */
@@ -505,7 +509,6 @@
     let activeDimensions = 3;        // 2 or 3
     let fullStateData = null;       // Cached unfiltered state data (deep copy)
     let pharmacyIndexData = null;   // Cached pharmacy index
-    let previousState = null;       // State to return to from pharmacy view
     let stateDataCache = {};        // Cache fetched state files (deep copies)
     let currentPharmacyNode = null; // Pharmacy node in pharmacy view (for info panel)
     let currentCENode = null;       // CE node in CE view (for info panel)
@@ -587,6 +590,9 @@
     function computeBaseColor(node) {
       if (node.type === 'State') return stateNodeColor(node);
       if (node.type === 'Pharmacy') {
+        // In the pharmacy-centric view the focal pharmacy is an identity,
+        // not an in-state/out-of-state comparison (currentState is null there)
+        if (currentView === 'pharmacy') return groupColors.pharmacyIn;
         const isInState = currentState && node.cpState === currentState;
         return isInState ? groupColors.pharmacyIn : groupColors.pharmacyOut;
       }
@@ -741,12 +747,14 @@
     // ── State labels (HTML overlay) ───────────────────────────
     const stateLabelsContainer = document.getElementById('state-labels');
     let stateLabelEls = {};
+    let stateLabelNodes = [];   // Source nodes for labels — real graph nodes
+                                // (national) or pseudo centroid nodes (pharmacy/CE)
 
     function createStateLabels(nodes) {
       stateLabelsContainer.innerHTML = '';
       stateLabelEls = {};
-      nodes.forEach(node => {
-        if (node.type !== 'State') return;
+      stateLabelNodes = nodes.filter(n => n.type === 'State');
+      stateLabelNodes.forEach(node => {
         const el = document.createElement('div');
         el.className = 'state-label';
         el.textContent = node.id;
@@ -758,15 +766,20 @@
     function clearStateLabels() {
       stateLabelsContainer.innerHTML = '';
       stateLabelEls = {};
+      stateLabelNodes = [];
     }
 
     function updateStateLabels() {
-      if (currentView !== 'national' || !Graph) return;
-      const nodes = Graph.graphData().nodes;
-      for (const node of nodes) {
+      if (!Graph || stateLabelNodes.length === 0) return;
+      for (const node of stateLabelNodes) {
         const el = stateLabelEls[node.id];
-        if (!el || node.x === undefined) continue;
-        const coords = Graph.graph2ScreenCoords(node.x, node.y, node.z);
+        // Real graph nodes get x/y/z from the engine; pseudo nodes carry
+        // their own fixed coordinates
+        const x = node.x !== undefined ? node.x : node.fx;
+        const y = node.y !== undefined ? node.y : node.fy;
+        const z = node.z !== undefined ? node.z : (node.fz || 0);
+        if (!el || x === undefined) continue;
+        const coords = Graph.graph2ScreenCoords(x, y, z);
         el.style.left = `${coords.x}px`;
         el.style.top = `${coords.y - 8}px`;
       }
@@ -905,10 +918,16 @@
         `;
         renderStateConnections(node, connectionDetails);
 
-        // Lazily load pharmacy index for future selections
+        // Lazily load pharmacy index; re-render if this pharmacy is still
+        // selected so the "Total CEs (all states)" row appears without a re-click
         if (!pharmacyIndexData) {
           fetch('opais_pharmacy_index.json').then(r => r.ok ? r.json() : null).then(data => {
-            if (data) pharmacyIndexData = data;
+            if (data) {
+              pharmacyIndexData = data;
+              if (clickedNode && clickedNode.id === node.id && clickedNode.type === 'Pharmacy') {
+                updateDetailPanel(clickedNode);
+              }
+            }
           });
         }
       } else {
@@ -1134,11 +1153,14 @@
         neighbors.clear();
         updateDetailPanel(null);
         searchInput.value = '';
-        activeFilter = 'all';
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-          btn.classList.toggle('active', btn.dataset.filter === 'all');
-        });
-        if (fullStateData && currentView === 'state') {
+        nudgeCamera(false);
+        // Only restore the full dataset when a filter is actually applied —
+        // swapping identical data would needlessly destroy the settled layout
+        if (currentView === 'state' && fullStateData && activeFilter !== 'all') {
+          activeFilter = 'all';
+          document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.filter === 'all');
+          });
           buildAdjacency(fullStateData);
           Graph.graphData(fullStateData);
         }
@@ -1176,7 +1198,22 @@
           .onNodeClick(handleNodeClick)
           .onBackgroundClick(handleBackgroundClick)
           .onEngineTick(updateTooltipPosition);
+
+        // Keep overlay labels/tooltips glued to the scene during camera moves
+        // after the force engine cools down (engine ticks stop ~15s in)
+        const controls = Graph.controls && Graph.controls();
+        if (controls && controls.addEventListener) {
+          controls.addEventListener('change', updateTooltipPosition);
+        }
       }
+
+      // Restore default accessors — an active search swaps in closures over a
+      // stale match set, which would gray out the new view's nodes
+      refreshGraphAppearance();
+
+      // Dimensions always reset to 3D on a view load (the 2D toggle is a
+      // per-state-view mode; without this, 2D silently persists)
+      if (Graph.numDimensions() !== 3) Graph.numDimensions(3);
 
       // View-specific configuration
       if (currentView === 'national') {
@@ -1364,7 +1401,7 @@
             <strong>${fmt(ceCount)}</strong> covered entities<br>
             <strong>${stateCount}</strong> states
           </div>
-          <button class="nav-button" onclick="history.back()">&larr; Back</button>
+          <button class="nav-button" onclick="goBack()">&larr; Back</button>
         `;
       } else if (currentView === 'ce' && currentCENode) {
         const name = currentCENode.entityName || currentCENode.id;
@@ -1374,7 +1411,7 @@
             <strong>${fmt(currentCENode._pharmCount)}</strong> contracted pharmacies<br>
             <strong>${currentCENode._pharmStates}</strong> states
           </div>
-          <button class="nav-button" onclick="history.back()">&larr; Back</button>
+          <button class="nav-button" onclick="goBack()">&larr; Back</button>
         `;
       } else {
         // State view
@@ -1563,10 +1600,12 @@
         btn.classList.toggle('active', btn.dataset.filter === filterName);
       });
 
-      // Clear selection
+      // Clear selection and any active search highlighting — the search
+      // closures capture a match set from the pre-filter data
       clickedNode = null;
       highlightedConnectionId = null;
       neighbors.clear();
+      searchInput.value = '';
       updateDetailPanel(null);
 
       let data;
@@ -1581,6 +1620,7 @@
 
       // Swap graph data — force simulation animates the transition
       Graph.graphData(data);
+      refreshGraphAppearance();
     }
 
     function filterStateData(stateData, filterName) {
@@ -1701,7 +1741,7 @@
     }
 
     async function drillIntoState(stateId) {
-      history.pushState({ view: 'state', state: stateId }, '', `?state=${stateId}`);
+      history.pushState({ view: 'state', state: stateId, hasPrev: true }, '', `?state=${stateId}`);
       await loadState(stateId);
     }
 
@@ -1709,7 +1749,7 @@
       fullStateData = null;
       document.getElementById('filter-bar').style.display = 'none';
         document.getElementById('dimension-toggle').style.display = 'none';
-      history.pushState({ view: 'national' }, '', window.location.pathname);
+      history.pushState({ view: 'national', hasPrev: true }, '', window.location.pathname);
       loadNationalView();
     }
 
@@ -1819,14 +1859,25 @@
 
     async function drillIntoPharmacy(pharmacyId) {
       history.pushState(
-        { view: 'pharmacy', pharmacyId },
+        { view: 'pharmacy', pharmacyId, hasPrev: true },
         '',
         `?pharmacy=${pharmacyId}`
       );
       await loadPharmacyView(pharmacyId);
     }
 
-    async function loadCEView(ceId) {
+    // Back button for pharmacy/CE views: entries pushed by in-app navigation
+    // carry hasPrev — without it, this is a cold deep link with no in-app
+    // history behind it, so going "back" would leave the app entirely
+    function goBack() {
+      if (history.state && history.state.hasPrev) {
+        history.back();
+      } else {
+        returnToNational();
+      }
+    }
+
+    async function loadCEView(ceId, stateHint) {
       loading.style.display = 'block';
       try {
         // A CE belongs to one state — find it from graph data or state files
@@ -1847,9 +1898,14 @@
           }
         }
 
+        // Cold load (deep link / refresh): trust the state carried in the URL
+        if (!ceState && stateHint) {
+          ceState = stateHint.toUpperCase();
+        }
+
         if (!ceState) {
-          alert('Could not determine CE state.');
-          loading.style.display = 'none';
+          console.warn(`Could not determine home state for CE ${ceId}`);
+          await loadNationalView();
           return;
         }
 
@@ -1867,8 +1923,8 @@
         // Extract this CE and all its pharmacies
         ceNode = stateData.nodes.find(n => n.id === ceId) || ceNode;
         if (!ceNode) {
-          alert('CE not found in state data.');
-          loading.style.display = 'none';
+          console.warn(`CE ${ceId} not found in ${ceState} state data`);
+          await loadNationalView();
           return;
         }
 
@@ -1918,12 +1974,18 @@
     }
 
     async function drillIntoCE(ceId) {
+      // Resolve the CE's home state so the URL survives a cold load / refresh
+      let st = null;
+      if (Graph) {
+        const n = Graph.graphData().nodes.find(n => n.id === ceId && n.type === 'CE');
+        if (n && n.state) st = n.state;
+      }
       history.pushState(
-        { view: 'ce', ceId },
+        { view: 'ce', ceId, ceState: st, hasPrev: true },
         '',
-        `?ce=${ceId}`
+        `?ce=${ceId}${st ? '&st=' + st : ''}`
       );
-      await loadCEView(ceId);
+      await loadCEView(ceId, st);
     }
 
     // Browser back/forward
@@ -1931,7 +1993,7 @@
       if (e.state?.view === 'pharmacy' && e.state.pharmacyId) {
         loadPharmacyView(e.state.pharmacyId);
       } else if (e.state?.view === 'ce' && e.state.ceId) {
-        loadCEView(e.state.ceId);
+        loadCEView(e.state.ceId, e.state.ceState);
       } else if (e.state?.view === 'state' && e.state.state) {
         loadState(e.state.state);
       } else {
@@ -1944,8 +2006,14 @@
     const initialState = urlParams.get('state');
     const initialPharmacy = urlParams.get('pharmacy');
     const initialCE = urlParams.get('ce');
+    const initialCEState = urlParams.get('st');
+
+    // Seed the first history entry so Back after in-app navigation restores
+    // this view instead of falling through to national with a stale URL
+    const startUrl = window.location.pathname + window.location.search;
 
     if (initialPharmacy) {
+      history.replaceState({ view: 'pharmacy', pharmacyId: initialPharmacy }, '', startUrl);
       (async () => {
         try {
           const resp = await fetch('opais_network_national.json');
@@ -1954,14 +2022,16 @@
         await loadPharmacyView(initialPharmacy);
       })();
     } else if (initialCE) {
+      history.replaceState({ view: 'ce', ceId: initialCE, ceState: initialCEState }, '', startUrl);
       (async () => {
         try {
           const resp = await fetch('opais_network_national.json');
           if (resp.ok) nationalData = await resp.json();
         } catch (e) {}
-        await loadCEView(initialCE);
+        await loadCEView(initialCE, initialCEState);
       })();
     } else if (initialState) {
+      history.replaceState({ view: 'state', state: initialState }, '', startUrl);
       (async () => {
         try {
           const resp = await fetch('opais_network_national.json');
@@ -1970,6 +2040,7 @@
         await loadState(initialState);
       })();
     } else {
+      history.replaceState({ view: 'national' }, '', startUrl);
       loadNationalView();
     }
   </script>
