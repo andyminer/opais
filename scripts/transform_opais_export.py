@@ -33,7 +33,7 @@ from pathlib import Path
 from typing import Any
 
 # Bump when the shape of any emitted artifact changes.
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
 US_STATE_NAMES: dict[str, str] = {
     "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas",
@@ -216,6 +216,31 @@ def artifact_metadata(**extra: Any) -> dict[str, Any]:
     }
 
 
+def begin_month(contract_pharmacy: dict[str, Any]) -> int | None:
+    """Contract begin date as months-since-year-0 (matches the frontend's
+    month-integer unit: year * 12 + (month - 1))."""
+    value = contract_pharmacy.get("beginDate")
+    if not value or len(value) < 7:
+        return None
+    try:
+        year = int(value[0:4])
+        month = int(value[5:7])
+    except ValueError:
+        return None
+    return year * 12 + (month - 1)
+
+
+def cumulative_series(counts_by_key: dict[int, int]) -> list[list[int]]:
+    """Turn {monthInt: newCount} into ascending change points of cumulative
+    totals: [[monthInt, cumulativeCount], ...]."""
+    series: list[list[int]] = []
+    running = 0
+    for key in sorted(counts_by_key):
+        running += counts_by_key[key]
+        series.append([key, running])
+    return series
+
+
 def build_state_graphs(
     covered_entities: list[dict[str, Any]],
     *,
@@ -298,6 +323,11 @@ def build_national_summary(
     cross_state_weight: dict[tuple[str, str], int] = defaultdict(int)
     cross_state_ces: dict[tuple[str, str], set[str]] = defaultdict(set)
 
+    # Timeline accumulators — contracts begun per month (per state) and per
+    # year (per cross-state pair), for the growth-replay scrubber
+    state_month_counts: dict[str, dict[int, int]] = defaultdict(lambda: defaultdict(int))
+    pair_year_counts: dict[tuple[str, str], dict[int, int]] = defaultdict(lambda: defaultdict(int))
+
     # Global totals
     total_participating_ce_ids: set[str] = set()
     total_ce_ids_with_contracts: set[str] = set()
@@ -350,6 +380,10 @@ def build_national_summary(
             contracted_pharmacy_ids_by_state[ce_state].add(pharm_id)
             total_pharmacy_ids.add(pharm_id)
 
+            month = begin_month(cp)
+            if month is not None:
+                state_month_counts[ce_state][month] += 1
+
             if pharm_state and pharm_state == ce_state:
                 in_state_contracts[ce_state] += 1
             elif pharm_state:
@@ -357,6 +391,10 @@ def build_national_summary(
                 pair = (ce_state, pharm_state)
                 cross_state_weight[pair] += 1
                 cross_state_ces[pair].add(ce_id)
+                if month is not None:
+                    # Year granularity keeps the payload small; store as the
+                    # January month-int so the frontend uses one unit throughout
+                    pair_year_counts[pair][(month // 12) * 12] += 1
 
     # Collect all states that have at least 1 included contract
     all_states = set(contract_count_by_state.keys())
@@ -375,6 +413,8 @@ def build_national_summary(
             "granteeCount": len(grantee_ids_by_state[state]),
             "inStateContracts": in_state_contracts[state],
             "outOfStateContracts": out_of_state_contracts[state],
+            # Cumulative contracts begun by month — drives the growth replay
+            "contractsCum": cumulative_series(state_month_counts[state]),
         })
 
     links = []
@@ -384,6 +424,8 @@ def build_national_summary(
             "target": target,
             "weight": cross_state_weight[(source, target)],
             "ceCount": len(cross_state_ces[(source, target)]),
+            # Cumulative pair weight by year (as January month-ints)
+            "weightCum": cumulative_series(pair_year_counts[(source, target)]),
         })
 
     metadata = artifact_metadata(
@@ -483,7 +525,7 @@ def main() -> None:
         )
         national_path = args.output_dir / "opais_network_national.json"
         with national_path.open("w") as handle:
-            json.dump(national, handle, indent=2)
+            json.dump(national, handle, separators=(",", ":"))
         print(
             f"National summary: {len(national['nodes'])} state nodes, "
             f"{len(national['links'])} cross-state links, "

@@ -12,6 +12,7 @@ import {
 } from './ui.js';
 import { drillIntoState } from './nav.js';
 import { syncUrlState } from './urlstate.js';
+import { prepareTimeline, timelineNodeCount, timelineLinkWeight } from './timeline.js';
 
 // Project lat/lon to x/y for 3D graph (simple equirectangular, z=0 for flat map)
 export function projectStateNodes(nodes) {
@@ -151,7 +152,7 @@ export function getLinkWidth(link) {
     return 0.15;
   }
   if (S.currentView === 'national') {
-    const w = link.weight || 1;
+    const w = timelineLinkWeight(link);
     const base = Math.max(0.4, Math.sqrt(w) * 0.25);
     if (!S.clickedNode) return base;
     const srcId = typeof link.source === 'object' ? link.source.id : link.source;
@@ -308,7 +309,7 @@ export function initGraph(graphData) {
 
     S.graph
       .nodeRelSize(2)
-      .nodeVal(node => Math.pow(node.contractCount || 1, 0.55))
+      .nodeVal(node => Math.pow(timelineNodeCount(node) || 1, 0.55))
       .nodeOpacity(0.9)
       .d3AlphaDecay(1)
       .d3VelocityDecay(0.9)
@@ -456,4 +457,8 @@ export function initGraph(graphData) {
   }
 
   S.graph.graphData(graphData);
+
+  // (Re)compute the growth-replay range for this view's data and reset the
+  // scrubber to "now" (inactive)
+  prepareTimeline(graphData);
 }

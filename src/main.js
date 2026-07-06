@@ -1,5 +1,6 @@
 import { S } from './state.js';
 import { syncUrlState } from './urlstate.js';
+import { resetTimeline } from './timeline.js';
 import { searchInput, updateDetailPanel } from './ui.js';
 import {
   computeBaseColor,
@@ -102,6 +103,7 @@ document.addEventListener('keydown', (e) => {
       buildAdjacency(S.fullStateData);
       S.graph.graphData(S.fullStateData);
     }
+    if (S.timeActive) resetTimeline();
     refreshGraphAppearance();
     syncUrlState();
   }

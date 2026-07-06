@@ -12,12 +12,18 @@ export function syncUrlState() {
   params.delete('filter');
   params.delete('dim');
   params.delete('sel');
+  params.delete('t');
 
   if (S.currentView === 'state') {
     if (S.activeFilter && S.activeFilter !== 'all') params.set('filter', S.activeFilter);
     if (S.activeDimensions === 2) params.set('dim', '2');
   }
   if (S.clickedNode) params.set('sel', S.clickedNode.id);
+  if (S.timeActive) {
+    const y = Math.floor(S.timeT / 12);
+    const m = (S.timeT % 12) + 1;
+    params.set('t', `${y}-${String(m).padStart(2, '0')}`);
+  }
 
   const qs = params.toString();
   const url = window.location.pathname + (qs ? '?' + qs : '');
